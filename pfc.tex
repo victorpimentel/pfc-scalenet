@@ -1,0 +1,111 @@
+% Document for printing A4 (two sides) and 12pt fonts
+\documentclass [a4paper,12pt,twoside]{book}
+% We are using UTF8
+\usepackage[utf8]{inputenc}
+% The document is in English, but some text is also in Spanish
+\usepackage[spanish,english]{babel}
+% Default fonts
+\usepackage[T1]{fontenc}
+\usepackage{slantsc}
+% Figures in EPS
+\usepackage{amsmath,amsfonts,amssymb,graphicx}
+\usepackage{epstopdf}
+\usepackage{cancel}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+% Theme
+\usepackage{fancyhdr}
+% PDF with links
+\usepackage[colorlinks,linkcolor=blue,pdfusetitle,backref]{hyperref}
+% To be able to cite links (only if the above is commented)
+%\usepackage{url}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                   METADATA                   %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Developing a Heavy Client-Side Web Application: ScaleNet}
+\author{Víctor Pimentel Rodríguez}
+\date{February 2011}
+\hypersetup{pdfsubject=Proyecto Final de Carrera}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%               PAGE FORMATTING                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\addtolength{\headwidth}{\marginparsep}
+\addtolength{\footskip}{35pt}
+\addtolength{\headwidth}{1.5cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{1.5cm}
+\addtolength{\hoffset}{-0.5cm}
+\addtolength{\oddsidemargin}{0.9cm}
+\addtolength{\paperheight}{1cm}
+
+\fancyhf{}
+\fancyhead[LE,RO]{\bfseries \thepage}
+\fancyhead[LO]{\sffamily\scshape\footnotesize\rightmark}
+\fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                     COVER                    %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{alph}
+
+\thispagestyle{empty}
+\input{front/cover}
+\newpage
+\thispagestyle{empty} \cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  FRONTMATTER                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frontmatter
+\pagenumbering{roman}
+
+\thispagestyle{empty}
+\input{front/acknowledgement}
+\newpage
+\thispagestyle{empty} \cleardoublepage
+
+\thispagestyle{empty}
+\input{front/abstract}
+\newpage
+\thispagestyle{empty} \cleardoublepage
+
+\tableofcontents
+\listoffigures
+\listoftables
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                   MAINMATTER                 %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mainmatter
+\pagenumbering{arabic}
+\addtolength{\parskip}{5pt}
+
+\input{chapter1/chapter1}
+\input{chapter2/chapter2}
+\input{chapter3/chapter3}
+\input{chapter4/chapter4}
+
+\appendix
+\input{appendices/appendixa}
+\input{appendices/appendixb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                  BACKMATTER                  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\backmatter
+\bibliographystyle{unsrt}
+\bibliography{bibliography/biblio}
+\addcontentsline{toc}{part}{Bibliography}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
