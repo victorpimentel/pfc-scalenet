@@ -1,5 +1,5 @@
-% Document for printing A4 (two sides) and 12pt fonts
-\documentclass [a4paper,12pt,twoside]{book}
+% Document for printing A4 and 12pt fonts
+\documentclass [a4paper,12pt]{book}
 % We are using UTF8
 \usepackage[utf8]{inputenc}
 % The document is in English, but some text is also in Spanish
@@ -103,9 +103,11 @@
 %%                  BACKMATTER                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{unsrt}
 \bibliography{bibliography/biblio}
-\addcontentsline{toc}{part}{Bibliography}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
