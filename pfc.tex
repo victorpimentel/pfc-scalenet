@@ -9,7 +9,6 @@
 \usepackage{slantsc}
 % Figures in EPS
 \usepackage{amsmath,amsfonts,amssymb,graphicx}
-\usepackage{epstopdf}
 \usepackage{cancel}
 \usepackage{graphicx}
 \graphicspath{{figures/}}
@@ -56,6 +55,7 @@
 \pagenumbering{alph}
 
 \thispagestyle{empty}
+\pdfbookmark{Title Page}{title}
 \input{front/cover}
 \newpage
 \thispagestyle{empty} \cleardoublepage
@@ -68,15 +68,20 @@
 \pagenumbering{roman}
 
 \thispagestyle{empty}
+\phantomsection
+\addcontentsline{toc}{chapter}{Acknowledgement}
 \input{front/acknowledgement}
 \newpage
 \thispagestyle{empty} \cleardoublepage
 
 \thispagestyle{empty}
+\phantomsection
+\addcontentsline{toc}{chapter}{Abstract}
 \input{front/abstract}
 \newpage
 \thispagestyle{empty} \cleardoublepage
 
+\pdfbookmark{Table of Contents}{contents}
 \tableofcontents
 \listoffigures
 \listoftables
@@ -105,7 +110,7 @@
 \backmatter
 \cleardoublepage
 \phantomsection
-\addcontentsline{toc}{chapter}{Bibliography}
+\addcontentsline{toc}{chapter}{\bibname}
 \bibliographystyle{unsrt}
 \bibliography{bibliography/biblio}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
