@@ -28,6 +28,7 @@
 \usepackage{caption}
 % Code Listings
 \usepackage{xcolor}
+\usepackage{listing}
 \usepackage{listings}
 \DeclareCaptionFont{white}{\bfseries\sffamily\color{white}}
 \DeclareCaptionFormat{listing}%
@@ -115,6 +116,11 @@
 \thispagestyle{empty}
 \phantomsection
 \addcontentsline{toc}{chapter}{Abstract}
+\input{front/resumen}
+\newpage
+\thispagestyle{empty} \cleardoublepage
+
+\thispagestyle{empty}
 \input{front/abstract}
 \newpage
 \thispagestyle{empty} \cleardoublepage
@@ -123,7 +129,7 @@
 \tableofcontents
 \listoffigures
 \listoftables
-\lstlistoflistings
+\listoflistings
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

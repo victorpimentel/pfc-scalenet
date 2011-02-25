@@ -13,3 +13,9 @@
 *.ilg
 *.ind
 *.lol
+*.fls
+*.fmt
+*.ini
+.*.tex
+*.watcher_pid
+*.tmproj
