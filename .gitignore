@@ -9,3 +9,7 @@
 *.out
 *.toc
 *.synctex.gz
+*.idx
+*.ilg
+*.ind
+*.lol
