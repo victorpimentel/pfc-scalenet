@@ -1,41 +1,34 @@
-\section{APE Server\index{APE server} Installation and Configuration}
+\section{APE Server\index{APE server} Installation and Configuration} % (fold)
 \label{sec:apeconfig}
 
-In this section the installation and configuration of the
-\idx{APE server} are defined step by step.
+In this section the installation and configuration of the \ac{APE} server\index{APE server} are defined step by step.
 
-\subsection{Install the Server}
+\subsection{Install the Server} % (fold)
+\label{sub:apeinstall}
 
-The APE download page \cite{ApeDownload} contains packages for different
-operating systems and architectures. In this case, since the system is
-Debian-based we should use the DEB package.
-Once the correct package is downloaded, it can be installed on the
-\idx{Application Server} by typing Listing~\ref{apeinstallation} from the same
-directory as the package is stored.
+The \ac{APE} download page \cite{ApeDownload} contains packages for different operating systems and architectures.
+In this case, since the system is Debian-based we should use the DEB package.
+Once the correct package is downloaded, it can be installed on the \idx{Application Server} by typing Listing~\vref{apeinstallation} from the same directory as the package is stored.
 
 \begin{lstlisting}[label=apeinstallation,caption=APE installation command]
 sudo dpkg -i ape-1.0.i386.deb
 \end{lstlisting}
 
-After that, the APE server daemon (\idc{aped}) is automatically started with
-the default configuration \cite{ApeSetup}. It can be checked by visiting the
-url \url{webportal.imusu.mobile.dtrd.de:6969}.
+After that, the \ac{APE} server daemon (\idc{aped}) is automatically started with the default configuration \cite{ApeSetup}.
+It can be checked by visiting the url \url{webportal.imusu.mobile.dtrd.de:6969}.
 
-\subsection{Configure \idc{BIND}}
+% subsection apeinstall (end)
 
-The \idx{IMS core} is the machine that provides the \idc{DNS} service through
-\idc{BIND}, and that service needs to be configured to allow the
-\idx{APE server} to use a lot of different dynamic subdomains like
-\verb|1.ape.webportal|, \verb|2.ape.webportal|, \verb|567.ape.webportal|,
-etc.
+\subsection{Configure BIND} % (fold)
+\label{sub:bind}
 
-This is how the \idx{APE server} works by default, and it appears that there
-is no way to configure the \idx{APE server} for using only one domain
-\cite{ApeConfig}.
+The \ida{IMS} core is the machine that provides the \idas{DNS} service through \idas{BIND}, and that service needs to be configured to allow the \ac{APE} server\index{APE server} to use a lot of different dynamic subdomains like \verb|1.ape.webportal|, \verb|2.ape.webportal|, \verb|567.ape.webportal|, etc.
 
-So, in the file \verb|/etc/bind/imusu.dnszone| located in the \idx{IMS core}
+This is how the \ac{APE} server\index{APE server} works by default, and it appears that there is no way to configure the \ac{APE} server\index{APE server} for using only one domain \cite{ApeConfig}.
+
+So, in the file \verb|/etc/bind/imusu.dnszone| located in the \ida{IMS} core
 we have to look for the \emph{webportal} entry and change that section to look
-like Listing~\ref{bindconf}.
+like Listing~\vref{bindconf}.
 
 \begin{lstlisting}[label=bindconf,caption=BIND configuration]
 webportal               1D IN A         192.168.5.234
@@ -43,9 +36,13 @@ ape.webportal           1D IN A         192.168.5.234
 *.ape.webportal         1D IN CNAME     ape.webportal
 \end{lstlisting}
 
-To apply the changes, we have to restart \idc{BIND} using the command in
-Listing~\ref{bindrestart}.
+To apply the changes, we have to restart \idas{BIND} using the command in
+Listing~\vref{bindrestart}.
 
 \begin{lstlisting}[label=bindrestart,caption=BIND restart command]
 sudo /etc/init.d/bind restart
 \end{lstlisting}
+
+% subsection bind (end)
+
+% section apeconfig (end)

@@ -1,20 +1,33 @@
 % Document for printing A4 and 12pt fonts
-\documentclass [a4paper,12pt]{book}
+\documentclass[a4paper,12pt]{book}
 % We are using UTF8
 \usepackage[utf8]{inputenc}
 % The document is in English, but some text is also in Spanish
 \usepackage[spanish,english]{babel}
+% Math
+\usepackage{amsmath,amsfonts,amssymb}
 % Default fonts
 \usepackage[T1]{fontenc}
 \usepackage{slantsc}
-% Math and Logic
-\usepackage{amsmath,amsfonts,amssymb}
-\usepackage{cancel}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{pxfonts}
+\usepackage{varioref}
+% Acronyms
+\usepackage{acronym}
+% Chapter headers
+\usepackage[PetersLenny]{fncychap}
+% Epigraphs
+\usepackage{epigraph}
+\usepackage{enumitem}
 % Index
 \usepackage{makeidx}
 \makeindex
 \newcommand{\idc}[1]{\index{#1@\texttt{#1}}\texttt{#1}}
 \newcommand{\idx}[1]{\index{#1}{#1}}
+\newcommand{\ida}[1]{\index{#1}{\ac{#1}}}
+\newcommand{\idas}[1]{\index{#1}{\acs{#1}}}
 % Figures
 \usepackage{graphicx}
 \graphicspath{{figures/}}
@@ -84,6 +97,11 @@
 \fancyhead[LE,RO]{\bfseries \thepage}
 \fancyhead[LO]{\sffamily\scshape\footnotesize\rightmark}
 \fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
+
+\newenvironment{abstract}{\cleardoublepage\null\vfill
+  \begin{center}\Large\bfseries\abstractname\end{center}}{\vfill\null}
+\newenvironment{acknowledgements}{\cleardoublepage\null\vfill
+  \begin{center}\Large\bfseries{Acknowledgements}\end{center}}{\vfill\null}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
@@ -107,21 +125,20 @@
 \pagenumbering{roman}
 
 \thispagestyle{empty}
-\phantomsection
-\addcontentsline{toc}{chapter}{Acknowledgement}
-\input{front/acknowledgement}
-\newpage
-\thispagestyle{empty} \cleardoublepage
-
-\thispagestyle{empty}
-\phantomsection
-\addcontentsline{toc}{chapter}{Abstract}
+\pdfbookmark{Resumen}{resumen}
 \input{front/resumen}
 \newpage
 \thispagestyle{empty} \cleardoublepage
 
 \thispagestyle{empty}
+\pdfbookmark{Abstract}{abstract}
 \input{front/abstract}
+\newpage
+\thispagestyle{empty} \cleardoublepage
+
+\thispagestyle{empty}
+\pdfbookmark{Acknowledgements}{acknowledgements}
+\input{front/acknowledgements}
 \newpage
 \thispagestyle{empty} \cleardoublepage
 
@@ -130,6 +147,7 @@
 \listoffigures
 \listoftables
 \listoflistings
+\acresetall
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,7 +155,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \mainmatter
 \pagenumbering{arabic}
-\addtolength{\parskip}{5pt}
 
 \input{chapter1/chapter1}
 \input{chapter2/chapter2}
@@ -153,12 +170,11 @@
 %%                  BACKMATTER                  %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \backmatter
-\cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{\bibname}
 \bibliographystyle{unsrt}
 \bibliography{bibliography/biblio}
-\cleardoublepage
+\input{bibliography/acronyms}
 \phantomsection
 \addcontentsline{toc}{chapter}{Index}
 \printindex

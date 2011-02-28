@@ -1,90 +1,75 @@
-\section{JavaScript Framework: \idx{MooTools}}
+\section{JavaScript Framework: \idx{MooTools}} % (fold)
 \label{sec:mootools}
 
-Before explaining why \idx{MooTools} has been chosen for this application,
-another important question has to be resolved:
+Before explaining why \idx{MooTools} has been chosen for this application, another important question has to be resolved.
 
-\subsection{Why Use a \idx{JavaScript} Framework?}
+\subsection{Why Use a \idx{JavaScript} Framework?} % (fold)
+\label{sub:whymootools}
 
-There are several reasons that lead to this conclusion, the most important
-are:
+There are several reasons that lead to this conclusion, the most important are:
 
 \begin{itemize}
-  \item Because we want to support different browsers. If we do not use a
-framework a lot of time would be spent debugging the huge differences between
-\idx{Internet Explorer} and the rest of the browsers.
-  \item Because we want to facilitate the development, since usually these
-frameworks cover several holes in the \idx{JavaScript} specification that
-allows us fixing common issues with less code.
-  \item Because we want the interface to have advanced effects. We could just
-search for several scripts that makes one individual effect, but that will
-result in redundancies, differences in quality code and waste time in
-searching.
+
+  \item Because we want to support different browsers.
+  If we do not use a framework a lot of time would be spent debugging the huge differences between \idx{Internet Explorer} and the rest of the browsers.
+
+  \item Because we want to facilitate the development, since usually these frameworks cover several holes in the \idx{JavaScript} specification that allows us fixing common issues with less code.
+
+  \item Because we want the interface to have advanced effects.
+  We could just search for several scripts that makes one individual effect, but that will result in redundancies, differences in quality code and waste time in searching.
+
 \end{itemize}
 
-\subsection{Making the Decision}
+% subsection whymootools (end)
+
+\subsection{Making the Decision} % (fold)
+\label{sub:decision}
 
 By the previous standards, we have plenty of options to choose from:
-\idx{jQuery}\footnote{jQuery is available on:
-  \url{http://jquery.com/}},
-\idx{Prototype}\footnote{Prototype is available on:
-  \url{http://www.prototypejs.org/}},
-\idx{Dojo}\footnote{Dojo is available on:
-  \url{http://www.dojotoolkit.org/}},
-\idx{YUI}\footnote{YUI is available on:
-  \url{http://developer.yahoo.com/yui/}},
-\idx{GWT}\footnote{GWT is available on:
-  \url{http://code.google.com/webtoolkit/}},
-\idx{Ext JS}\footnote{Ext JS is available on:
-  \url{http://www.extjs.com/}}, etc.
-Overall, these are very popular and they offer high quality and plenty of
-functionality. However, for this particular project, and after some
-consideration, \idx{MooTools} \cite{MooTools} was considered the
-best option. The reasons for this decision are:
+\idx{jQuery}\footnote{\url{http://jquery.com/}},
+\idx{Prototype}\footnote{\url{http://www.prototypejs.org/}},
+\idx{Dojo}\footnote{\url{http://www.dojotoolkit.org/}},
+\idx{YUI}\footnote{\url{http://developer.yahoo.com/yui/}},
+\idx{GWT}\footnote{\url{http://code.google.com/webtoolkit/}},
+\idx{Ext JS}\footnote{\url{http://www.extjs.com/}}, etc.
+Overall, these are very popular and they offer high quality and plenty of functionality.
+However, for this particular project, and after some consideration, \idx{MooTools} \cite{MooTools} was considered the best option.
+The reasons for this decision are:
 
 \begin{description}
-  \item[Compact] It has a low footprint on
-the site load because it is reasonably lightweight for the functionality it
-offers. Particularly, it is more optimized in this aspect than \idx{Prototype},
-\idx{YUI} or \idx{Dojo}, but it is also slightly more compact than
-\idx{jQuery}.
-  \item[Modular-Based] Because of that, the installation can be customized to
-get only the modules we need, and the creation of our own extensions is
-easier.
-  \item[Compatible] It has been tested with most browsers:
-\idx{Internet Explorer} 6+, \idx{Firefox} 2+, \idx{Opera} 9+, \idx{Safari} 2+
-(and other \idx{Webkit}-based browsers, like \idx{Chrome}).
-  \item[Functional] It offers all the functionality required for the first phase
-of the project: \idx{drag\&drop}, resize, animations, etc.
 
-It also offers other functionality like \idx{AJAX} support, \idc{Hash}
-handling or \idc{Cookie} handling, that ease the development in different
-browsers.
-  \item[Object-Oriented] By adding \emph{Classes} to \idx{JavaScript}, an
-abstraction that it is perfect for this application, since the server code is
-written is \idx{Java}.
+  \item[Compact] It has a low footprint on the site load because it is reasonably lightweight for the functionality it offers.
+  Particularly, it is more optimized in this aspect than \idx{Prototype}, \idx{YUI} or \idx{Dojo}, but it is also slightly more compact than \idx{jQuery}.
 
-This way, we can use similar concepts both in the
-server and in the client. Moreover, the inherited code for \idx{ScaleNet}
-already used \idx{JavaScript} objects.
-  \item[Extensive] It also has a repository for official plugins called 
-\idx{MooTools More} (with similar code quality and documentation to the
-\idx{MooTools Core}) and other third-party plugins can be found in the web.
-  \item[Well-documented] It has extensive documentation for every class of the 
-framework.
-  \item[Well-structured] Its structure is perfect for a professional web
-application. Frameworks like \idx{jQuery} are more focused in reducing the 
-lines of code that in encouraging robust coding. \idx{MooTools} also helps
-reducing the lines of code, but it has more tools for writing code in a very
-modular, reusable and robust way, for example by using classes and other
-abstractions.
+  \item[Modular-Based] Because of that, the installation can be customized to get only the modules we need, and the creation of our own extensions is easier.
 
-It also improves the readability of the code, something hard to do in
-\idx{JavaScript}. Another important point of this framework is that it is
-based on prototype extensions (mainly \idc{DOM} extensions), so the syntax is
-very Object-Oriented and the code seems very clean.
-  \item[Used by the \idx{APE server}] (See Section~\ref{sec:ape}) So if we use that component, it will be
-very straightforward to write extensions in \idx{JavaScript} also in the
-server. This will mean that we could use the same coding style and the same
-tools in the server as in the client.
+  \item[Compatible] It has been tested with most browsers: \idx{Internet Explorer} 6+, \idx{Firefox} 2+, \idx{Opera} 9+, \idx{Safari} 2+ (and other \idx{Webkit}-based browsers, like \idx{Chrome}).
+
+  \item[Functional] It offers all the functionality required for the first phase of the project: \idx{drag\&drop}, resize, animations, etc.
+
+It also offers other functionality like \idas{AJAX} support, \idc{Hash} handling or \idc{Cookie} handling, that ease the development in different browsers.
+
+  \item[Object-Oriented] By adding \emph{Classes} to \idx{JavaScript}, an abstraction that it is perfect for this application, since the server code is written is \idx{Java}.
+
+This way, we can use similar concepts both in the server and in the client. Moreover, the inherited code for \idx{ScaleNet} already used \idx{JavaScript} objects.
+
+  \item[Extensive] It also has a repository for official plugins called  \idx{MooTools More} (with similar code quality and documentation to the \idx{MooTools Core}) and other third-party plugins can be found in the web.
+
+  \item[Well-documented] It has extensive documentation for every class of the  framework.
+
+  \item[Well-structured] Its structure is perfect for a professional web application.
+  Frameworks like \idx{jQuery} are more focused in reducing the  lines of code that in encouraging robust coding.
+  \idx{MooTools} also helps reducing the lines of code, but it has more tools for writing code in a very modular, reusable and robust way, for example by using classes and other abstractions.
+
+  It also improves the readability of the code, something hard to do in \idx{JavaScript}.
+  Another important point of this framework is that it is based on prototype extensions (mainly \idc{DOM} extensions), so the syntax is very Object-Oriented and the code seems very clean.
+
+  \item[Used by the \ac{APE} server\index{APE server}]
+  So if we use that component, it will be very straightforward to write extensions in \idx{JavaScript} also in the server.
+  This will mean that we could use the same coding style and the same tools in the server as in the client.
+
 \end{description}
+
+% subsection decision (end)
+
+% section mootools (end)
