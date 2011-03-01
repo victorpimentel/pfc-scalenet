@@ -1,19 +1,105 @@
 \section{Existing System: \idx{ScaleNet}} % (fold)
 \label{sec:scalenet}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\idx{ScaleNet} \cite{SIE06} is a research project developed between 2005 and 2009.
+Partly sponsored by the \emph{German Ministry of Education}, several major corporations participated, including \emph{Deutsche Telekom AG}, \emph{Alcatel SEL AG}, \emph{Eriksson GmbH}, \emph{Lucent Technologies} and \emph{Siemens AG}.
+\ida{T-Labs} was specifically one of the departments more closely involved.
 
-\subsection{Overview of the System} % (fold)
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+    \includegraphics[width=0.48\textwidth]{logo-scalenet}
+  \caption{\idx{ScaleNet} logo}
+  \label{fig:logo-scalenet}
+\end{wrapfigure}
+
+The aim of \idx{ScaleNet} is to provide a \ida{NGN} that integrates different wireless and wireline access technologies.
+It is advertised as a scalable, cost effective and efficient \ida{FMC} solution.
+
+\subsection{System Overview} % (fold)
 \label{sub:overviewscalenet}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\idx{ScaleNet} address both service and network convergence.
+At the lower level, the system supports a multitude of heterogeneous physical and logical network elements of fixed and mobile networks into one single all-IP infrastructure.
+Figure~\ref{fig:scalenet-structure} lists some of the protocols that could be used \cite{SIV08}.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{scalenet-structure.png}
+  \caption{Structure of the system}
+  \label{fig:scalenet-structure}
+\end{figure}
+
+At a upper level, multimedia services relay on the \ida{IMS} framework for the delivery.
+Theoretically \idx{ScaleNet} could support other protocols like Overlay Networks or \ida{P2P}, but \ida{IMS} is the one used by the current implementation.
+
+It is important to notice that the own network is user-centric, and transparently handles identities by using \ida{SIP}.
+This eases handling users with multiple devices; therefore applications do not have to worry about that part.
+
+In Figure~\ref{fig:scalenet-structure} some of the services that can be offered are also listed:
+
+\begin{itemize}
+  \item Voice \et{} Video Calls
+  \item Mobile TV \et{} \ida{VOD}
+  \item \index{MMOG}\acp{MMOG}
+  \item Internet Access
+\end{itemize}
+
+The work described in this document focus specially on the second application, i.e., streaming and \ida{VOD}.
+
+%%% MOOOOOOOOOOOOOOORE ABOUT HOW THE SYSTEM PLAY SOMETHING
 
 % subsection overviewscalenet (end)
+
+\subsection{\idx{IMS} Demonstrator} % (fold)
+\label{sub:demonstrator}
+
+\begin{figure}[p]
+  \centering
+    \includegraphics[width=\textwidth]{ims-arch}
+  \caption{System Architecture}
+  \label{fig:ims-arch}
+\end{figure}
+
+\begin{figure}[p]
+  \centering
+    \includegraphics[width=\textwidth]{ims-arch-real}
+  \caption{Architecture of the demonstrator}
+  \label{fig:ims-arch-real}
+\end{figure}
+
+A logical view of the system is depicted in Figure~\ref{fig:ims-arch}, explaining the important nodes based on the capabilities needed. The information relevant to this project is contained in the upper right corner of the figure, the nodes behind the Control layer.
+
+In the offices of \ida{T-Labs} in Berlin and Darmstadt there is a demonstrator with a working implementation of \idx{ScaleNet}. That demonstrator is composed by several servers and a network infrastructure that enables access to the system using different network protocols and devices. In Figure~\ref{fig:ims-arch-real} the actual network and hardware are exposed, replacing the same space as in the logical view (Figure~\ref{fig:ims-arch}).
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{ims-setup}
+  \caption{Setup of the demonstrator}
+  \label{fig:ims-setup}
+\end{figure}
+
+Figure~\ref{fig:ims-setup} describes the setup in a better way and highlights the three different planes of the demonstrator. The developed web application is executed from the \idx{Web Server} and the \idx{Application Server}, since it belongs to the service plane. The signalling plane has also to be taken into account, because it communicates directly with the servers.
+
+However, that is not the real deployment of the hardware used. Whether for convenience or efficiency, tasks are distributed between two main servers.
+This does not affect the logic of the system, since those tasks could be easily decoupled in an alternate deployment with more servers.
+Anyway, the interesting pieces of hardware for this project are:
+
+\begin{description}
+  \item[\ida{IMS} core] This machine contains the \ida{IMS} server\footnote{The IMS core is open source software from Fraunhofer FOKUS and it can be freely downloaded from: \url{http://www.openimscore.org/}}, but since the \ida{IMS} load is not very high, it is responsible for other things.
+  It acts as a \idx{Web Server} (using Apache Web Server\footnote{\url{http://httpd.apache.org/}}) serving \idas{PHP} applications.
+  It is also the internal \idas{DNS} server.
+  \item[\idx{Application Server}] This is the \idas{IPTV} server, where the video content is streamed.
+  It is also a \idx{Web Server}, but it serves \idx{Java} applications based on the \idas{OSGi} framework\footnote{\url{http://www.osgi.org/}}.
+  \item[User Devices] Devices intended for the user to access the services. There is a TV, a laptop and several phones.
+  All of them run a custom \ida{IMS} client that holds a connection to the servers, allowing the identification and adding \idas{IPTV} and \idas{VoIP} capabilities to those devices.
+  In the last phase of the development, an \idx{iPhone} was added for testing purposes.
+\end{description}
+
+% subsection demonstrator (end)
 
 \subsection{Personal Network Administration Interface (\idx{PNAI})} % (fold)
 \label{sub:pnai}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
 % subsection pnai (end)
 

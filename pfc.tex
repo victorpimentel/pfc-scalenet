@@ -28,8 +28,10 @@
 \newcommand{\idx}[1]{\index{#1}{#1}}
 \newcommand{\ida}[1]{\index{#1}{\ac{#1}}}
 \newcommand{\idas}[1]{\index{#1}{\acs{#1}}}
+\newcommand{\et}{\emph\&}
 % Figures
 \usepackage{graphicx}
+\usepackage{wrapfig}
 \graphicspath{{figures/}}
 % Theme
 \usepackage{fancyhdr}
@@ -175,8 +177,10 @@
 \bibliographystyle{unsrt}
 \bibliography{bibliography/biblio}
 \input{bibliography/acronyms}
+\cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{Index}
+\fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
 \printindex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
