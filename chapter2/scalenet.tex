@@ -18,13 +18,13 @@ It is advertised as a scalable, cost effective and efficient \ida{FMC} solution.
 \subsection{System Overview} % (fold)
 \label{sub:overviewscalenet}
 
-\idx{ScaleNet} address both service and network convergence.
+\idx{ScaleNet} addresses both service and network convergence.
 At the lower level, the system supports a multitude of heterogeneous physical and logical network elements of fixed and mobile networks into one single all-IP infrastructure.
 Figure~\ref{fig:scalenet-structure} lists some of the protocols that could be used \cite{SIV08}.
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=\textwidth]{scalenet-structure.png}
+    \includegraphics[width=\textwidth]{scalenet-structure}
   \caption{Structure of the system}
   \label{fig:scalenet-structure}
 \end{figure}
@@ -35,7 +35,19 @@ Theoretically \idx{ScaleNet} could support other protocols like Overlay Networks
 It is important to notice that the own network is user-centric, and transparently handles identities by using \ida{SIP}.
 This eases handling users with multiple devices; therefore applications do not have to worry about that part.
 
-In Figure~\ref{fig:scalenet-structure} some of the services that can be offered are also listed:
+It is also important to define what a session means in this system.
+A session refers to the current use of a service, so for every service that the user is enjoying a session is created.
+For example, if it is viewing a movie but also talking on the \ida{IP} phone, there are two sessions at the same time.
+
+The creation of a session implies that a new service is created, but it goes the other way around too.
+If a session is deleted, that service must stop.
+If the user ends the service, the session must be deleted.
+That means sessions have to be synchronized with the actual services.
+
+A session is also linked to the device that the user is using.
+The system allows the copy and transfer of sessions to other devices that he owns, wherever it makes sense.
+Since the current implementation has also basic social capabilities, that session can also be transferred or copied to a user contact.
+Figure~\ref{fig:scalenet-structure} lists some of the services that can be offered:
 
 \begin{itemize}
   \item Voice \et{} Video Calls
@@ -44,9 +56,8 @@ In Figure~\ref{fig:scalenet-structure} some of the services that can be offered 
   \item Internet Access
 \end{itemize}
 
-The work described in this document focus specially on the second application, i.e., streaming and \ida{VOD}.
-
-%%% MOOOOOOOOOOOOOOORE ABOUT HOW THE SYSTEM PLAY SOMETHING
+The work described in this document is primarily focused on the second application, i.e., video streaming.
+The idea is that the user can buy a video and play it anywhere using any supported device.
 
 % subsection overviewscalenet (end)
 
@@ -56,7 +67,7 @@ The work described in this document focus specially on the second application, i
 \begin{figure}[p]
   \centering
     \includegraphics[width=\textwidth]{ims-arch}
-  \caption{System Architecture}
+  \caption{System architecture}
   \label{fig:ims-arch}
 \end{figure}
 
@@ -67,9 +78,12 @@ The work described in this document focus specially on the second application, i
   \label{fig:ims-arch-real}
 \end{figure}
 
-A logical view of the system is depicted in Figure~\ref{fig:ims-arch}, explaining the important nodes based on the capabilities needed. The information relevant to this project is contained in the upper right corner of the figure, the nodes behind the Control layer.
+A logical view of the system is depicted in Figure~\ref{fig:ims-arch}, explaining the important nodes based on the capabilities needed.
+The information relevant to this project is contained in the upper right corner of the figure, the nodes behind the control layer.
 
-In the offices of \ida{T-Labs} in Berlin and Darmstadt there is a demonstrator with a working implementation of \idx{ScaleNet}. That demonstrator is composed by several servers and a network infrastructure that enables access to the system using different network protocols and devices. In Figure~\ref{fig:ims-arch-real} the actual network and hardware are exposed, replacing the same space as in the logical view (Figure~\ref{fig:ims-arch}).
+In the offices of \ida{T-Labs} in Berlin and Darmstadt there is a demonstrator with a working implementation of \idx{ScaleNet}.
+That demonstrator is composed by several servers and a network infrastructure that enables access to the system using different network protocols and devices.
+In Figure~\ref{fig:ims-arch-real} the actual network and hardware are exposed, replacing the same space as in the logical view (Figure~\ref{fig:ims-arch}).
 
 \begin{figure}[htbp]
   \centering
@@ -78,9 +92,12 @@ In the offices of \ida{T-Labs} in Berlin and Darmstadt there is a demonstrator w
   \label{fig:ims-setup}
 \end{figure}
 
-Figure~\ref{fig:ims-setup} describes the setup in a better way and highlights the three different planes of the demonstrator. The developed web application is executed from the \idx{Web Server} and the \idx{Application Server}, since it belongs to the service plane. The signalling plane has also to be taken into account, because it communicates directly with the servers.
+Figure~\ref{fig:ims-setup} describes the setup in a better way and highlights the three different planes of the demonstrator.
+The developed web application is executed from the \idx{Web Server} and the \idx{Application Server}, since it belongs to the service plane.
+The signaling plane has also to be taken into account, because it communicates directly with the servers.
 
-However, that is not the real deployment of the hardware used. Whether for convenience or efficiency, tasks are distributed between two main servers.
+However, that is not the real deployment of the hardware used.
+Whether for convenience or efficiency, tasks are distributed between two main servers.
 This does not affect the logic of the system, since those tasks could be easily decoupled in an alternate deployment with more servers.
 Anyway, the interesting pieces of hardware for this project are:
 
@@ -90,16 +107,68 @@ Anyway, the interesting pieces of hardware for this project are:
   It is also the internal \idas{DNS} server.
   \item[\idx{Application Server}] This is the \idas{IPTV} server, where the video content is streamed.
   It is also a \idx{Web Server}, but it serves \idx{Java} applications based on the \idas{OSGi} framework\footnote{\url{http://www.osgi.org/}}.
-  \item[User Devices] Devices intended for the user to access the services. There is a TV, a laptop and several phones.
+  \item[User Devices] Devices intended for the user to access the services.
+  There is a TV, a laptop and several phones.
   All of them run a custom \ida{IMS} client that holds a connection to the servers, allowing the identification and adding \idas{IPTV} and \idas{VoIP} capabilities to those devices.
   In the last phase of the development, an \idx{iPhone} was added for testing purposes.
 \end{description}
 
-% subsection demonstrator (end)
+This demonstrator contains several demo applications running. The interesting one for this project is the application that handles \idas{IPTV} streaming.
+
+% subsubsection stoppingplayback (end)
 
 \subsection{Personal Network Administration Interface (\idx{PNAI})} % (fold)
 \label{sub:pnai}
 
+The Web interface used for the management of sessions is called \ida{PNAI}. From this interface the user can obtain this information:
+
+\begin{itemize}
+  \item All devices and registered in the system for that user and their online status.
+  \item All contacts for that user and their online status.
+  \item All multimedia sessions related to the user. This includes:
+  \begin{itemize}
+    \item The sessions running on his devices, no matter who paid for that content.
+    \item The sessions running on devices from his contacts and started/paid by that user.
+  \end{itemize}
+\end{itemize}
+
+Those are passive actions, but from that same view the user can initiate some operations to control the system.
+In Figure~\ref{fig:usecasesiptv} all the available operations relating sessions are listed following a use case diagram.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/usecases.1}
+  \caption{Use cases for the IPTV application}
+  \label{fig:usecasesiptv}
+\end{figure}
+
+In that diagram colors are used to differentiate the different kind of use cases covered. Also two visual marks (* and **) are added in case this is a copy in black a white. The meaning of the colors are explained according to this legend:
+
+\begin{description}
+  \item[Green] Available already in the main \ida{PNAI} page.
+  \item[Purple (\emph{marked with *})] Available in an individual page outside of the main \ida{PNAI} page.
+  \item[Red (\emph{marked with **})] Not implemented.
+\end{description}
+
+As we can see, the main \ida{PNAI} page has already a lot of functionality, but it can contain even more. Basically the actions available to that user in that page are:
+
+\begin{itemize}
+  \item Terminate a session of a user device or of a contact if the session is owned by that user.
+  \item Transfer (handover) or copy (duplication) a existing session to a user device or to a contact if the session is owned by that user. That is, if one contact bought the content for us, we cannot transfer again that content to another contact.
+\end{itemize}
+
+Beside of these session related operations, there are other management operations.
+For example, selecting which device is the default, adding/removing devices or adding/removing contacts.
+For this document they are not relevant since they remained untouched.
+
+Figure~\ref{fig:pnai-old} shows the old appearance of the main page for a logged user, before any work began.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{figures/pnai-old.png}
+  \caption{Old main \idas{PNAI} page}
+  \label{fig:pnai-old}
+\end{figure}
 
 % subsection pnai (end)
 

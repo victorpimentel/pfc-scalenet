@@ -19,3 +19,9 @@
 .*.tex
 *.watcher_pid
 *.tmproj
+*.1
+*.2
+*.3
+*.4
+*.dvi
+*.ps
