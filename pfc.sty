@@ -1,0 +1,181 @@
+% We are using UTF8
+\usepackage[utf8]{inputenc}
+
+% The document is in English, but some text is also in Spanish
+\usepackage[spanish,english]{babel}
+
+% Math
+\usepackage{amsmath,amsfonts,amssymb}
+
+% Default fonts
+\usepackage[T1]{fontenc}
+\usepackage{slantsc}
+\usepackage{microtype}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{pxfonts}
+\usepackage{fourier-orns}
+\usepackage{varioref}
+
+% Acronyms
+\usepackage{acronym}
+
+% Chapter headers
+\usepackage[PetersLenny]{fncychap}
+
+% Epigraphs
+\usepackage{epigraph}
+\usepackage{enumitem}
+
+% Index
+\usepackage{makeidx}
+\makeindex
+\newcommand{\idc}[1]{\index{#1@\texttt{#1}}\texttt{#1}}
+\newcommand{\idx}[1]{\index{#1}{#1}}
+\newcommand{\ida}[1]{\index{#1}{\ac{#1}}}
+\newcommand{\idas}[1]{\index{#1}{\acs{#1}}}
+\newcommand{\et}{\emph\&}
+
+% Theme
+\usepackage{fancyhdr}
+
+% Figures
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\graphicspath{{figures/}}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\usepackage[table]{xcolor}
+
+% PDF with links
+\usepackage[pdfusetitle,backref,colorlinks,linkcolor=blue]{hyperref}
+% Uncomment to not use any colors in links (for printing)
+%\hypersetup{colorlinks=false,pdfborder=0 0 0}
+
+% Captions
+\usepackage{caption}
+
+% Page formatting
+
+\pagestyle{fancy}
+\addtolength{\headwidth}{\marginparsep}
+\addtolength{\footskip}{35pt}
+\addtolength{\headwidth}{1.5cm}
+\addtolength{\voffset}{-1cm}
+\addtolength{\textheight}{1.5cm}
+\addtolength{\hoffset}{-0.5cm}
+\addtolength{\oddsidemargin}{0.9cm}
+\addtolength{\paperheight}{1cm}
+
+\fancyhf{}
+\fancyhead[LE,RO]{\bfseries \thepage}
+\fancyhead[LO]{\sffamily\scshape\footnotesize\rightmark}
+\fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
+
+\newenvironment{abstract}{\cleardoublepage\null\vfill
+  \begin{center}\Large\bfseries\abstractname\end{center}}{\vfill\null}
+\newenvironment{acknowledgements}{\cleardoublepage\null\vfill
+  \begin{center}\Large\bfseries{Acknowledgements}\end{center}}{\vfill\null}
+
+% Nice ending for sections and subsections
+
+\newcommand*\myhrulefill{%
+   \leavevmode\leaders\hrule depth-2pt height 2.4pt\hfill\kern0pt}
+
+\newcommand\niceending[1]{
+  \begin{center}
+    \LARGE \myhrulefill\hspace{0.2cm} #1 \hspace{0.2cm}\myhrulefill
+  \end{center}}
+
+\newcommand*\nicesectionending{\niceending{\aldineright\aldineleft}}
+\newcommand*\nicesubsectionending{\niceending{\aldinesmall}}
+
+% Tables (Use cases and so on)
+\usepackage{multirow}
+\usepackage{mdwlist}
+\usepackage{longtable}
+
+\newcounter{usecase}
+
+\definecolor{tableShade}{HTML}{F1F5FA}
+
+\newcommand{\usecasetitle}[1]{
+  \multirow{2}{*}{\large{\textbf{\textsc{Use Case \arabic{usecase}}}}} &
+  \multirow{2}{*}{\textbf{#1}} \\
+  & \\%
+}
+
+\newcommand{\usecaseinfo}[2]{#1 & #2\\ \hline}
+\newcommand{\usecaseactor}[1]{\usecaseinfo{Actor}{#1}}
+\newcommand{\usecasepre}[1]{\usecaseinfo{Precondition}{#1}}
+\newcommand{\usecasepost}[1]{\usecaseinfo{Postcondition}{#1}}
+\newcommand{\usecasemain}[1]{\usecaseinfo{Main Path (M)}{#1}}
+\newcommand{\usecasealt}[2]{\usecaseinfo{Alternate Path (A#1)}{#2}}
+
+\newenvironment{usecasepath}[1][]{
+  \vspace{-1.5em}
+  \begin{enumerate}[label=\textbf{\arabic{enumi}#1.},
+  nolistsep,leftmargin=1.75em]
+  }{\end{enumerate}
+  \vspace{-1.5em}
+}
+
+\newenvironment{usecase}[1][]{
+  \renewcommand{\tabcolsep}{0.025\textwidth}
+  \renewcommand\arraystretch{1.25}
+  \addtocounter{usecase}{1}
+  \rowcolors{1}{white}{blue!5}
+  \begin{longtable}{|p{0.2\textwidth}|p{0.65\textwidth}|}
+  \caption{Use case \arabic{usecase} -- #1}\\
+  \hiderowcolors
+  \hline \usecasetitle{#1} \hline
+  \showrowcolors
+  \endfirsthead
+  \caption[]{Use case \arabic{usecase} -- #1 (continued)}\\
+  \hiderowcolors
+  \hline \usecasetitle{#1}
+  \showrowcolors
+  \endhead
+  \multicolumn{2}{|r|}{\small\emph{continued on next page}}\\
+  \hline
+  \endfoot
+  \endlastfoot
+    }{
+  \end{longtable}
+}
+
+% Code Listings
+
+\usepackage{listing}
+\usepackage{listings}
+
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{.65,.12,.82}
+\definecolor{lightishgray}{rgb}{.6,.6,.6}
+
+\DeclareCaptionFont{white}{\bfseries\sffamily\color{white}}
+\DeclareCaptionFormat{listing}%
+  {\colorbox{lightishgray}{\parbox{\textwidth}{\hspace{14pt}#1#2#3}}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch,
+  switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+  basicstyle=\ttfamily,
+  flexiblecolumns,
+  xleftmargin=18pt
+}

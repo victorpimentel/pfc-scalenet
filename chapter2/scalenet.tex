@@ -46,7 +46,8 @@ That means sessions have to be synchronized with the actual services.
 
 A session is also linked to the device that the user is using.
 The system allows the copy and transfer of sessions to other devices that he owns, wherever it makes sense.
-Since the current implementation has also basic social capabilities, that session can also be transferred or copied to a user contact.
+Since the current implementation has also basic social capabilities, that session can also be transferred or copied to a user's contact.
+In the context of this application a user's contact is called ``buddy''.
 Figure~\ref{fig:scalenet-structure} lists some of the services that can be offered:
 
 \begin{itemize}
@@ -58,6 +59,8 @@ Figure~\ref{fig:scalenet-structure} lists some of the services that can be offer
 
 The work described in this document is primarily focused on the second application, i.e., video streaming.
 The idea is that the user can buy a video and play it anywhere using any supported device.
+
+\nicesubsectionending
 
 % subsection overviewscalenet (end)
 
@@ -113,7 +116,10 @@ Anyway, the interesting pieces of hardware for this project are:
   In the last phase of the development, an \idx{iPhone} was added for testing purposes.
 \end{description}
 
-This demonstrator contains several demo applications running. The interesting one for this project is the application that handles \idas{IPTV} streaming.
+This demonstrator contains several demo applications running.
+The interesting one for this project is the application that handles \idas{IPTV} streaming.
+
+\nicesubsectionending
 
 % subsubsection stoppingplayback (end)
 
@@ -124,11 +130,11 @@ The Web interface used for the management of sessions is called \ida{PNAI}. From
 
 \begin{itemize}
   \item All devices and registered in the system for that user and their online status.
-  \item All contacts for that user and their online status.
+  \item All buddies for that user and their online status.
   \item All multimedia sessions related to the user. This includes:
   \begin{itemize}
     \item The sessions running on his devices, no matter who paid for that content.
-    \item The sessions running on devices from his contacts and started/paid by that user.
+    \item The sessions running on devices from his buddies and started/paid by that user.
   \end{itemize}
 \end{itemize}
 
@@ -153,22 +159,32 @@ In that diagram colors are used to differentiate the different kind of use cases
 As we can see, the main \ida{PNAI} page has already a lot of functionality, but it can contain even more. Basically the actions available to that user in that page are:
 
 \begin{itemize}
-  \item Terminate a session of a user device or of a contact if the session is owned by that user.
-  \item Transfer (handover) or copy (duplication) a existing session to a user device or to a contact if the session is owned by that user. That is, if one contact bought the content for us, we cannot transfer again that content to another contact.
+  \item Terminate a session of a user device or of a buddy if the session is owned by that user.
+  \item Transfer (handover) or copy (duplication) a existing session to a user device or to a buddy if the session is owned by that user. That is, if one buddy bought the content for us, we cannot transfer again that content to another buddy.
 \end{itemize}
 
 Beside of these session related operations, there are other management operations.
-For example, selecting which device is the default, adding/removing devices or adding/removing contacts.
+For example, selecting which device is the default, adding/removing devices or adding/removing buddies.
 For this document they are not relevant since they remained untouched.
 
 Figure~\ref{fig:pnai-old} shows the old appearance of the main page for a logged user, before any work began.
+On the left side of the page there is the \idx{Device List}, where the devices owned by that user are drawn.
+On the right side there is the \idx{Buddy List}, where the user's buddies are listed.
+Finally, the trash is in the lower right corner of the \idx{Device List}. 
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=\textwidth]{figures/pnai-old.png}
+    \includegraphics[width=\textwidth]{pnai-old}
   \caption{Old main \idas{PNAI} page}
   \label{fig:pnai-old}
 \end{figure}
+
+The devices that are offline are disabled and are drawn with a whitish appearance.
+The buddies that are online are preceded by a green icon, while the ones that are offline are preceded by a red icon.
+
+Devices or buddies that are online act as session containers. Inside of the 
+
+\input{chapter2/usecases}
 
 % subsection pnai (end)
 

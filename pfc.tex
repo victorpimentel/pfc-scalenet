@@ -1,111 +1,16 @@
 % Document for printing A4 and 12pt fonts
 \documentclass[a4paper,12pt]{book}
-% We are using UTF8
-\usepackage[utf8]{inputenc}
-% The document is in English, but some text is also in Spanish
-\usepackage[spanish,english]{babel}
-% Math
-\usepackage{amsmath,amsfonts,amssymb}
-% Default fonts
-\usepackage[T1]{fontenc}
-\usepackage{slantsc}
-\usepackage{microtype}
-\usepackage{setspace}
-\onehalfspacing
-\usepackage{pxfonts}
-\usepackage{varioref}
-% Acronyms
-\usepackage{acronym}
-% Chapter headers
-\usepackage[PetersLenny]{fncychap}
-% Epigraphs
-\usepackage{epigraph}
-\usepackage{enumitem}
 
-% Index
-\usepackage{makeidx}
-\makeindex
-\newcommand{\idc}[1]{\index{#1@\texttt{#1}}\texttt{#1}}
-\newcommand{\idx}[1]{\index{#1}{#1}}
-\newcommand{\ida}[1]{\index{#1}{\ac{#1}}}
-\newcommand{\idas}[1]{\index{#1}{\acs{#1}}}
-\newcommand{\et}{\emph\&}
-% Figures
-\usepackage{graphicx}
-\usepackage{wrapfig}
-\graphicspath{{figures/}}
-\DeclareGraphicsRule{*}{mps}{*}{}
-% Theme
-\usepackage{fancyhdr}
-% PDF with links
-\usepackage[pdfusetitle,backref,colorlinks,linkcolor=blue]{hyperref}
-% Uncomment to not use any colors in links (for printing)
-%\hypersetup{colorlinks=false,pdfborder=0 0 0}
-% Captions
-\usepackage{caption}
-% Code Listings
-\usepackage{xcolor}
-\usepackage{listing}
-\usepackage{listings}
-\DeclareCaptionFont{white}{\bfseries\sffamily\color{white}}
-\DeclareCaptionFormat{listing}%
-  {\colorbox{gray}{\parbox{\textwidth}{\hspace{14pt}#1#2#3}}}
-\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
-\definecolor{lightgray}{rgb}{.9,.9,.9}
-\definecolor{darkgray}{rgb}{.4,.4,.4}
-\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
-\lstdefinelanguage{JavaScript}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch,
-  switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  commentstyle=\color{purple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-\lstset{
-  basicstyle=\ttfamily,
-  flexiblecolumns,
-  xleftmargin=18pt
-}
+% Almost all header is here
+\usepackage{pfc}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%                   METADATA                   %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{Developing a Heavy Client-Side Web Application: ScaleNet}
 \author{Víctor Pimentel Rodríguez}
-\date{February 2011}
+\date{March 2011}
 \hypersetup{pdfsubject=Proyecto Fin de Carrera}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%               PAGE FORMATTING                %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\pagestyle{fancy}
-\addtolength{\headwidth}{\marginparsep}
-\addtolength{\footskip}{35pt}
-\addtolength{\headwidth}{1.5cm}
-\addtolength{\voffset}{-1cm}
-\addtolength{\textheight}{1.5cm}
-\addtolength{\hoffset}{-0.5cm}
-\addtolength{\oddsidemargin}{0.9cm}
-\addtolength{\paperheight}{1cm}
-
-\fancyhf{}
-\fancyhead[LE,RO]{\bfseries \thepage}
-\fancyhead[LO]{\sffamily\scshape\footnotesize\rightmark}
-\fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
-
-\newenvironment{abstract}{\cleardoublepage\null\vfill
-  \begin{center}\Large\bfseries\abstractname\end{center}}{\vfill\null}
-\newenvironment{acknowledgements}{\cleardoublepage\null\vfill
-  \begin{center}\Large\bfseries{Acknowledgements}\end{center}}{\vfill\null}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}

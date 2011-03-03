@@ -1,0 +1,84 @@
+\subsubsection{Use Cases} % (fold)
+\label{ssub:usecasesold}
+
+\begin{center}
+  \begin{usecase}[Stop a session of a device]
+    \label{tab:usecasestopdevice}%
+    \usecaseactor{System user}
+    \usecasepre{A session is already running on a device, and it is showing in the \ida{PNAI} interface inside of that device.}
+    \usecasepost{Session must terminate, i.e., the content must stop playing. The user must be notified with a popup and the session icon must be deleted from the \ida{PNAI} interface.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the session icon.
+        \item A copy of the session icon appears under the user's cursor, and follows the cursor until the user drops it.
+        \item User drops the cloned session icon into the trash.
+        \item A popup appears to notify the user that the action is in progress and the cloned session icon is deleted from the view.
+        \item The content stops playing.
+        \item The popup disappears and the original session icon is deleted from the view.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User drops the session into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{4}
+        \item There is an error with the server and the content keeps playing.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[d]
+        \item There is an error with the server and the content keeps playing.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+The use case for terminating a session that a buddy is playing and that we own is very similar:
+
+\begin{center}
+  \begin{usecase}[Stop a session of a buddy]
+    \label{tab:usecasestopbuddy}%
+    \usecaseactor{System user}
+    \usecasepre{A session owned by the user is running on a device, and it is showing in the \ida{PNAI} interface near that buddy's name.}
+    \usecasepost{Session must terminate, i.e., the content must stop playing. The user must be notified with a popup and the session icon must be deleted from the \ida{PNAI} interface. The buddy is \emph{not} notified, the content stops without warning.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the session icon.
+        \item A copy of the session icon appears under the user's cursor, and follows the cursor until the user drops it.
+        \item User drops the cloned session icon into the trash.
+        \item A popup appears to notify the user that the action is in progress and the cloned session icon is deleted from the view.
+        \item The content stops playing.
+        \item The popup disappears and the original session icon is deleted from the view.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User drops the session into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{4}
+        \item There is an error with the server and the content keeps playing.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+% subsubsection usecasesold (end)
