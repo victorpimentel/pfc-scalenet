@@ -116,10 +116,9 @@ beginfig(1);
   clink(inheritance)(VideoSession, Session);
   clink(inheritance)(AudioSession, Session);
 
-%  clink(dependency)(Slot, Session);
-%  clink(dependency)(Container, Session);
-
-  link(dependency)(pathManhattanX(Slot.w, Session.nw + (0.35cm, 0)));
+  pair SlotSessionEndDependencyPoint;
+  SlotSessionEndDependencyPoint := Session.nw + (.35cm, 0);
+  link(dependency)(pathManhattanX(Slot.w, SlotSessionEndDependencyPoint));
   link(dependency)(pathManhattanY(Container.sw, Session.nw));
 
 endfig;
