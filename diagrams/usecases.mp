@@ -1,11 +1,12 @@
+
 input metauml;
 
 beginfig(1);
 
-  iUsecase.foreColor := (.82, 0.93, .82);
-  iUsecase.iNameStack.iPict.iFont.name := "pagk";
-  iActor.iNameStack.iPict.iFont.name := "pagd";
-  iNote.iStack.iPict.iFont.name := "pagk";
+  iUsecase.foreColor := (.82, .93, .82);
+  iUsecase.iNameStack.iPict.iFont.name := "phvr";
+  iActor.iNameStack.iPict.iFont.name := "phvb";
+  iNote.iStack.iPict.iFont.name := "phvr";
 
   Actor.user("User");
   Actor.buddy("Buddy");

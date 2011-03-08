@@ -36,9 +36,6 @@
 \newcommand{\idas}[1]{\index{#1}{\acs{#1}}}
 \newcommand{\et}{\emph\&}
 
-% Theme
-\usepackage{fancyhdr}
-
 % Figures
 \usepackage{graphicx}
 \usepackage{wrapfig}
@@ -54,7 +51,8 @@
 % Captions
 \usepackage{caption}
 
-% Page formatting
+% Theme
+\usepackage{fancyhdr}
 
 \pagestyle{fancy}
 \addtolength{\headwidth}{\marginparsep}
@@ -71,8 +69,17 @@
 \fancyhead[LO]{\sffamily\scshape\footnotesize\rightmark}
 \fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
 
-\newenvironment{abstract}{\cleardoublepage\null\vfill
-  \begin{center}\Large\bfseries\abstractname\end{center}}{\vfill\null}
+\makeatletter
+\def\cleardoublepage{\clearpage\if@twoside \ifodd\c@page\else
+  \hbox{}
+  \vspace*{\fill}
+  \thispagestyle{empty}
+  \newpage
+  \if@twocolumn\hbox{}\newpage\fi\fi\fi}
+\makeatother
+
+\newenvironment{abstract}{\cleardoublepage
+  \begin{center}\Large\bfseries\abstractname\end{center}}{}
 \newenvironment{acknowledgements}{\cleardoublepage\null\vfill
   \begin{center}\Large\bfseries{Acknowledgements}\end{center}}{\vfill\null}
 
@@ -86,8 +93,8 @@
     \LARGE \myhrulefill\hspace{0.2cm} #1 \hspace{0.2cm}\myhrulefill
   \end{center}}
 
-\newcommand*\nicesectionending{\niceending{\aldineright\aldineleft}}
-\newcommand*\nicesubsectionending{\niceending{\aldinesmall}}
+\newcommand*\nicechapterending{\niceending{\aldineright\aldineleft}}
+\newcommand*\nicesectionending{\niceending{\aldinesmall}}
 
 % Tables (Use cases and so on)
 \usepackage{multirow}
@@ -124,7 +131,7 @@
   \renewcommand\arraystretch{1.25}
   \addtocounter{usecase}{1}
   \rowcolors{1}{white}{blue!5}
-  \begin{longtable}{|p{0.2\textwidth}|p{0.65\textwidth}|}
+  \begin{longtable}{|p{0.2\textwidth}|p{0.69\textwidth}|}
   \caption{Use case \arabic{usecase} -- #1}\\
   \hiderowcolors
   \hline \usecasetitle{#1} \hline

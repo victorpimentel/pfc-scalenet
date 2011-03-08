@@ -60,8 +60,6 @@ Figure~\ref{fig:scalenet-structure} lists some of the services that can be offer
 The work described in this document is primarily focused on the second application, i.e., video streaming.
 The idea is that the user can buy a video and play it anywhere using any supported device.
 
-\nicesubsectionending
-
 % subsection overviewscalenet (end)
 
 \subsection{\idx{IMS} Demonstrator} % (fold)
@@ -119,8 +117,6 @@ Anyway, the interesting pieces of hardware for this project are:
 This demonstrator contains several demo applications running.
 The interesting one for this project is the application that handles \idas{IPTV} streaming.
 
-\nicesubsectionending
-
 % subsubsection stoppingplayback (end)
 
 \subsection{Personal Network Administration Interface (\idx{PNAI})} % (fold)
@@ -170,7 +166,7 @@ For this document they are not relevant since they remained untouched.
 Figure~\ref{fig:pnai-old} shows the old appearance of the main page for a logged user, before any work began.
 On the left side of the page there is the \idx{Device List}, where the devices owned by that user are drawn.
 On the right side there is the \idx{Buddy List}, where the user's buddies are listed.
-Finally, the trash is in the lower right corner of the \idx{Device List}. 
+Finally, the trash bin is in the lower right corner of the \idx{Device List}. 
 
 \begin{figure}[htbp]
   \centering
@@ -179,13 +175,21 @@ Finally, the trash is in the lower right corner of the \idx{Device List}.
   \label{fig:pnai-old}
 \end{figure}
 
-The devices that are offline are disabled and are drawn with a whitish appearance.
+The devices that are offline are disabled and are drawn with a dimmed appearance.
 The buddies that are online are preceded by a green icon, while the ones that are offline are preceded by a red icon.
 
-Devices or buddies that are online act as session containers. Inside of the 
+Devices or buddies that are online act as session containers.
+The reason for the devices to be so big is because inside them the current sessions are drawn.
+Besides the name of the content playing, session have an icon that changes depending on the type of session (video, audio, call, etc).
+
+The user can interact with the sessions through the mouse using drag\et{}drop.
+For example, the user can \emph{grab} the icon he wants and drop it in another container to copy or transfer that session.
+That is a very visual and fast way to manage sessions.
+
+When a user drops the session in another container, a menu will appear to ask the user if he wants to copy or transfer that session.
+The trash bin acts also as a container, but in a special way: when a session is dropped in the trash bin, that session is automatically deleted, with no menu involved.
 
 \input{chapter2/usecases}
-
+\input{chapter2/classdiagrams}
 % subsection pnai (end)
-
 % section scalenet (end)
