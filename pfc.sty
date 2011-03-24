@@ -51,6 +51,11 @@
 % Captions
 \usepackage{caption}
 
+% Interesting footnotes (with symbols)
+\usepackage{perpage}
+\MakePerPage{footnote}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
 % Theme
 \usepackage{fancyhdr}
 
@@ -143,6 +148,59 @@
   \showrowcolors
   \endhead
   \multicolumn{2}{|r|}{\small\emph{continued on next page}}\\
+  \hline
+  \endfoot
+  \endlastfoot
+    }{
+  \end{longtable}
+}
+
+\newcommand{\generictitletwo}[2]{
+  \multirow{2}{*}{\textbf{#1}} &
+  \multirow{2}{*}{\textbf{#2}} \\
+  & \\%
+}
+
+\newcommand{\generictitlethree}[3]{
+  \multirow{2}{*}{\textbf{#1}} &
+  \multirow{2}{*}{\textbf{#2}} &
+  \multirow{2}{*}{\textbf{#3}} \\
+  & \\%
+}
+
+\newcommand{\generictitlefour}[4]{
+  \multirow{2}{*}{\textbf{#1}} &
+  \multirow{2}{*}{\textbf{#2}} &
+  \multirow{2}{*}{\textbf{#3}} &
+  \multirow{2}{*}{\textbf{#4}} \\
+  & \\%
+}
+
+\newcommand{\generictitlefive}[5]{
+  \multirow{2}{*}{\textbf{#1}} &
+  \multirow{2}{*}{\textbf{#2}} &
+  \multirow{2}{*}{\textbf{#3}} &
+  \multirow{2}{*}{\textbf{#4}} &
+  \multirow{2}{*}{\textbf{#5}} \\
+  & \\%
+}
+
+\newenvironment{generictable}[4][]{
+  \renewcommand{\tabcolsep}{0.025\textwidth}
+  \renewcommand\arraystretch{1.25}
+  \rowcolors{1}{white}{blue!5}
+  \begin{longtable}{#3}
+  \caption{#1}\\
+  \hiderowcolors
+  \hline #4 \hline
+  \showrowcolors
+  \endfirsthead
+  \caption[]{#1 (continued)}\\
+  \hiderowcolors
+  \hline #4
+  \showrowcolors
+  \endhead
+  \multicolumn{#2}{|r|}{\small\emph{continued on next page}}\\
   \hline
   \endfoot
   \endlastfoot

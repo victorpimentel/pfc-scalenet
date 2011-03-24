@@ -20,7 +20,7 @@ It is advertised as a scalable, cost effective and efficient \ida{FMC} solution.
 
 \idx{ScaleNet} addresses both service and network convergence.
 At the lower level, the system supports a multitude of heterogeneous physical and logical network elements of fixed and mobile networks into one single all-IP infrastructure.
-Figure~\ref{fig:scalenet-structure} lists some of the protocols that could be used \cite{SIV08}.
+Figure~\ref{fig:scalenet-structure} lists some of the protocols that could be used~\cite{SIV08B}.
 
 \begin{figure}[htbp]
   \centering
@@ -104,7 +104,7 @@ Anyway, the interesting pieces of hardware for this project are:
 
 \begin{description}
   \item[\ida{IMS} core] This machine contains the \ida{IMS} server\footnote{The IMS core is open source software from Fraunhofer FOKUS and it can be freely downloaded from: \url{http://www.openimscore.org/}}, but since the \ida{IMS} load is not very high, it is responsible for other things.
-  It acts as a \idx{Web Server} (using Apache Web Server\footnote{\url{http://httpd.apache.org/}}) serving \idas{PHP} applications.
+  It acts as a \idx{Web Server} (using \idx{Apache} Web Server\footnote{\url{http://httpd.apache.org/}}) serving \idas{PHP} applications.
   It is also the internal \idas{DNS} server.
   \item[\idx{Application Server}] This is the \idas{IPTV} server, where the video content is streamed.
   It is also a \idx{Web Server}, but it serves \idx{Java} applications based on the \idas{OSGi} framework\footnote{\url{http://www.osgi.org/}}.
@@ -122,7 +122,7 @@ The interesting one for this project is the application that handles \idas{IPTV}
 \subsection{Personal Network Administration Interface (\idx{PNAI})} % (fold)
 \label{sub:pnai}
 
-The Web interface used for the management of sessions is called \ida{PNAI}. From this interface the user can obtain this information:
+The Web interface used for the management of sessions is called \ida{PNAI}~\cite{SIV08A}. From this interface the user can obtain this information:
 
 \begin{itemize}
   \item All devices and registered in the system for that user and their online status.
@@ -171,7 +171,7 @@ Finally, the trash bin is in the lower right corner of the \idx{Device List}.
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\textwidth]{pnai-old}
-  \caption{Old main \idas{PNAI} page}
+  \caption{Old \idas{PNAI} page}
   \label{fig:pnai-old}
 \end{figure}
 
@@ -192,4 +192,36 @@ The trash bin acts also as a container, but in a special way: when a session is 
 \input{chapter2/usecases}
 \input{chapter2/classdiagrams}
 % subsection pnai (end)
+
+\subsection{IPTVplus} % (fold)
+\label{sub:iptvplus}
+
+From the main \idas{PNAI} page the user can control the sessions that are already created but, how can he create new sessions?
+Another page called \idx{IPTVplus} lists all the multimedia services available to the user in categories, with thumbnails, descriptions, prices and buttons to buy that content.
+Figure~\ref{fig:iptvplus} shows how the page looks.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{iptvplus}
+  \caption{Old IPTVplus page}
+  \label{fig:iptvplus}
+\end{figure}
+
+Basically, the user clicks on the button \textit{Start} to buy a content, then a popup appears to confirm the selection.
+If confirmed, the user is \textit{charged} and the content starts playing in his default device.
+
+For the user perspective this could be handled more elegantly, since the functionality is split between \idx{IPTVplus} and the \idas{PNAI}.
+One of the goals of this work is integrating that functionality directly in the main \idas{PNAI} page.
+
+% subsection iptvplus (end)
+
+\subsection{Other Pages} % (fold)
+\label{sub:otherpages}
+
+There are other pages available from the same portal, some of them refers to other services (like controlling/monitoring a Mesh network) but others are configuration pages for the user.
+For example, there are pages to control the buddy list (add/remove), control the device list (add/remove/edit), select the default device, etc.
+Since those pages were left untouched by this work, they are not explained.
+
+% subsection otherpages (end)
+
 % section scalenet (end)

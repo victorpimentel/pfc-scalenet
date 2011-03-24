@@ -1,12 +1,8 @@
-\subsubsection{Class Diagrams} % (fold)
-\label{ssub:classdiagramsold}
+\subsubsection{Components} % (fold)
+\label{ssub:componentsold}
 
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=\textwidth]{diagrams/class-pnai-js-old.1}
-  \caption{Class diagram for the old \idas{PNAI}}
-  \label{fig:classdiagramsold}
-\end{figure}
+As explained in \S\ref{sub:demonstrator}, the software is mainly executed in three machines: two servers and a client.
+Figure~\ref{fig:componentdiagramsold} shows all the relevant components running inside those machines and how they interact with each other.
 
 \begin{figure}[htbp]
   \centering
@@ -15,11 +11,230 @@
   \label{fig:componentdiagramsold}
 \end{figure}
 
+That component diagram brings some interesting aspects about the system, although we are only interested in several of them:
+
+\begin{itemize}
+  \item The \idas{SIP} protocol is used for the IMS part, but this is not important for the work done, as both the server and the client were not touched.
+  \item The \idas{SSCON} manages the sessions and acts as the bridge between the actual services and the web interface shown to the user.
+  Actions from the web interface are notified through \idas{UDP} calls.
+  \item In this diagram, though, there are two parts missing that are almost completely irrelevant for this document.
+  These are the application server component that streams the content and the multimedia player installed in the user device.
+  The protocols used between these two components are not interesting for us, so for sake of simplicity, they don't appear here.
+  The only important thing is that the \idas{SIP} client controls the external player, so the web interface does not handle the video streaming.
+  \item There are two MySQL databases in use:
+  \begin{description}
+    \item[\idx{HSS DB}] This is the master database, and it is always up to date.
+    It contains information about the user status, his buddy list and registered devices.
+    \item[\idx{Personal DB}] This is an additional database that depends on the HSS DB.
+    This database gather all the information needed for the \idas{PNAI}, since it contains all the relevant information from the \idx{HSS DB} plus the session information obtained from the \idas{SSCON}.
+    Periodically, the \idas{SSCON} polls information from the master database and then updates this slave database, so the information can be a bit outdated compared to the \idx{HSS DB}.
+    As stated in the diagram, the \idas{OSGi} component grabs the information it needs from this database, by polling it periodically.
+  \end{description}
+  \item Once the page is sent to the browser, the web interface continues talking with the server through a \idas{TCP} socket without reloading the page.
+  This goes both ways, since it is used for sending actions and receiving data following a push model (so no delays polling).
+  Since, at the time of developing the original application, there was no way to get that using only basic web standards, it uses a \idx{Java applet} to handle the socket communications.
+\end{itemize}
+
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\textwidth]{diagrams/sequence-handover-old.1}
   \caption{Sequence diagram for the old \idas{PNAI}}
   \label{fig:handoverscenarioold}
+\end{figure}
+
+Figure~\ref{fig:handoverscenarioold} shows the flow of the application in the scenario where the user wants to transfer a session from his device to one of those buddies.
+Blue lines belong to the main logical flow, while the yellow ones belong to the video streaming process.
+Other usage scenarios are very similar to this one, so they are ignored since this one explains well how and when they communicate.
+
+As we can see, the web interface (written in \idx{JavaScript}) talks back and forth with the \idx{Java applet} using simple method calls, since all the code interface are directly available between them.
+Then the \idx{Java applet} translates those calls to strings with the method names and parameters and sends it to the \ida{OSGi} using the \idas{TCP} connection.
+
+At the right part of the diagram, it is clear that the sessions are controlled using \idas{SIP} messages.
+Given that \idx{ScaleNet} is a very decentralized network by design, the \idas{SSCON} delegates to the \idas{SIP} clients running in the devices all the talking with the \idx{Application Server}.
+
+It is interesting to note that everything is mostly asynchronous, so there is not a lot of calls that block.
+Therefore the use of threads and callbacks is widespread in all components.
+
+% subsubsection componentsold (end)
+
+\subsubsection{Personal DB} % (fold)
+\label{ssub:personaldb}
+
+The database that is directly used by the \idas{PNAI} is the \idx{Personal DB}. The most important table is the \texttt{current\_session} table, where is all the information about the sessions that are currently active.
+Table~\ref{tab:sessiondb} explains all the fields in this table, and Table~\ref{tab:sessiondbexample} details an example entry.
+
+\begin{generictable}[Current session table architecture]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Description}}
+  \label{tab:sessiondb}%
+  \idc{id} & Identifier, auto-increment integer \\ \hline
+  \idc{impi} & Private identity of user \\ \hline
+  \idc{impu} & Public identity of user \\ \hline
+  \idc{callid} & Unique number to identify session details \\ \hline
+  \idc{partner} & Next party of session (AS identity if client to AS or impu of partner if client to client) \\ \hline
+  \idc{as} & \idx{Application Server} identity (client to AS) or NULL (client to client) \\ \hline
+  \idc{ip} & \idas{IP} address for impu \\ \hline
+  \idc{initiator} & impu who sends the INVITE message \\ \hline
+  \idc{owner} & impi who needs to pay for the session. Usually the impi who sends the INVITE message, but it can be the impi who sends the REFER message in case of transfer/duplication \\ \hline
+  \idc{session\_name} & Name of the session \\ \hline
+  \idc{type} & Type of the session (audio/video) \\ \hline
+  \idc{bw} & Bandwidth of the session \\ \hline
+  \idc{source} & \idas{URL} of the source \\ \hline
+  \idc{lov} & Type of video transmission (live/video on demand/tv)\\ \hline
+  \idc{cid/did/tid} & Integers related to \idas{QoS} parameters \\ \hline
+  \idc{session\_flag} &
+  0 if it is a normal session \newline
+  1 if it is a transferred session \newline
+  2 if it is a duplicated session
+  \\ \hline
+\end{generictable}
+
+\begin{generictable}[Current session table example]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Example value}}
+  \label{tab:sessiondbexample}%
+  \idc{id} & 3 \\ \hline
+  \idc{impi} & deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{impu} & mda.deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{callid} & 783457644 \\ \hline
+  \idc{partner} & as@imusu.mobile.dtrd.de or tv.hahn@imusu.mobile.dtrd.de \\ \hline
+  \idc{as} & as@imusu.mobile.dtrd.de \\ \hline
+  \idc{ip} & 19.168.5.92 \\ \hline
+  \idc{initiator} & mda.deni@imusu.mobile.dtrd.de or as@imusu.mobile.dtrd.de \\ \hline
+  \idc{owner} & deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{session\_name} & NASA \\ \hline
+  \idc{type} & video \\ \hline
+  \idc{bw} & 5000 \\ \hline
+  \idc{source} & http://appserver:9000 \\ \hline
+  \idc{lov} & video on demand/\\ \hline
+  \idc{cid/did/tid} & 3/5/12 \\ \hline
+  \idc{session\_flag} & 0 \\ \hline
+\end{generictable}
+
+Other important table is the \texttt{user\_status} table, that lists all the users in the system and some basic information about them.
+Table~\ref{tab:userdb} explains all the fields in this table, and Table~\ref{tab:userdbexample} details an example entry.
+
+\begin{generictable}[User status table architecture]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Description}}
+  \label{tab:userdb}%
+  \idc{id} & Identifier, auto-increment integer \\ \hline
+  \idc{impi} & Private identity of user \\ \hline
+  \idc{impu} & Public identity of user \\ \hline
+  \idc{impi\_id} & Unique id to identify impi \\ \hline
+  \idc{impu\_id} & Unique id to identify impu \\ \hline
+  \idc{status} & Status of impu: 1 (online), 0 (offline) \\ \hline
+\end{generictable}
+
+\begin{generictable}[User status table example]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Example value}}
+  \label{tab:userdbexample}%
+  \idc{id} & 1 \\ \hline
+  \idc{impi} & deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{impu} & laptop.deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{impi\_id} & 67 \\ \hline
+  \idc{impu\_id} & 35 \\ \hline
+  \idc{status} & 1 \\ \hline
+\end{generictable}
+
+Finally, there is a third table that handles the relationships between friends called \texttt{buddy\_list}.
+It is a very simple table modeling a classic many-to-many relationship, but anyway Table~\ref{tab:buddydb} explains all its fields, and Table~\ref{tab:buddydbexample} details an example entry.
+
+\begin{generictable}[Buddy list table architecture]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Description}}
+  \label{tab:buddydb}%
+  \idc{id} & Identifier, auto-increment integer \\ \hline
+  \idc{impi\_id} & Unique id to identify impi (identical to impi\_id of \texttt{user\_status} table) \\ \hline
+  \idc{buddy\_impi\_id} & Unique id to identify the buddy impi \\ \hline
+\end{generictable}
+
+\begin{generictable}[Buddy list table example]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Example value}}
+  \label{tab:buddydbexample}%
+  \idc{id} & 2 \\ \hline
+  \idc{impi\_id} & 56 \\ \hline
+  \idc{buddy\_impi\_id} & 67 \\ \hline
+\end{generictable}
+
+These tables are not changed during the development explained in this document, neither the software that access those tables directly.
+However, it is interesting to know the kind of data they have because indirectly it is the same data we are going to process.
+
+% subsubsection personaldb (end)
+
+\subsubsection{Messages} % (fold)
+\label{ssub:messagesold}
+
+Of all the messages sent inside the system, the most important ones for us are sent though the \idas{TCP} socket.
+These are processed and generated by the web interface and the \idas{OSGi} backend, but they follow a different format depending which component sends the message.
+
+Messages generated by the backend consist of serialized objects following a very simple format.
+There are three kind of data objects that can be sent over the wire: devices, buddies and sessions.
+
+A serialized object is a string that starts with the type of the object (\texttt{device}, \texttt{buddy}, \texttt{session}), followed by the vertical bar character `|' as delimiter.
+Then the attributes for that object are appended one by one, separated by the same delimiter.
+If the values are not strings, they are converted directly, for example a boolean with value \texttt{true} will be passed as the string \texttt{"true"}.
+
+The client does not know when a transfer or duplication happens, it is only notified of creation and deletion of things.
+For example, as seen in the Figure~\ref{fig:handoverscenarioold}, when a transfer happens the interface received two commands, first creating a new session and then deleting the original session.
+
+To notify that a new object needs to be created in the view, the backend just sends the serialized object, without adding anything else.
+To notify that an existing object has to be deleted from the view, the string is the same but preceded by the text \texttt{"deleted|"} (that is, \emph{deleted} and the delimiter).
+
+Table~\ref{tab:notificationsexamples} comprises all the different messages that can be sent from the \idas{OSGi} backend to the \idx{Java applet} with examples.
+
+\begin{generictable}[Format of the notifications sent to the applet]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Notification}{Format \et{} Example}}
+  \label{tab:notificationsexamples}%
+  Create/update device & \texttt{device|\emph{impi}|\emph{impu}|\emph{online}} \newline
+    \texttt{device|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|tv.hahn@imusu.mobile.drtd.de|true} \\ \hline
+  Delete device & \texttt{deleted|device|\emph{impi}|\emph{impu}|%
+    \emph{online}} \newline
+    \texttt{deleted|device|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|tv.hahn@imusu.mobile.drtd.de|false} \\ \hline
+  Create/update buddy & \texttt{buddy|\emph{id}|\emph{name}|\emph{online}}%
+    \newline
+    \texttt{buddy|3|hahn@imusu.mobile.dtrd.de|false} \\ \hline
+  Delete buddy & \texttt{deleted|buddy|\emph{id}|\emph{name}|\emph{online}}%
+    \newline
+    \texttt{deleted|buddy|3|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|false} \\ \hline
+  Create/update session & \texttt{session|\emph{id}|\emph{type}|\emph{name}%
+    |\emph{owner}|\emph{initiator}|\emph{impi}\newline
+    $\hookrightarrow$|\emph{impu}|\emph{icon}}
+    \newline
+    \texttt{session|3|video|NASA\newline
+    $\hookrightarrow$|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|laptop.hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|http://imusu.mobile.dtrd.de/img/icon.png} \\ \hline
+  Delete session & \texttt{deleted|session|\emph{id}|\emph{type}|\emph{name}%
+    |\emph{owner}\newline
+    $\hookrightarrow$|\emph{initiator}|\emph{impi}|\emph{impu}|\emph{icon}}
+    \newline
+    \texttt{deleted|session|3|video|NASA\newline
+    $\hookrightarrow$|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|laptop.hahn@imusu.mobile.dtrd.de\newline
+    $\hookrightarrow$|http://imusu.mobile.dtrd.de/img/icon.png} \\ \hline
+\end{generictable}
+
+% subsubsection messagesold (end)
+
+\subsubsection{Class Diagrams} % (fold)
+\label{ssub:classdiagramsold}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/class-pnai-js-old.1}
+  \caption{Class diagram for the old \idas{PNAI}}
+  \label{fig:classdiagramsold}
 \end{figure}
 
 % subsubsection classdiagramsold (end)
