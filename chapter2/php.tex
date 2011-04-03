@@ -1,20 +1,92 @@
 \section{Server Programming Language: \idx{PHP}} % (fold)
 \label{sec:php}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\ida{PHP}\footnote{\url{http://www.php.net/}} is one of the languages used to build front-end web applications in \idx{ScaleNet}, and it is one of the most popular languages for building web applications in general.
+Not only most of the portal is written in this language but, eventually, the \ida{PNAI} interface will be ported from an \ida{OSGi} bundle to a \ida{PHP} script.
+
+\subsection{History} % (fold)
+\label{sub:phphistory}
+
+Originally, \ida{PHP} was created in 1995 by \emph{Rasmus Lerdorf} as a set of \ida{CGI} scripts written in \idx{C} that parsed \ida{HTML} files.
+The goal was being able to call specific \idx{C} routines and show its output when a page was visited, by directly embedding the code in the \ida{HTML} source.
+In the next years this open source project became a full-fledged parser, creating a new generic language.
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+    \includegraphics[width=0.48\textwidth]{logo-php}
+  \caption{\idx{PHP} logo}
+  \label{fig:logo-php}
+\end{wrapfigure}
+
+In 1997 \emph{Zeed Suraski} and \emph{Andi Gutmans} rewrote that parser to include more functionality and released it as \ida{PHP} 3.
+Then, specially after \ida{PHP} 4, the language started to be widely used.
+\ida{PHP} has gained a lot of popularity for web development projects and it is used in big websites like Yahoo, Facebook and Wikipedia.
+
+In 2004 \ida{PHP} 5 was released, adding \ida{OOP} capabilities to the language.
+However, it is compatible with \ida{PHP} 4 scripts, so it is optional to work in an Object-Oriented way.
+This is the most recent version and it is the one installed in the \idx{IMS} demonstrator.
+
+% subsection phphistory (end)
 
 \subsection{Quick Overview of the Language} % (fold)
 \label{sub:overviewphp}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+A \ida{PHP} file is basically a \ida{HTML} file with the \texttt{.php} extension that it is usually stored in the public folder of the server (\idx{Apache}, \ida{IIS} or other supported server).
+When that page is requested, the server calls the \ida{PHP} module, that parses that file and returns a normal \ida{HTML} page.
+
+The interesting things happen within its delimiters
+(usually <?php and ?>), where the \ida{PHP} code is written.
+Outside of these delimiters the text is treated as a normal \ida{HTML} soup and therefore not processed.
+Listing~\ref{phpexample} shows an example of \ida{PHP} code embedded within \ida{HTML} code and Listing~\ref{phpexampleafter} shows the resulting \ida{HTML} output.
+
+\begin{lstlisting}[float=htbp,label=phpexample,language=php,alsolanguage=html,caption=\idx{PHP} code embedded within \idx{HTML} code]
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>PHP Test</title>
+    </head>
+    <body>
+    <?php
+    for ($i = 0; $i < 5; $i++) {
+      echo "<p>Hello World " . $i . "</p>\n";
+    }
+    ?>
+    </body>
+  </html>
+\end{lstlisting}
+
+\begin{lstlisting}[float=htbp,label=phpexampleafter,language=html,caption=Resulting \idx{HTML} code]
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>PHP Test</title>
+    </head>
+    <body>
+    <p>Hello World 0</p>
+    <p>Hello World 1</p>
+    <p>Hello World 2</p>
+    <p>Hello World 3</p>
+    <p>Hello World 4</p>
+    </body>
+  </html>
+\end{lstlisting}
+
+Its syntax is very similar to \idx{C}, with equivalent constructions (if conditions, for and while loop, functions, etc).
+Some notable exceptions are that variables must start with a dollar sign character (\texttt{\$}), and that a dot is used for concatenating strings instead of the most traditional plus sign.
+
+Variables are dynamically typed, so the programmer does not need to specify types. A variable's type is determined by the context in which that variable is used, so any variable can hold different types during an execution.
+
+One of the strengths of \ida{PHP} is the wide range of utility functions bundled in the processor and in additional extensions usually included in distributions.
+Although objects are supported in \ida{PHP} 5, it is not discussed here because the scripts in \idx{ScaleNet} do not use them.
+
+Global variables like \idc{\$\_GET}, \idc{\$\_POST} or \idc{\$\_SERVER} offer access to information sent from the browser, so it is commonly used to pass parameters to a \ida{PHP} script (through the \ida{URL} or forms in the page).
+On the other hand \idc{\$\_SESSION} and \idc{\$\_COOKIE} allow to store some data through the same \emph{visit}, even across different scripts.
+
+Since the main goal of the language is generating \ida{HTML} content, the most common functions are ones that \emph{print} text in the output, like \idc{echo}.
+Because \idx{MySQL} is quite popular in web development, there is an extension with functions to interact with those databases.
+
+Other commons functions are \idc{include} (to, ehem, include other \ida{PHP} source files), \idc{isset} (to know is a variable is set), \idc{die} (to terminate the execution of the script at any moment), \idc{header} (to set \idc{HTTP} headers) and diverse string/array manipulation functions.
 
 % subsection overviewphp (end)
-
-\subsection{Where it is Used?} % (fold)
-\label{sec:usedphp}
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-% subsection usedphp (end)
 
 % section php (end)
