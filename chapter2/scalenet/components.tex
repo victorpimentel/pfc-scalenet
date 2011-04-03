@@ -1,0 +1,58 @@
+\subsubsection{Components} % (fold)
+\label{ssub:componentsold}
+
+As explained in \S\ref{sub:demonstrator}, the software is mainly executed in three machines: two servers and a client.
+Figure~\ref{fig:componentdiagramsold} shows all the relevant components running inside those machines and how they interact with each other.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/component-pnai-old.1}
+  \caption{Component diagram for the old \idx{PNAI}}
+  \label{fig:componentdiagramsold}
+\end{figure}
+
+That component diagram brings some interesting aspects about the system, although we are only interested in several of them:
+
+\begin{itemize}
+  \item The \ida{SIP} protocol is used for the IMS part, but this is not important for the work done, as both the server and the client were not touched.
+  \item The \ida{SSCON} manages the sessions and acts as the bridge between the actual services and the web interface shown to the user.
+  Actions from the web interface are notified through \ida{UDP} calls.
+  \item In this diagram, though, there are two parts missing that are almost completely irrelevant for this document.
+  These are the application server component that streams the content and the multimedia player installed in the user device.
+  The protocols used between these two components are not interesting for us, so for sake of simplicity, they don't appear here.
+  The only important thing is that the \ida{SIP} client controls the external player, so the web interface does not handle the video streaming.
+  \item There are two MySQL databases in use:
+  \begin{description}
+    \item[\idx{HSS DB}] This is the master database, and it is always up to date.
+    It contains information about the user status, his buddy list and registered devices.
+    \item[\idx{Personal DB}] This is an additional database that depends on the HSS DB.
+    This database gather all the information needed for the \ida{PNAI}, since it contains all the relevant information from the \idx{HSS DB} plus the session information obtained from the \ida{SSCON}.
+    Periodically, the \ida{SSCON} polls information from the master database and then updates this slave database, so the information can be a bit outdated compared to the \idx{HSS DB}.
+    As stated in the diagram, the \ida{OSGi} component grabs the information it needs from this database, by polling it periodically.
+  \end{description}
+  \item Once the page is sent to the browser, the web interface continues talking with the server through a \ida{TCP} socket without reloading the page.
+  This goes both ways, since it is used for sending actions and receiving data following a push model (so no delays polling).
+  Since, at the time of developing the original application, there was no way to get that using only basic web standards, it uses a \idx{Java applet} to handle the socket communications.
+\end{itemize}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/sequence-handover-old.1}
+  \caption{Sequence diagram for the old \idx{PNAI}}
+  \label{fig:sequence-handover-old}
+\end{figure}
+
+Figure~\ref{fig:sequence-handover-old} shows the flow of the application in the scenario where the user wants to transfer a session from his device to one of those buddies.
+Blue lines belong to the main logical flow, while the yellow ones belong to the video streaming process.
+Other usage scenarios are very similar to this one, so they are ignored since this one explains well how and when they communicate.
+
+As we can see, the web interface (written in \idx{JavaScript}) talks back and forth with the \idx{Java applet} using simple method calls, since all the code interface are directly available between them.
+Then the \idx{Java applet} translates those calls to strings with the method names and parameters and sends it to the \ida{OSGi} using the \ida{TCP} connection.
+
+At the right part of the diagram, it is clear that the sessions are controlled using \ida{SIP} messages.
+Given that \idx{ScaleNet} is a very decentralized network by design, the \ida{SSCON} delegates to the \ida{SIP} clients running in the devices all the talking with the \idx{Application Server}.
+
+It is interesting to note that everything is mostly asynchronous, so there is not a lot of calls that block.
+Therefore the use of threads and callbacks is widespread in all components.
+
+% subsubsection componentsold (end)

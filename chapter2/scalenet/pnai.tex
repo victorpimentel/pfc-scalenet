@@ -1,0 +1,77 @@
+\subsection{Personal Network Administration Interface (\idx{PNAI})} % (fold)
+\label{sub:pnai}
+
+The Web interface used for the management of sessions is called \ida{PNAI}~\cite{SIV08A}. From this interface the user can obtain this information:
+
+\begin{itemize}
+  \item All devices and registered in the system for that user and their online status.
+  \item All buddies for that user and their online status.
+  \item All multimedia sessions related to the user. This includes:
+  \begin{itemize}
+    \item The sessions running on his devices, no matter who paid for that content.
+    \item The sessions running on devices from his buddies and started/paid by that user.
+  \end{itemize}
+\end{itemize}
+
+Those are passive actions, but from that same view the user can initiate some operations to control the system.
+In Figure~\ref{fig:usecasesiptv} all the available operations relating sessions are listed following a use case diagram.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/usecases-pnai-old.1}
+  \caption{Use cases for the IPTV application}
+  \label{fig:usecasesiptv}
+\end{figure}
+
+In that diagram colors are used to differentiate the different kind of use cases covered. Also two visual marks (* and **) are added in case this is a copy in black a white. The meaning of the colors are explained according to this legend:
+
+\begin{description}
+  \item[Green] Available already in the main \ida{PNAI} page.
+  \item[Purple (\emph{marked with *})] Available in an individual page outside of the main \ida{PNAI} page.
+  \item[Red (\emph{marked with **})] Not implemented.
+\end{description}
+
+As we can see, the main \ida{PNAI} page has already a lot of functionality, but it can contain even more. Basically the actions available to that user in that page are:
+
+\begin{itemize}
+  \item Terminate a session of a user device or of a buddy if the session is owned by that user.
+  \item Transfer (handover) or copy (duplication) an existing session to a user device or to a buddy if the session is owned by that user. That is, if one buddy bought the content for us, we cannot transfer again that content to another buddy.
+\end{itemize}
+
+Beside of these session related operations, there are other management operations.
+For example, selecting which device is the default, adding/removing devices or adding/removing buddies.
+For this document they are not relevant since they remained untouched.
+
+Figure~\ref{fig:pnai-old} shows the old appearance of the main page for a logged user, before any work began.
+On the left side of the page there is the \idx{Device List}, where the devices owned by that user are drawn.
+On the right side there is the \idx{Buddy List}, where the user's buddies are listed.
+Finally, the trash bin is in the lower right corner of the \idx{Device List}. 
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{pnai-old}
+  \caption{Old \idx{PNAI} page}
+  \label{fig:pnai-old}
+\end{figure}
+
+The devices that are offline are disabled and are drawn with a dimmed appearance.
+The buddies that are online are preceded by a green icon, while the ones that are offline are preceded by a red icon.
+
+Devices or buddies that are online act as session containers.
+The reason for the devices to be so big is because inside them the current sessions are drawn.
+Besides the name of the content playing, session have an icon that changes depending on the type of session (video, audio, call, etc).
+
+The user can interact with the sessions through the mouse using drag\et{}drop.
+For example, the user can \emph{grab} the icon he wants and drop it in another container to copy or transfer that session.
+That is a very visual and fast way to manage sessions.
+
+When a user drops the session in another container, a menu will appear to ask the user if he wants to copy or transfer that session.
+The trash bin acts also as a container, but in a special way: when a session is dropped in the trash bin, that session is automatically deleted, with no menu involved.
+
+\input{chapter2/scalenet/usecases}
+\input{chapter2/scalenet/components}
+\input{chapter2/scalenet/db}
+\input{chapter2/scalenet/messages}
+\input{chapter2/scalenet/applet}
+\input{chapter2/scalenet/js}
+% subsection pnai (end)

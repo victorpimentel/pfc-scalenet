@@ -1,0 +1,32 @@
+\subsubsection{Java Applet Codebase} % (fold)
+\label{ssub:appletcodeold}
+
+The same codebase (classes, resources, etc.) is shared between the \ida{OSGi} backend and the \idx{Java applet}, taking advantage of the fact that they are written in the same language.
+Though this does not mean that the final executables are the same, since two bundles are generated, one for each purpose.
+More details about how \ida{OSGi} and \idx{Java applet}s work in general are discussed on \S\ref{sec:java}.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/class-pnai-java-old.1}
+  \caption{Class diagram for the \idx{Java applet}}
+  \label{fig:class-pnai-java-old}
+\end{figure}
+
+Figure~\ref{fig:class-pnai-java-old} shows all the packages involved in the \idx{Java applet}.
+All classes exclusively related to the \ida{OSGi} backend are ignored, since they are not important for this work.
+
+This diagram contains two packages: \idc{Applet} and \idc{Model}.
+The first one encloses all the logic needed to contact the socket in the backend (\idc{BackendLink}), and the \idx{Java applet} itself with the interface available to the \idx{JavaScript} codebase (\idc{ScalenetApplet}).
+
+From those classes it is easy to identify the three external parameters needed by the \idx{Java applet}: the user identifier (\ida{SIP} format, email-like), and hostname and port used by the backend (where the socket is reached).
+
+The \idc{Model} package, shared with the backend codebase, comprises all the data model objects.
+This includes utilities to create objects from strings, following the formats explained in Tables~\ref{tab:notificationsexamples} and \ref{tab:requestsexamples}.
+The attributes for each class object are the same used in those tables.
+
+To create a \idc{Buddy}, \idc{Device} or \idc{Session}, a factory pattern is used, calling the static method \idc{fromString}\footnote{For technical reasons the method \idc{fromString} could not be underlined in the diagram, as the \idas{UML} specification recommends for static methods/attributes.
+To bring attention to this important quirk, the method's name is surrounded by underscores.} of the class we want to create an object from.
+For some reason, to create a \idc{Request} first the object is created and then the string is parsed to fill all the attributes.
+In any case a string is the preferred way to specify the attributes of an object.
+
+% subsubsection appletcodeold (end)

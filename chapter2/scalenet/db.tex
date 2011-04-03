@@ -1,0 +1,106 @@
+\subsubsection{Personal DB} % (fold)
+\label{ssub:personaldb}
+
+The database that is directly used by the \ida{PNAI} is the \idx{Personal DB}. The most important table is the \texttt{current\_session} table, where is all the information about the sessions that are currently active.
+Table~\ref{tab:sessiondb} explains all the fields in this table, and Table~\ref{tab:sessiondbexample} details an example entry.
+
+\begin{generictable}[Current session table architecture]{2}
+  {|p{0.21\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Description}}
+  \label{tab:sessiondb}%
+  \idc{id} & Identifier, auto-increment integer \\ \hline
+  \idc{impi} & Private identity of user \\ \hline
+  \idc{impu} & Public identity of user \\ \hline
+  \idc{callid} & Unique number to identify session details \\ \hline
+  \idc{partner} & Next party of session (AS identity if client to AS or impu of partner if client to client) \\ \hline
+  \idc{as} & \idx{Application Server} identity (client to AS) or NULL (client to client) \\ \hline
+  \idc{ip} & \ida{IP} address for impu \\ \hline
+  \idc{initiator} & impu who sends the INVITE message \\ \hline
+  \idc{owner} & impi who needs to pay for the session. Usually the impi who sends the INVITE message, but it can be the impi who sends the REFER message in case of transfer/duplication \\ \hline
+  \idc{session\_name} & Name of the session \\ \hline
+  \idc{type} & Type of the session (audio/video) \\ \hline
+  \idc{bw} & Bandwidth of the session \\ \hline
+  \idc{source} & \ida{URL} of the source \\ \hline
+  \idc{lov} & Type of video transmission (live/video on demand/tv)\\ \hline
+  \idc{cid/did/tid} & Integers related to \ida{QoS} parameters \\ \hline
+  \idc{session\_flag} &
+  0 if it is a normal session \newline
+  1 if it is a transferred session \newline
+  2 if it is a duplicated session
+  \\ \hline
+\end{generictable}
+
+\begin{generictable}[Current session table example]{2}
+  {|p{0.21\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Example value}}
+  \label{tab:sessiondbexample}%
+  \idc{id} & 3 \\ \hline
+  \idc{impi} & deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{impu} & mda.deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{callid} & 783457644 \\ \hline
+  \idc{partner} & as@imusu.mobile.dtrd.de or tv.hahn@imusu.mobile.dtrd.de \\ \hline
+  \idc{as} & as@imusu.mobile.dtrd.de \\ \hline
+  \idc{ip} & 19.168.5.92 \\ \hline
+  \idc{initiator} & mda.deni@imusu.mobile.dtrd.de or as@imusu.mobile.dtrd.de \\ \hline
+  \idc{owner} & deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{session\_name} & NASA \\ \hline
+  \idc{type} & video \\ \hline
+  \idc{bw} & 5000 \\ \hline
+  \idc{source} & http://appserver:9000 \\ \hline
+  \idc{lov} & video on demand\\ \hline
+  \idc{cid/did/tid} & 3/5/12 \\ \hline
+  \idc{session\_flag} & 0 \\ \hline
+\end{generictable}
+
+Other important table is the \texttt{user\_status} table, that lists all the users in the system and some basic information about them.
+Table~\ref{tab:userdb} explains all the fields in this table, and Table~\ref{tab:userdbexample} details an example entry.
+
+\begin{generictable}[User status table architecture]{2}
+  {|p{0.21\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Description}}
+  \label{tab:userdb}%
+  \idc{id} & Identifier, auto-increment integer \\ \hline
+  \idc{impi} & Private identity of user \\ \hline
+  \idc{impu} & Public identity of user \\ \hline
+  \idc{impi\_id} & Unique id to identify impi \\ \hline
+  \idc{impu\_id} & Unique id to identify impu \\ \hline
+  \idc{status} & Status of impu: 1 (online), 0 (offline) \\ \hline
+\end{generictable}
+
+\begin{generictable}[User status table example]{2}
+  {|p{0.21\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Example value}}
+  \label{tab:userdbexample}%
+  \idc{id} & 1 \\ \hline
+  \idc{impi} & deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{impu} & laptop.deni@imusu.mobile.dtrd.de \\ \hline
+  \idc{impi\_id} & 67 \\ \hline
+  \idc{impu\_id} & 35 \\ \hline
+  \idc{status} & 1 \\ \hline
+\end{generictable}
+
+Finally, there is a third table that handles the relationships between friends called \texttt{web\_buddylist}.
+It is a very simple table modeling a classic many-to-many relationship, but anyway Table~\ref{tab:buddydb} explains all its fields, and Table~\ref{tab:buddydbexample} details an example entry.
+
+\begin{generictable}[Buddy list table architecture]{2}
+  {|p{0.2\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Description}}
+  \label{tab:buddydb}%
+  \idc{id} & Identifier, auto-increment integer \\ \hline
+  \idc{impi\_id} & Unique id to identify impi (identical to impi\_id of \texttt{user\_status} table) \\ \hline
+  \idc{buddy\_impi\_id} & Unique id to identify the buddy impi \\ \hline
+\end{generictable}
+
+\begin{generictable}[Buddy list table example]{2}
+  {|p{0.21\textwidth}|p{0.69\textwidth}|}
+  {\generictitletwo{Field name}{Example value}}
+  \label{tab:buddydbexample}%
+  \idc{id} & 2 \\ \hline
+  \idc{impi\_id} & 56 \\ \hline
+  \idc{buddy\_impi\_id} & 67 \\ \hline
+\end{generictable}
+
+These tables are not changed during the development explained in this document, neither the software that access those tables directly.
+However, it is interesting to know the kind of data they have because indirectly it is the same data we are going to process.
+
+% subsubsection personaldb (end)

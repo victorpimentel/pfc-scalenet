@@ -1,0 +1,151 @@
+\subsubsection{JavaScript Codebase} % (fold)
+\label{ssub:jscodeold}
+
+Finally, we get to the old \idx{JavaScript} codebase, the main place where the effort of this work was focused.
+The code resides in the resources folder of the \ida{OSGi} bundle, where all the static public code is thrown: \idas{HTML}, \idas{CSS}, \idx{JavaScript}, images, etc.
+When requested by a browser, these files are served by the \ida{OSGi}-based server, not \idx{Apache}.
+
+\idx{JavaScript} classes are organized in several source files, each file acting as if they were traditional packages.
+As discussed on \S~\ref{sec:javascript}, \emph{class} is not the right term to refer to a \idx{JavaScript} object, but it will be used through this document for simplicity's sake.
+
+Additionally, in the old codebase the use of global variables is wildly used, and they are quite important to understand how the application works.
+Since the \ida{UML} language is designed for \ida{OOP}, there is no easy solution to specify those variables in the same diagram.
+However, a workaround is to directly copy how the \ida{DOM} works and put all those variables under the global \idc{window} object.
+
+Figure~\ref{fig:class-pnai-js-old} shows a diagram with all the classes involved and the relationships between them.
+Figure~\ref{fig:class-pnai-global-old} completes the picture adding the global object and the relationships between it and the custom classes.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/class-pnai-js-old.1}
+  \caption{Class diagram for the old \idx{PNAI}}
+  \label{fig:class-pnai-js-old}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{diagrams/class-pnai-global-old.1}
+  \caption{The global \idx{JavaScript} object in the old \idx{PNAI}}
+  \label{fig:class-pnai-global-old}
+\end{figure}
+
+The whole code revolves around two abstract classes: \idc{Container} and \idc{Session}.
+Technically, they are not \emph{abstract} because the \idx{JavaScript} language does not offer this construction.
+In reality, there are no objects created directly from these classes, but are created from subclasses that extend these classes.
+
+A \idc{Container} is anything that can contain a session, or more specifically, any element where the user can drop a session.
+All containers are stored in a \idc{Hash} (\idc{containerList}), where the key is the name of that container.
+Each container have several slots where the sessions can go, this means that the container can hold up to that number of sessions at the same time.
+The class provides methods to attach or detach session to those slots.
+
+The \ida{DOM} representation for a container is \idc{div} block.
+A background image with the real appearance of the container is drawn inside of this \idc{div} in a \idc{img} element.
+Each session the container \emph{owns} is drawn inside of this image, so the \idc{div}s for those sessions are children of the container's \idc{div}.
+
+Each slot stores the coordinates where the session can be drawn, so they need to be calculated when the container's \idc{div} is created.
+They also keep track of the session they belong to and the \ida{DOM} representation of that session (is the slot is not empty).
+
+Every container can be enabled (online) or disabled (offline) at any time.
+If it is disabled, it cannot have any session, and the background image changes to a more grayish image to reflect this new state to the user.
+
+There are three types of containers: devices, buddies and the trash.
+Since the number of devices is fixed in this interface for simplicity's sake, it is assumed that the user have a \ida{TV}, a \ida{NB} and a \ida{PDA}.
+
+Each one is linked to a realistic image icon used by the interface.
+The \ida{TV} and the \ida{NB} have four slots and the \ida{PDA} has only two slots, but there is no such constrain in the backend so this is only a cosmetic issue.
+
+The trash is also considered a container, because it can \emph{receive} sessions.
+To delete a session there is not button, the user has to explicitly drag the session and drop it in the trash.
+Therefore, instead of storing them, the trash removes them from the interface.
+
+A buddy is a special container, in that there can be more than one.
+In the interface there is an icon for that buddy, but it behaves different from the devices.
+That icon does not \emph{contain} the sessions, they are displayed at the right side of the buddy's name.
+Each buddy can hold up to two sessions at the same time.
+For the rest, it is pretty much the same as a generic container.
+
+All the buddies are stored in a \idc{BuddyList} (\idc{buddyList}), apart from the rest of the containers.
+The \idx{DOM} representation for this object is the sidebar with the buddies, another \idc{div} block.
+
+A \idc{Session} in this page is simply a current session in the system.
+Its \idx{DOM} representation it is also a \idc{div} with an image (a generic icon, not a thumbnail) and the name of the content playing.
+All sessions are stored in a \idc{Hash} (\idc{sessionList}).
+There are two kind of sessions: \idc{VideoSession} and \idc{AudioSession}, and they are mostly the same except for having different icons.
+
+The \idc{moveto} method is the one in charge, not only of moving the session to a new container, but also of creating the visual representation for that session.
+Unlike the containers, where the \idc{init} method creates the \idc{div}, sessions are not showed in the screen until the parent is explicitly set with this \idc{moveto} method.
+
+Besides this custom code, there is one external dependency for handling drag\et{}drop in a convenient way.
+The library is \idc{wz\_dragdrop}\footnote{Original site seems broken, but a copy is available on:\\ \url{http://gualtierozorni.altervista.org/dragdrop/dragdrop_e.htm}}, written by German author \emph{Walter Zorn}.
+It comes from the early days of \idx{JavaScript}, trying to provide a cross-browser solution for this problem.
+This library has been discontinued, but at the same time a lot of modern alternatives offer a better, simpler and cleaner approach.
+
+To work with this library we have to explicitly set the items we want to be able to drag, in this case the sessions.
+Then, function callbacks are available for several events, and we can redefine those functions to decide what to do next.
+
+The \idc{my\_DropFunc} function is the one called by this library when the user drops the session into something (or, simply, stops dragging the session).
+This is the only one that needed to be redefined, and basically it does this:
+
+\begin{itemize}
+  \item Get the id from the object that user has dropped.
+  \item Get the session with that id (\idc{draggedSession}).
+  \item Get the container where the session was before (\idc{sourceContainer}).
+  \item Calculate the container where the session has been dropped using its coordinates and the function \idc{getContainer} (\idc{targetContainer}).
+  \item If the target container is the trash, pass the action to the \idc{Java applet} using the \idc{notifyApplet} function.
+  \item If there is a valid target container, show a popup menu giving the user the option to transfer the session, copy it or cancel the action.
+  \item If there is a problem with the target or no target is chosen, cancel the action and move the session icon back to the original container.
+\end{itemize}
+
+Later, when the user selects an option, three scenarios can happen:
+
+\begin{description}
+  \item[Transfer session] The \idc{performHandover} function is called.
+  In this function, the popup is closed and the \idx{Java applet} is notified using the \idc{notifyApplet} function.
+  Until the backend answer, a panel with information (a \idc{div}) is shown using the \idc{showInfo} function, and the information about the action is stored in a \idc{PendingAction} object (\idc{pendingAction}).
+  \item[Copy session] The \idc{performDuplication} function is called.
+  This does the same as the previous case, but using another method name.
+  \item[Cancel action] The \idc{cancelAction} function is called.
+  Here, simply the popup menu is closed and the session icon is moved back to its original container.
+\end{description}
+
+After a while, the server will receive the request, process it and answer back to the \idx{Java applet}.
+Then the \idx{Java applet} will trigger the callbacks accordingly to the action, to create/update/delete a session.
+These callbacks (\idc{resultOK} and \idc{resultNotOK}) simply update the \ida{DOM} according to the new information and the pending action, attaching/detaching the session to/from the correct containers and hiding the info panel.
+
+Additionally the \idc{newSession} function should be called when the user wants to duplicate a session.
+From the point of view of the web interface, a duplicated session is completely unrelated to the original one, since the id is different.
+So a full new session with new data and icon should be created.
+
+There are other callbacks that the \idx{Java applet} may called at any time (and a lot at the load of the application): \idc{newSession}, \idc{deleteSession}, \idc{updateDevice}, \idc{deleteDevice}, \idc{updateBuddy} and \idc{deleteBuddy}.
+Their names are very straightforward, and all of them update the stored data with the new information, changing the \ida{DOM} accordingly.
+Since the devices in the screen are prefixed, the \idc{createDevice} and \idc{deleteDevice} functions act differently, only changing the online status of the device but never creating or deleting existing devices.
+
+Finally, there is also some \idx{JavaScript} code to setup the page, analogous to the \emph{main} function in other languages like C or Java.
+Listing~\ref{mainjs} shows this setup code.
+
+\begin{lstlisting}[float=htbp,label=mainjs,language=javascript,caption=Setup code] % javascript
+var myIMPI = 'hahn@imusu.mobile.dtrd.de';
+
+var tv = new TV(40, 20, 380, 240);
+tv.disable();
+var laptop = new NB(40, 350, 380, 240);
+laptop.disable();
+var mda = new PDA(470, 20, 200, 300);
+mda.disable();
+
+var trash = new Trash(520, 430, 100, 150);
+trash.enable();
+
+buddyList.show(620, 20, 400, 600);
+\end{lstlisting}
+
+In this code, first of all the id of the user is set. This is a piece of code written dynamically on the fly by the Java server, and it is obviously different for every user.
+Then the devices are created.
+As stated before, it does not matter the real devices really owns the user, for this demonstrator it is assumed that the user has three devices.
+By default the devices are disabled, because we do not know at the moment if they are online or not.
+
+Then the trash and the buddy list (sidebar) are created.
+For each of the previous elements, their coordinates and dimensions have been specified statically.
+Those values were found by trial and error and hardcoded in the page.
+
+% subsubsection jscodeold (end)

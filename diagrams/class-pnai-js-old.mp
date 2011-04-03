@@ -15,17 +15,12 @@ beginfig(1);
   iAbstractClass.iAttributeStack.spacing := 12;
   iAbstractClass.iMethodStack.spacing := 12;
 
-  Class.ContainerList("ContainerList")()
-    ("+setItem(name: String, container: Container): void",
-    "+getItem(name: String): Container",
-    "+removeItem(name: String): void");
-
   AbstractClass.Container("Container")
     ("+name: String", "+x: int", "+y: int",
     "+width: int", "+height: int", "#enabled: bool",
     "#imageSrcEnabled: String", "#imageSrcDisabled: String",
     "#div: Element", "#slots: Slot[0..*]")
-    ("#Container(name:String,x:int,y:int,w:int,h:int):void",
+    ("#Container(name:String,x:int,y:int,w:int,h:int)",
     "#initSlots(xOff: int, yOff: int): void",
     "+enable(): void",
     "+disable(): void",
@@ -33,41 +28,37 @@ beginfig(1);
     "+detachSession(session: Session): void");
 
   Class.Slot("Slot")
-    ("+x: int", "+y: int", "+session: String", "+item: String")();
-
-  Class.SessionList("SessionList")()
-    ("+setItem(id: String, session: Session): void",
-    "+getItem(id: String): Session",
-    "+removeItem(id: String): void");
+    ("+x: int", "+y: int", "+session: String", "+item: String")
+	("+Slot(x: int, y: int)");
 
   AbstractClass.Session("Session")
     ("+id: String", "+name: String", "+type: String", "+impi: String",
     "+impu: String", "+initiator: String", "+owner: String",
     "+isOwn: bool", "+x: int", "+y: int", "+width: int", "+height: int",
     "+imageSrc: String", "+div: Element", "+parent: String")
-    ("#Session(type:String,name:String,id:String):void",
+    ("#Session(type:String,name:String,id:String)",
     "+moveto(parent: String, x: int, y: int): void",
     "+remove(): void");
 
   Class.TV("TV")
     ("+name = 'tv'", "-slots: Slot[4]")
-    ("+TV(x: int, y: int, w: int, h: int): void");
+    ("+TV(x: int, y: int, w: int, h: int)");
 
   Class.PDA("PDA")
     ("+name = 'mda'", "-slots: Slot[2]")
-    ("+TV(x: int, y: int, w: int, h: int): void");
+    ("+PDA(x: int, y: int, w: int, h: int)");
 
   Class.NB("NB")
     ("+name = 'laptop'", "-slots: Slot[4]")
-    ("+TV(x: int, y: int, w: int, h: int): void");
+    ("+NB(x: int, y: int, w: int, h: int)");
 
   Class.Trash("Trash")
     ("+name = 'trash'", "-slots: Slot[0]")
-    ("+TV(x: int, y: int, w: int, h: int): void");
+    ("+Trash(x: int, y: int, w: int, h: int)");
 
   Class.Buddy("Buddy")
     ("+id: int", "+sid: int", "-slots: Slot[2]")
-    ("+Buddy(id: int, sid: int): void",
+    ("+Buddy(id: int, sid: int)",
     "-moveto(x: int, y: int): void",
     "+setOnline(): void",
     "+setOffline(): void",
@@ -83,29 +74,35 @@ beginfig(1);
 
   Class.VideoSession("VideoSession")
     ("+type = 'video'")
-    ("+VideoSession(id:String,name:String,own:bool):void");
+    ("+VideoSession(id:String,name:String,own:bool)");
 
   Class.AudioSession("AudioSession")
     ("+type = 'audio'")
-    ("+AudioSession(id:String,name:String,own:bool):void");
+    ("+AudioSession(id:String,name:String,own:bool)");
 
-  topToBottom(1cm)(ContainerList, Container, Slot);
-  topToBottom(1cm)(SessionList, Session);
-  topToBottom(1cm)(TV, PDA, NB, Trash, Buddy, BuddyList, VideoSession,
-  AudioSession);
-  leftToRight(2cm)(ContainerList, TV);
-  SessionList.n = ContainerList.n + (0, -16cm);
+  Class.Hash("Hash")
+    ("+length: int", "-items: Array")
+  	("+setItem(key: String, value: Object): void",
+  	"+getItem(key: String): Object",
+  	"+removeItem(key: String): void",
+  	"+hasItem(key: String): bool");
 
-  drawObjects(ContainerList, Container, Slot, SessionList, Session);
-  drawObjects(TV, PDA, NB, Trash, Buddy, BuddyList,
-  VideoSession, AudioSession);
+  Class.PendingAction("PendingAction")
+	("+method: String", "+sid: String", "+target: String")
+  	("+PendingAction(method: String, sid: String, target: String)");
 
-  clink(aggregation)(Container, ContainerList);
+  topToBottom(.65cm)(PendingAction, Container, Slot, Session,
+	VideoSession, AudioSession);
+  topToBottom(1cm)(Trash, TV, PDA, NB, Buddy, BuddyList, Hash);
+  leftToRight.top(2cm)(PendingAction, Trash);
+
+  drawObjects(Container, Slot, Session, VideoSession, AudioSession,
+	PendingAction);
+  drawObjects(TV, PDA, NB, Trash, Buddy, BuddyList, Hash);
+
   clink(aggregation)(Buddy, BuddyList);
-  clink(aggregation)(Session, SessionList);
-
   clink(aggregation)(Slot, Container);
-  clink(aggregation)(Slot, BuddyList);
+  link(aggregation)(pathStepX(Slot.e, BuddyList.nw + (0, -25), 90));
 
   clink(inheritance)(TV, Container);
   clink(inheritance)(PDA, Container);
@@ -114,12 +111,13 @@ beginfig(1);
   clink(inheritance)(Buddy, Container);
 
   clink(inheritance)(VideoSession, Session);
-  clink(inheritance)(AudioSession, Session);
+  link(inheritance)(pathStepX(AudioSession.w, Session.w, -20));
 
-  pair SlotSessionEndDependencyPoint;
-  SlotSessionEndDependencyPoint := Session.nw + (.35cm, 0);
-  link(dependency)(pathManhattanX(Slot.w, SlotSessionEndDependencyPoint));
-  link(dependency)(pathManhattanY(Container.sw, Session.nw));
+  link(dependency)
+	(.5[Container.sw + (32, 0),Session.nw + (30, 0)] -- Session.nw + (30, 0));
+  link(dependency)
+	(.5[Container.sw + (32, 0),Session.nw + (30, 0)] -- Container.sw + (32, 0));
+  clink(dependency)(BuddyList, Hash);
 
 endfig;
 

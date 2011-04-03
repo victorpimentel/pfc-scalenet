@@ -115,14 +115,14 @@ The actual values for the offset needed for every particular element is then eas
 \subsection{Storage Positioning} % (fold)
 \label{sub:storage}
 
-Next time an user visits this page, the system will remember the last position of those elements instead of calculating the grid again.
+Next time a user visits this page, the system will remember the last position of those elements instead of calculating the grid again.
 Because the user can change the size of the window at any time, we cannot relay on fixed positioning with pixels, because our canvas could be bigger or, worse, smaller than the one we have calculated.
 Besides being not very elegant, we can find several situations where the page is unusable.
 
 The best way to avoid all that trouble is treating every position or size in terms of percentages.
 This is how is done in the code, and it allows the user to resize the window at any time: the devices will be resized dinamically according to that window size.
 
-To store and retrieve painlessly these values, we are going to take advantage of an useful \idx{MooTools} class: \idc{Hash.Cookie} \cite{MooHashCookie}.
+To store and retrieve painlessly these values, we are going to take advantage of a useful \idx{MooTools} class: \idc{Hash.Cookie} \cite{MooHashCookie}.
 With this utility, we only have to specify the name for the \idc{Cookie} and we can store a \idc{Hash} into a \idc{Cookie} without worrying about the \idc{Cookie} itself.
 Besides loading the data of the \idc{Cookie} directly on the \idc{Hash} at its creation, if we change a value of the \idc{Hash} it will be automatically updated in the \idc{Cookie}.
 
@@ -136,11 +136,10 @@ have the name of the container.
 Each \idc{Hash} that is stored in every \idc{Cookie} is composed by the four
 values needed for positioning the element: \idc{offsetX}, \idc{offsetY},
 \idc{width} and \idc{height}.
-These values are percentages respect the container (the devices list) and an
+These values are percentages respect the container (the devices list) and a
 \idc{Hash} example is presented in Listing~\vref{cookiehash}.
 
-\begin{lstlisting}[language=JavaScript,label=cookiehash,
-  caption=Cookie Hash example]
+\begin{lstlisting}[language=JavaScript,label=cookiehash,caption=Cookie Hash example] % JavaScript
 {
   offsetX: 15,
   offsetY: 50,
