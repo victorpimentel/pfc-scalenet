@@ -1,7 +1,7 @@
 \section{Server Programming Language: \idx{PHP}} % (fold)
 \label{sec:php}
 
-\ida{PHP}\footnote{\url{http://www.php.net/}} is one of the languages used to build front-end web applications in \idx{ScaleNet}, and it is one of the most popular languages for building web applications in general.
+\ida{PHP}\footnote{\url{http://www.php.net/}} is one of the languages used to build web applications in \idx{ScaleNet}, and it is one of the most popular languages for building web applications in general.
 Not only most of the portal is written in this language but, eventually, the \ida{PNAI} interface will be ported from an \ida{OSGi} bundle to a \ida{PHP} script.
 
 \subsection{History} % (fold)
@@ -33,6 +33,7 @@ This is the most recent version and it is the one installed in the \idx{IMS} dem
 
 A \ida{PHP} file is basically a \ida{HTML} file with the \texttt{.php} extension that it is usually stored in the public folder of the server (\idx{Apache}, \ida{IIS} or other supported server).
 When that page is requested, the server calls the \ida{PHP} module, that parses that file and returns a normal \ida{HTML} page.
+Therefore it is a interpreted language, so no compilation is needed.
 
 The interesting things happen within its delimiters
 (usually <?php and ?>), where the \ida{PHP} code is written.

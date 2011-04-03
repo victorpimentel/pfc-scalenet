@@ -1,12 +1,69 @@
 \section{Server Programming Language: \idx{Java}} % (fold)
 \label{sec:java}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Nowadays, \idx{Java} is the most popular programming platform in corporative environments.
+In \idx{Scalenet} it is used in an \idx{OSGi} module that it is always running in the background providing real-time communication with the browser, besides a \idx{Java} applet.
+In the end, no Java code was written for this project, since one of the goals was to move the files out of the \idx{OSGi} bundle to the \ida{PHP} scripts folder.
+
+\subsection{History} % (fold)
+\label{sub:javahistory}
+
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+    \includegraphics[width=0.25\textwidth]{logo-java}
+  \caption{\idx{Java} logo}
+  \label{fig:logo-java}
+\end{wrapfigure}
+
+\emph{James Gosling} originally developed the language at \emph{Sun Microsystems} and released it to the public in 1995, within a initiative called \emph{Green Project} started in that company in 1991.
+
+At first it was targeted at the digital cable television industry, but its true potential revealed to be the Internet, a much more dynamic platform.
+It became rapidly popular for its promise of running anywhere, and even more after the most used browsers added support for \idx{Java} applets.
+
+The main difference with the existing languages was the \ida{JVM}.
+It allowed to compile a program in an intermediate byte code that can run on any \idx{Java} supported device, independently of the underlying architecture.
+
+In 1998 \idx{Java} 2 was released, with a \idx{Java} plugin and with it multiple versions targeted at different kind of scenarios (mobile devices, enterprise applications, limited devices, etc).
+Since then every two years a new version was released until reaching \idx{Java} 6 in 2006, adding each time new capabilities to the language.
+
+Starting in 2006, \emph{Sun} published Java's source code under the \ida{GPL}. Now, for the most part, it remains as free software and it seems that \emph{Oracle}, the current owner of the trademark, will continue keeping it that way.
+
+% subsection javahistory (end)
 
 \subsection{Quick Overview of the Language} % (fold)
 \label{sub:overviewjava}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+According to \idx{Sun}\footnote{\url{http://java.sun.com/docs/white/langenv/Intro.doc2.html}}, there were five primary goals in the creation of the Java language:
+
+\begin{itemize}
+  \item It should be \emph{simple, object oriented, and familiar}.
+  \item It should be \emph{robust and secure}.
+  \item It should have \emph{an architecture-neutral and portable environment}.
+  \item It should execute with \emph{high performance}.
+  \item It should be \emph{interpreted, threaded, and dynamic}.
+\end{itemize}
+
+The syntax itself is very similar to \idx{C}, the main difference is that the code is organized around classes following \ida{OOP}.
+By design it does not have any remarkable syntax anomaly, and the usual suspects are all there (if, for, while, etc).
+
+It is strongly typed, and every variable needs to be declared with its type before using it.
+Except the primitives types, everything is an object, which incidentally leads to an increased verbosity.
+
+As said before, all code needs to be compiled.
+The resulting byte code is not linked to any specific hardware, but to the \ida{JVM}.
+This means that the compiled code is compatible with every supported platform, without any additional work, from a computer running Windows to a mobile phone.
+
+The entry point for a \idx{Java} applications is the \idc{main} method of the main class.
+The main class is usually declared outside of the \idx{Java} code in a manifest file.
+The most common way of packaging a program is using a \ida{JAR} file, essentially just a \idx{ZIP} file containing the compiled code and a manifest.
+
+All classes are organized in packages, each one focused in a different issue.
+Like in \ida{PHP}, there is a lot of useful libraries already built in the \ida{JVM}, covering all the basic needs.
+Due to its popularity, third party libraries are available for almost any imaginable problem.
+To use any class outside of a package, the code needs to specifically import all the packages, even the bundled ones.
+
+There is support for handling common problems and techniques, like threading, exceptions, user interfaces, security, networking, etc.
+One of the most important features is its garbage collector, freeing the programmer from memory management tasks.
 
 % subsection overviewjava (end)
 
