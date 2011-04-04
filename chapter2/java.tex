@@ -26,7 +26,7 @@ It allowed to compile a program in an intermediate byte code that can run on any
 In 1998 \idx{Java} 2 was released, with a \idx{Java} plugin and with it multiple versions targeted at different kind of scenarios (mobile devices, enterprise applications, limited devices, etc).
 Since then every two years a new version was released until reaching \idx{Java} 6 in 2006, adding each time new capabilities to the language.
 
-Starting in 2006, \emph{Sun} published Java's source code under the \ida{GPL}. Now, for the most part, it remains as free software and it seems that \emph{Oracle}, the current owner of the trademark, will continue keeping it that way.
+Starting in 2006, \emph{Sun} published Java's source code under the \ida{GPL}. Now, for the most part, it remains as free software and \emph{Oracle}, the current owner of the trademark, seems to be continuing the same strategy.
 
 % subsection javahistory (end)
 
@@ -67,17 +67,71 @@ One of the most important features is its garbage collector, freeing the program
 
 % subsection overviewjava (end)
 
-\subsection{OSGI} % (fold)
+\subsection{OSGi} % (fold)
 \label{sub:osgi}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The \ida{OSGi} framework is a module system and service platform for \idx{Java} applications.
+The main goal of this framework is providing a dynamic component model.
+It offers a series of basic APIs to develop services, like logging, a \ida{HTTP} server and the \ida{DAS}, that eases the discovery of the device's capabilities.
+
+An application or component developed for \ida{OSGi} is called a bundle, and it is a self-contained package with the compiled byte code, additional resources and a manifest.
+According to that manifest, any bundle can be remotely installed, started, stopped, updated or uninstalled without requiring a reboot.
+Figure~\ref{fig:osgi-layering} shows how bundles can interact with the framework and with each other.
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=0.85\textwidth]{osgi-layering}
+  \caption{\idx{OSGi} layering}
+  \label{fig:osgi-layering}
+\end{figure}
+
+The \ida{OSGi} specification is maintained by the \ida{OSGi} Alliance, backed by more than 35 big corporations and where \emph{Deutsche Telekom AG} acts as a full member.
+There is also a vibrant open source community, having several open source implementations, for example this project uses \idx{Knopflerfish} \ida{OSGi}.
+\ida{OSGi} R4 is the version used by this bundle, released originally in 2006 and currently the latest version available.
+
+Once the framework is loaded, a console is available to manage all bundles.
+Table~\ref{tab:osgicommands} lists the most used commands for that console.
+This console will be running in the background all the time, so it may be useful to attach the process to a \idc{screen} process.
+
+\begin{generictable}[\idx{OSGi} commands]{2}
+  {|p{0.45\textwidth}|p{0.45\textwidth}|}
+  {\generictitletwo{Command}{Description}}
+  \label{tab:osgicommands}%
+  \texttt{ps [-l | -s | -u]}           & List installed bundles. \\ \hline
+  \texttt{refresh [<id> ...]}          & Refresh packages.       \\ \hline
+  \texttt{install <URL> [<URL> ...]}   & Install bundle(s).      \\ \hline
+  \texttt{uninstall <id> [<id> ...]}   & Uninstall bundle(s).    \\ \hline
+  \texttt{start <id> [<id> <URL> ...]} & Start bundle(s).        \\ \hline
+  \texttt{stop <id> [<id> ...]}        & Stop bundle(s).         \\ \hline
+  \texttt{update <id> [<URL>]}         & Update bundle.          \\ \hline
+  \texttt{shutdown}                    & Shutdown framework.     \\ \hline
+\end{generictable}
+
+In this framework modularity and portability are the key concepts.
+This has proven useful in a wide range of fields like mobile phone, automobiles, grid computing, etc.
+In this case it is used for building an application server, taking advantage of the built \ida{HTTP} server.
 
 % subsection osgi (end)
 
 \subsection{Java Applets} % (fold)
 \label{sub:javaapplets}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+A \idx{Java} applet is a small application written in \idx{Java} designed to be executed inside of a web browser, i.e., in the client machine.
+An \idc{applet} \ida{HTML} tag (or the more recommendable \idc{object}) is embedded in the code specifying where the package is located, the dimensions that applet will occupy in the rendered page and the parameters that will receive.
+Then the browser downloads it (distributed as a \ida{JAR} package), and executes it in the scope of that web page.
+
+This enabled the development of interactive web applications with a much better performance than \idx{JavaScript} and more capabilities, while maintaining full compatibility within the supported platforms.
+It was often used for graphic and resource-intensive applications, like plotting or basic gaming before Adobe Flash was popular.
+
+Since it provides access to most of the \ida{JVM} classes, some web applications used them for functions not natively possible in a browser.
+For example in this project a \idx{Java} applet is used solely for its native socket capabilities.
+
+Security is critical in a platform like this that allows running code from the web with near-native privileges.
+To alleviate this, by default an applet has very restricted access to the local filesystem and web pages.
+The solution is to sign the applet with a trusted entity's certificate, relaxing those limitations.
+In practice, this is an extra step that slows any iterative development and hardens deployments in corporative environments.
+
+However, the rise of new standards and unsupported devices, the huge popularity of Adobe Flash, the qualitative improvements in \idx{JavaScript} performance and the disruptively poor user experience crippled its future and nowadays \emph{native} web alternatives are preferred over \idx{Java} applets.
 
 % subsection javaapplets (end)
 
