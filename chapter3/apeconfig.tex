@@ -11,7 +11,7 @@ In this case, since the system is Debian-based we should use the DEB package.
 Once the correct package is downloaded, it can be installed on the \idx{Application Server} by typing Listing~\vref{apeinstallation} from the same directory as the package is stored.
 
 \begin{lstlisting}[label=apeinstallation,caption=APE installation command]
-sudo dpkg -i ape-1.0.i386.deb
+  sudo dpkg -i ape-1.0.i386.deb
 \end{lstlisting}
 
 After that, the \ac{APE} server daemon (\idc{aped}) is automatically started with the default configuration \cite{ApeSetup}.
@@ -31,16 +31,16 @@ we have to look for the \emph{webportal} entry and change that section to look
 like Listing~\vref{bindconf}.
 
 \begin{lstlisting}[label=bindconf,caption=BIND configuration]
-webportal               1D IN A         192.168.5.234
-ape.webportal           1D IN A         192.168.5.234
-*.ape.webportal         1D IN CNAME     ape.webportal
+  webportal               1D IN A         192.168.5.234
+  ape.webportal           1D IN A         192.168.5.234
+  *.ape.webportal         1D IN CNAME     ape.webportal
 \end{lstlisting}
 
 To apply the changes, we have to restart \idas{BIND} using the command in
 Listing~\vref{bindrestart}.
 
 \begin{lstlisting}[label=bindrestart,caption=BIND restart command]
-sudo /etc/init.d/bind restart
+  sudo /etc/init.d/bind restart
 \end{lstlisting}
 
 % subsection bind (end)

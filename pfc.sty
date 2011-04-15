@@ -2,10 +2,10 @@
 \usepackage[utf8]{inputenc}
 
 % The document is in English, but some text is also in Spanish
-\usepackage[spanish,english]{babel}
+\usepackage[spanish, english]{babel}
 
 % Math
-\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsmath, amsfonts, amssymb}
 
 % Default fonts
 \usepackage[T1]{fontenc}
@@ -16,6 +16,7 @@
 \usepackage{pxfonts}
 \usepackage{fourier-orns}
 \usepackage{varioref}
+\usepackage[annataritalic]{tengwarscript}
 
 % Acronyms
 \usepackage{acronym}
@@ -48,9 +49,9 @@
 \usepackage{dirtree}
 
 % PDF with links
-\usepackage[pdfusetitle,backref,colorlinks,linkcolor=blue]{hyperref}
+\usepackage[pdfusetitle, backref, colorlinks, linkcolor=blue]{hyperref}
 % Uncomment to not use any colors in links (for printing)
-%\hypersetup{colorlinks=false,pdfborder=0 0 0}
+%\hypersetup{colorlinks=false, pdfborder=0 0 0}
 
 % Captions
 \usepackage{caption}
@@ -74,7 +75,7 @@
 \addtolength{\paperheight}{1cm}
 
 \fancyhf{}
-\fancyhead[LE,RO]{\bfseries \thepage}
+\fancyhead[LE, RO]{\bfseries \thepage}
 \fancyhead[LO]{\sffamily\scshape\footnotesize\rightmark}
 \fancyhead[RE]{\sffamily\scshape\footnotesize\leftmark}
 
@@ -130,7 +131,7 @@
 \newenvironment{usecasepath}[1][]{
   \vspace{-1.5em}
   \begin{enumerate}[label=\textbf{\arabic{enumi}#1.},
-  nolistsep,leftmargin=1.75em]
+  nolistsep, leftmargin=1.75em]
   }{\end{enumerate}
   \vspace{-1.5em}
 }
@@ -169,7 +170,7 @@
   \multirow{2}{*}{\textbf{#1}} &
   \multirow{2}{*}{\textbf{#2}} &
   \multirow{2}{*}{\textbf{#3}} \\
-  & \\%
+  & & \\%
 }
 
 \newcommand{\generictitlefour}[4]{
@@ -177,7 +178,7 @@
   \multirow{2}{*}{\textbf{#2}} &
   \multirow{2}{*}{\textbf{#3}} &
   \multirow{2}{*}{\textbf{#4}} \\
-  & \\%
+  & & & \\%
 }
 
 \newcommand{\generictitlefive}[5]{
@@ -186,7 +187,7 @@
   \multirow{2}{*}{\textbf{#3}} &
   \multirow{2}{*}{\textbf{#4}} &
   \multirow{2}{*}{\textbf{#5}} \\
-  & \\%
+  & & & & \\%
 }
 
 \newenvironment{generictable}[4][]{
@@ -217,11 +218,15 @@
   \renewcommand\arraystretch{1.25}
   \begin{longtable}{#3}
   \caption{#1}\\
+  \hline
   \endfirsthead
   \caption[]{#1 (continued)}\\
+  \hline
   \endhead
+  \hline
   \multicolumn{#2}{r}{\small\emph{continued on next page}}\\
   \endfoot
+  \hline
   \endlastfoot
     }{
   \end{longtable}
@@ -231,34 +236,62 @@
 \usepackage{listing}
 \usepackage{listings}
 
-\definecolor{lightgray}{rgb}{.9,.9,.9}
-\definecolor{darkgray}{rgb}{.4,.4,.4}
-\definecolor{purple}{rgb}{.65,.12,.82}
-\definecolor{lightishgray}{rgb}{.6,.6,.6}
+\definecolor{lightgray}{rgb}{.9, .9, .9}
+\definecolor{darkgray}{rgb}{.4, .4, .4}
+\definecolor{purple}{rgb}{.65, .12, .82}
+\definecolor{greenish}{rgb}{.15, .55, .15}
+\definecolor{lightishgray}{rgb}{.6, .6, .6}
+\definecolor{darkishgray}{rgb}{.2, .2, .2}
+\definecolor{bluish}{rgb}{0, .2, .9}
 
 \DeclareCaptionFont{white}{\bfseries\sffamily\color{white}}
 \DeclareCaptionFormat{listing}%
   {\colorbox{lightishgray}{\parbox{\textwidth}{\hspace{14pt}#1#2#3}}}
-\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\captionsetup[lstlisting]{format=listing, labelfont=white, textfont=white}
+
+\lstdefinelanguage[phpoo]{php}[]{php}{
+  morekeywords={php, $_GET, function, return, $_POST, as, $_FILES, $_SERVER,
+   $_SESSION, fwrite, include_once, require_once, class, public, private,
+   protected, __construct, $this, self, interface, extends, implements, as,
+   new, static, __autoload, mysql_close, abstract},
+  ndkeywords={$i},
+  sensitive=true
+}
+
+\lstset{
+  basicstyle=\small\ttfamily\color{darkishgray},
+	keywordstyle=\bfseries\color{bluish},
+  ndkeywordstyle=\bfseries\color{greenish},
+	commentstyle=\color{darkgray},
+	stringstyle=\color{purple},
+	identifierstyle=\color{black},
+	showstringspaces=false,
+	tabsize=2,
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow}},
+	breakatwhitespace=true,
+	aboveskip={1.5\baselineskip}
+}
 
 \lstdefinelanguage{JavaScript}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch,
-  switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
+  keywords={typeof, new, true, false, catch, function, return, null,
+   catch, switch, var, if, in, while, do, else, case, break},
   ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
+	identifierstyle=\bfseries\color{black},
+  sensitive=true,
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
-  commentstyle=\color{purple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
   morestring=[b]',
   morestring=[b]"
 }
 
-\lstset{
-  basicstyle=\ttfamily,
-  flexiblecolumns,
-  xleftmargin=18pt
+\lstdefinelanguage{CSS}{
+  keywords={selector, selector2, pseudo, class, h1,
+   border, font, style, weight, h2, h3, h4, h5, h6, body, alert, menu, color,
+    p, a, visited, first, child, letter, before, after, content, line, hover,
+    ul},
+  ndkeywords={property, property2},
+	identifierstyle=\bfseries\color{black},
+  morecomment=[s]{/**}{**/},
+  sensitive=true,
 }
