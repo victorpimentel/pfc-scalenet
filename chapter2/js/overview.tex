@@ -1,0 +1,108 @@
+\subsection{Quick Overview of the Language} % (fold)
+\label{sub:overviewjavascript}
+
+At first glance the syntax may seem a simplified version of \idx{Java} (or other C-based language), but much more direct (no classes, packages, etc.).
+Make no mistake, under the hood \idx{JavaScript} hides a lot of powerful constructions that makes it flexible enough to suit diametrical programming paradigms.
+Some of the most important features are:
+
+\begin{description}
+  \item[Scripted] The browser receives the plain source code, and then it is interpreted and run.
+  The big advantage is that it does not needed to be compiled beforehand, the traditional disadvantage is that it is slower than native code or even \idx{Java} byte code.
+  
+  Nevertheless, a lot of improvements have been deployed lately in browser engines, and new techniques like \ida{JIT} nearly close that gap.
+  On the other hand, similarly to other script-based languages, it is easy to end up with a low-quality codebase, since inexperienced programmers can quickly write working code.
+  \item[Imperative statements] It supports the basic imperative paradigm with the typical if statements, while and for loops, global functions, etc.
+  It is not required to think about objects to make a script, with those things it can be possible to write a full-fledged application if wanted.
+  \item[Object based] Internally, in \idx{JavaScript} everything is an object, not only variables but even functions or undefined values.
+  However, there are no classes like in \idx{Java}, to create a new object it can be specified in a literal notation or using a constructor (a plain function).
+  \item[Prototype based] The language is classless, but inheritance between objects is possible through the use of \emph{prototypes}.
+  A prototype is just an object used as a template from which to get the initial properties for a new object.
+  If an object is asked for a property (also known as \emph{attributes} and \emph{methods} in \idx{Java} jargon) it does not have, its parent is asked, and then again until the property is found or until the root object is found (the end of the \emph{chain}).
+  Listings~\ref{oopjs} and \ref{oopjava} show how inheritance works in \idx{JavaScript} compared to \idx{Java}.
+  
+\begin{lstlisting}[float=htbp,label=oopjs,language=javascript,caption=Inheritance in JavaScript]
+  function Employee() {
+    this.name = "";
+    this.dept = "general";
+    this.hello = function() {
+      console.log("Hello, I'm " + this.name);
+    };
+  }
+  function Engineer() {
+    this.dept = "engineering";
+    this.projects = [];
+  }
+  Engineer.prototype = new Employee;
+
+  var john = new Engineer();
+  john.name = "John Doe";
+  john.hello();
+\end{lstlisting}
+
+\begin{lstlisting}[float=htbp,label=oopjava,language=java,caption=Inheritance in Java]
+  public class Employee {
+    public String name;
+    public String dept;
+    public Employee() {
+      this.name = "";
+      this.dept = "general";
+    }
+    public void hello() {
+      System.out.println("Hello, I'm " + this.name);
+    }
+  }
+  public class Engineer extends Employee {
+    public String[] projects;
+    public Engineer() {
+      this.dept = "engineering";
+      this.projects = new String[0];
+    }
+  }
+  Employee john = new Engineer();
+  john.name = "John Doe";
+  john.hello();
+\end{lstlisting}
+  
+  It is easy to demonstrate that this abstraction can be more powerful than classes because a similar class-based \ida{OOP} behavior can be achieved with prototypes but the opposite is not true.
+  \item[First-class functions] As said before, \idx{JavaScript} functions are objects, so they have properties and methods and can be assigned to variables as every other object.
+  Moreover, these functions can be passed as arguments, returned as other function values and invoked in any moment and scope using multiples ways (such as the \verb+()+ operator).
+  
+  Functions do not need to be defined in the global scope, they can be defined inside other functions.
+  Nowadays the use of closures (specifically anonymous functions) is considered a very good practice to avoid cluttering the global scope with variables.
+\end{description}
+
+As stated repeatedly, every variable in \idx{JavaScript} contains a reference to an object.
+However, that does not mean that values do not have a type, and there are several primitive types available in the language.
+In any case, even literals of these types have accessible properties like any other object.
+
+\begin{description}
+  \item[Undefined and Null] Before assigning some value, a variable holds the value \idc{undefined}.
+  This \idc{undefined} is the only object of, pun intended, type \idc{undefined}, a full-fledged object that can be even used in assignments.
+  On the other hand, \idc{null} is never used by \idx{JavaScript}, so if some variable holds this value, it must have been set programmatically by the developer.
+  Although the type \idc{null} is apparently \idx{Object}, internally it is also the only value of type \idc{null}.
+  \item[Number] In \idx{JavaScript} there is no external distinction between integers, floating point values and others, every literal number is treated equally and has the same properties.
+  Internally they are all doubles, floating points numbers with an accuracy nearly 16 significant digits, so some real numbers cannot be represented.
+  \item[String] Strings are delimited by double quotes and single quotes indistinctly, the only difference is which quotes need to be escaped inside of the string.
+  \item[Boolean] As usual, there are only two values possible in this data type: \texttt{true} or \texttt{false}.
+\end{description}
+
+For all of these types (except undefined/null), there are object constructors, but the preferred way to initialize them is through plain literals.
+Besides these primitives data types, there are also several native objects built in the language:
+
+\begin{description}
+  \item[Array] As other C-based languages, arrays are available to store a collection of values in a variable using integers as keys.
+  To create an empty literal array (also preferred to the Array constructors), two square brackets can be used.
+  This bracket notation can also used for accessing object properties, so it can be confused with associative arrays while the language does not support this directly.
+  \item[Date] A simple object to store and manipulate dates down to a milliseconds.
+  \item[Error] Similarly to exceptions in other languages, this kind of objects can be thrown in case of error (using the throw clause) and caught for error handling (using the try/catch block).
+  \item[Math] This object cannot be \emph{instantiated} and it only contains math-related constants and functions.
+  \item[Regular Expression] Literals between backslashes represents regular expressions, and they hold some useful methods to deal with search and replace in strings.
+  The \texttt{RegExp} constructor can be used but, again, it is not recommended.
+  \item[Function] Functions are declared by using the keyword \texttt{function}, an optional name, the arguments and the body block.
+  The object constructor, though also available, is very ill-advised, as it relies on strings.
+  \item[Object] The rest of the values are of type \idx{Object} or indirectly inherit from this type.
+  Objects literals are represented by curly brackets and a comma-separated list of keys/values separated by colons.
+  This literal syntax is the base for \ida{JSON}, a notation used for data exchange that can be natively used in \idx{JavaScript}.
+\end{description}
+
+% subsection overviewjavascript (end)

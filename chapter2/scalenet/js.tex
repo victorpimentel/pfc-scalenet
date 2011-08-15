@@ -38,7 +38,7 @@ All containers are stored in a \idc{Hash} (\idc{containerList}), where the key i
 Each container have several slots where the sessions can go, this means that the container can hold up to that number of sessions at the same time.
 The class provides methods to attach or detach session to those slots.
 
-The \ida{DOM} representation for a container is \idc{div} block.
+The \ida{DOM} representation for a container is a \idc{div} block.
 A background image with the real appearance of the container is drawn inside of this \idc{div} in a \idc{img} element.
 Each session the container \emph{owns} is drawn inside of this image, so the \idc{div}s for those sessions are children of the container's \idc{div}.
 

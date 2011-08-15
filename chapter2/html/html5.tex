@@ -10,14 +10,21 @@ Those browsers which supports that part of the specification should work fully o
 The important thing is that, even if the specification is not finished, a web application can choose to use a slice of it to enhance the user experience.
 
 One focus of \ida{HTML} 5 is to improve the structure of a document by adding new semantic elements, primarily to avoid the \idc{div} soup.
-Figure~\ref{fig:html5-structure} introduces the new \idc{article}, \idc{aside}, \idc{header}, \idc{footer} and \idc{nav} elements and compares it with the traditional \ida{HTML} 4 approach.
+Figure~\ref{fig:html-structure} introduces the new \idc{article}, \idc{aside}, \idc{header}, \idc{footer} and \idc{nav} elements and compares it with the traditional \ida{HTML} 4 approach.
 At the same time, a lot of non-semantical elements have been deprecated.
 
 \begin{figure}[htbp]
   \centering
-    \includegraphics[width=\textwidth]{figures/html5-structure}
-  \caption{Structure of \idx{HTML} 5 compared to \idx{HTML} 4}
-  \label{fig:html5-structure}
+  \subfigure[HTML 4 Structure]{
+    \label{fig:html4-structure}
+    \includegraphics[width=\textwidth]{html4-structure}
+  }
+  \subfigure[HTML 5 Structure]{
+    \label{fig:html5-structure}
+    \includegraphics[width=\textwidth]{html5-structure}
+  }
+  \caption{Structure of typical HTML 4 and HTML 5 documents}
+  \label{fig:html-structure}
 \end{figure}
 
 But probably the most popular new feature in \ida{HTML} 5 is the new built-in multimedia integration.
@@ -29,7 +36,7 @@ A lot of new attributes have been added and, in some occasions, deprecated.
 Forms have got a well-received update with more specific input elements (to write an email or an \ida{URL}, to choose a date or a color, etc.) with auto-validation capabilities.
 All elements can be \emph{draggable} or \emph{editable} with the flip of an attribute.
 
-Additional modules to the main specification give web applications the ability to store information in the browser in a local database and caching resources, allowing the development of offline web applications.
+Additional modules to the main specification give web applications the ability to store information in the browser in a local database (see \S\vref{ssub:domobjects}) and caching resources, allowing the development of offline web applications.
 Other modules give new \idas{API}s to manipulate and process local files right in the browser, with no need of sending it to the server.
 
 Files from the computer can be dropped in the browser (in mass or individually) so the web application can read them directly, and files with a certain \ida{MIME} type can also be linked to a specific web application.
@@ -40,7 +47,7 @@ Other new features are geo-localization (to know where the user is physically lo
 
 Given the huge web applications that can be developed on top of these new features, performance could become critical very quickly.
 Web Workers are available to run heavy tasks in the background in parallel with the main loop.
-If \idx{JavaScript} code is too inefficient for the task, there is a \ida{HTML} 5 extension to run compile native code (written in C/C++).
+If \idx{JavaScript} code is too inefficient for the task, there is an \ida{HTML} 5 extension to run compile native code (written in C/C++).
 Even with the use of \ida{WEBGL}, the development of interactive native 3D applications is possible.
 
 Many, if not all of these new capabilities, are closely linked with the use of \idx{JavaScript}.
@@ -81,8 +88,8 @@ Some of the most important new features are:
 \end{description}
 
 When a browser implements some of those properties, since most of these modules are a work in progress or directly they were proposed by that browser, their names are usually preceded by a vendor prefix.
-For example, \idc{border-radius} was called \ida{-webkit-border-radius} in \idx{Webkit} browsers, \ida{-moz-border-radius} in \idx{Firefox} and \idx{-o-border-radius} in \idx{Opera}.
-Later, when the standard was more settle, they all change it to \ida{border-radius}.
+For example, \idc{border-radius} was called \idc{-webkit-border-radius} in \idx{Webkit} browsers, \idc{-moz-border-radius} in \idx{Firefox} and \idc{-o-border-radius} in \idx{Opera}.
+Later, when the standard was more settled, they all changed it to \idc{border-radius}.
 For this reason any modern web application that wants to use such a modern property now have to specify redundant rules targeting each browser engine.
 
 % subsection html5css3 (end)
