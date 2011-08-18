@@ -1,24 +1,29 @@
-\section{JavaScript Framework: \idx{MooTools}} % (fold)
+\section{JavaScript Framework: MooTools} % (fold)
 \label{sec:mootools}
 
-Before explaining why \idx{MooTools} has been chosen for this application, another important question needs to be resolved.
+So far, \idx{JavaScript} seems a pretty powerful tool, focused on a limited scope but enough to make advanced web applications.
+Sadly, in the real world additional tools are needed to obtain a certain level of productivity.
+So let's briefly discuss why bringing yet another component to the application.
 
-\subsection{Why Use a \idx{JavaScript} Framework?} % (fold)
+\subsection{Why Use a JavaScript Framework?} % (fold)
 \label{sub:whymootools}
 
-There are several reasons that lead to this conclusion, the most important are:
+Most web application rely on \idx{JavaScript} frameworks, some are community driven efforts and others are custom made for an specific organization.
+All of them have as first goal to reuse pieces of code in common tasks, something even more important in \idx{JavaScript} as it can be a very quirky language.
+In our case, there are several reasons that lead to using a well-stablished framework:
 
 \begin{itemize}
-
   \item Because we want to support different browsers.
-  If we do not use a framework a lot of time would be spent debugging the huge differences between \idx{Internet Explorer} and the rest of the browsers.
-
-  \item Because we want to facilitate the development, since usually these frameworks cover several holes in the \idx{JavaScript} specification that allows us fixing common issues with less code.
-
+  If we do not use a framework a lot of time would be spent debugging the \emph{huge} differences between \idx{Internet Explorer} and the rest of the browsers.
+  Popular frameworks have been tested by thousands of developers, so it is less probable that we fall into a bug.
+  \item Because we want to speed up the development.
+  Usually these frameworks cover several holes in the \idx{JavaScript} specification that allows us fixing common issues with less code.
+  Covering those holes by ourselves would be a waste of time, since in this project performance is not crucial.
   \item Because we want the interface to have advanced effects.
   We could just search for several scripts that makes one individual effect, but that will result in redundancies, differences in quality code and waste time in searching.
-
 \end{itemize}
+
+In the end, all of that means that we can focus on just writing our application, avoiding reinventing the wheel over and over.
 
 % subsection whymootools (end)
 
@@ -32,33 +37,34 @@ By the previous standards, we have plenty of options to choose from:
 \idx{YUI}\footnote{\url{http://developer.yahoo.com/yui/}},
 \idx{GWT}\footnote{\url{http://code.google.com/webtoolkit/}},
 \idx{Ext JS}\footnote{\url{http://www.extjs.com/}}, etc.
-Overall, these are very popular and they offer high quality and plenty of functionality.
+Overall, these are very popular and they offer high quality and plenty of functionality, while maintaining a similar performance.
 However, for this particular project, and after some consideration, \idx{MooTools}\footnote{\url{http://mootools.net}} was considered the best option.
-The reasons for this decision are:
+This decision was backed up by these reasons:
 
 \begin{description}
 
   \item[Compact] It has a low footprint on the site load because it is reasonably lightweight for the functionality it offers.
-  Particularly, it is more optimized in this aspect than \idx{Prototype}, \idx{YUI} or \idx{Dojo}, but it is also slightly more compact than \idx{jQuery}.
+  Particularly, it is more optimized in this aspect than \idx{Prototype}, \idx{YUI} or \idx{Dojo}, but then it was also slightly more compact than \idx{jQuery}.
 
   \item[Modular-Based] Because of that, the installation can be customized to get only the modules we need, and the creation of our own extensions is easier.
 
-  \item[Compatible] It has been tested with most browsers: \idx{Internet Explorer} 6+, \idx{Firefox} 2+, \idx{Opera} 9+, \idx{Safari} 2+ (and other \idx{Webkit}-based browsers, like \idx{Chrome}).
+  \item[Compatible] It has been tested with most browsers: \idx{Internet Explorer} 6+, \idx{Firefox} 2+, \idx{Opera} 9+, \idx{Safari} 3+ and \idx{Chrome} 4+.
 
-  \item[Functional] It offers all the functionality required for the first phase of the project: \idx{drag\et drop}, resize, animations, etc.
+  \item[Functional] It offers all the functionality required for the first phase of the project: \idx{drag\et drop}, resizing, animations, etc.
 
-It also offers other functionality like \idas{AJAX} support, \idc{Hash} handling or \idc{Cookie} handling, that ease the development in different browsers.
+  It also offers other functionality like \idas{AJAX} support, \idc{Hash} creation or \idc{Cookie} handling, that ease the development in different browsers.
 
   \item[Object-Oriented] By adding \emph{Classes} to \idx{JavaScript}, an abstraction that it is perfect for this application, since the server code is written is \idx{Java}.
 
-This way, we can use similar concepts both in the server and in the client. Moreover, the inherited code for \idx{ScaleNet} already used \idx{JavaScript} objects.
+  This way, we can use similar concepts both in the server and in the client.
+  Moreover, the inherited code for \idx{ScaleNet} already used \idx{JavaScript} objects.
 
   \item[Extensive] It also has a repository for official plugins called  \idx{MooTools More} (with similar code quality and documentation to the \idx{MooTools Core}) and other third-party plugins can be found in the web.
 
   \item[Well-documented] It has extensive documentation for every class of the  framework.
 
   \item[Well-structured] Its structure is perfect for a professional web application.
-  Frameworks like \idx{jQuery} are more focused in reducing the  lines of code that in encouraging robust coding.
+  Frameworks like \idx{jQuery} are more focused in reducing the lines of code that in encouraging robust coding.\footnote{A MooTools developer further discussed this in: \url{http://jqueryvsmootools.com/}}
   \idx{MooTools} also helps reducing the lines of code, but it has more tools for writing code in a very modular, reusable and robust way, for example by using classes and other abstractions.
 
   It also improves the readability of the code, something hard to do in \idx{JavaScript}.
@@ -70,6 +76,122 @@ This way, we can use similar concepts both in the server and in the client. More
 
 \end{description}
 
+Previous experience with \idx{jQuery} resulted in quite faster development, but with time the solutions were hard to maintain without putting a lot of effort.
+With \idx{MooTools}, several architectural design decisions like the use of \emph{Classes} and \emph{options} suited perfectly a non-trivial application like this one.
+
 % subsection decision (end)
+
+\subsection{MooTools Core} % (fold)
+\label{sub:mootools_core}
+
+The first thing to know about \idx{MooTools} is that works by \emph{monkey-patching} the native objects.
+This means that it modifies the prototype of that objects and extends or changes its functionality.
+
+Some experts consider this to be a very bad practice because code from different parties can easily collide.
+However, this \idx{JavaScript} feature is very powerful and in good hands it turns out extremely convenient.
+Due to this, it is very straightforward to write code with \idx{MooTools}, and the resulting code do not have to look different from raw \idx{JavaScript}.
+
+Under some circumstances these extensions just patch native methods that are not available in all browsers so that the developer can use them avoiding compatibility headaches.
+These additions are meaningfully named and can be organized into eight categories:
+
+\begin{description}
+  \item[Core] Traditionally \idx{MooTools} declared several utility functions in the global scope, but these have been deprecated in favor of equivalents methods in native objects.
+  Last version (1.3) only keeps a handful of them, mostly for type checking and extending prototypes.
+  \item[Types] Five important native types have been supercharged with a myriad of utility functions, filling a lot of holes in the \idx{JavaScript} specification: to deal with collections and iterators (\idc{Array}), to manipulate strings (\idc{String}) and numbers (\idc{Number}), to modify and custom call functions (\idc{Function}), to add information to events (\idc{Event}) and even to modify the properties in any object (\idc{Object}).
+  \item[Browser] A new object (\idc{Browser}) is created with all the information about the browser and its environment conveniently organized.
+  This not only includes the browser version, the installed plugins and the user platfom, but it also detects some key features.
+  \item[Class] This is probably the heart of \idc{MooTools}.
+  \idc{Class} is an object that encapsulates all the prototype-based inheritance system into the much more intelligible classic \ida{OOP}.
+  Basically, a \idx{Class} is just an object with shortcuts to simulate traditional class inheritance and interface implementation.
+  
+\begin{lstlisting}[language=JavaScript,label=mootoolsclass,caption=MooTools class definitions]
+  var Animal = new Class({
+    Implements: [Options, Events],
+    options: {
+      name: "Unnamed",
+      pace: 0,
+      children: []
+      // onWalk: $empty
+    },
+    initialize: function(options) {
+      this.setOptions(options);
+      if (this.options.pace > 10)
+        this.fast = true;
+    },
+    walk: function(distance) {
+      for (var i = 0; i < distance; i += this.pace) {
+        this.fireEvent('onWalk', distance);
+      }
+    }
+  });
+  
+  var Horse = new Class({
+    Extends: Animal,
+    initialize: function(options) {
+      options.pace = 20;
+      this.parent(options);
+    }
+  });
+\end{lstlisting}
+  
+  This does not hide any good side effect of the prototype system, for example a class can be modified and extended in any time: it is as dynamic as any \idx{JavaScript} object.
+  Simply, it is easier to use for a programmer that prototypes.
+  
+  On top of that, three powerful abstractions are built into the framework and appear in most other classes (that implement them):
+  \begin{description}
+    \item[Options] Handy way of dealing with settings within an \emph{instance}\footnote{Since everything is an object in \idx{JavaScript}, there are not really instances. In this context, an instance is an object cloned from a \idx{MooTools} class, usually with \texttt{new} statement defining particular values.}, that is, attributes that may be optional (non-optional attributes could be defined as plain properties).
+    By using a \idc{Hash} to store all these properties, constructors only need one parameter to hold any combination of them.
+    
+    Because its options and the default values must be defined at the \emph{class declaration}, the framework can transparently merge both hashes.
+    Therefore, since the developer does not need to handle this task anymore, it results in very clean constructors while resulting in a pretty extensible solution.
+    \item[Events] The concept of a event is greatly stretched in \idx{MooTools}, as any class can define and fire custom events so that its instances can hook methods in the code of its parents.
+    It integrates well with \idx{MooTools} options, so it is very easy to declare and use them.
+    \item[Chain] This abstraction is designed to chain pieces of code to be executed asynchronously but in order.
+    The usual example is to deal with animations in several steps, but it can be applied to a lot of different problems.
+    Since \idx{JavaScript} is single-threaded but asynchronous by nature, it is very welcomed to have an alternate way to arrange chunks of code with a lower priority to the background while preserving certain order between them.
+  \end{description}
+  \item[Element] As any other good modern framework, \idx{MooTools} offers extensive support for \ida{DOM} manipulation.
+  It has two global shortcut functions baked in: the dollar function \texttt{\$()} acts mostly as an alias for \texttt{document.getElementById()}, while \texttt{\$\$()} selects an array of \ida{DOM} elements based on the specified \ida{CSS} selector.
+  
+  These two functions returns objects of type \texttt{Element}: \ida{DOM} elements supercharged with utility extensions.
+  For example, the constructor allows to quickly build an element with its own attributes, styles, size and events at once.
+  Not only it is more expressive but it handles for us developers the differences between all supported browsers.
+  \item[Fx] In the beginning, \idx{MooTools} was only a lightweight library to add visual effects, but with time it became a full-fledged framework.
+  Consequently, it is no surprise to say that it has a very robust animation system in place.
+  
+  The base class is \texttt{Fx}, but normally developers should use \texttt{Fx.Tween} (to animate one property in an element) or \texttt{Fx.Morph} (to animate more than one property at the same time).
+  There are also shortcut methods in \texttt{Element} for simple and quick animations.
+  Apart from those classes, \texttt{Fx.Transitions} offers a broad collection of tweening transitions.
+  \item[Request] An \ida{AJAX} wrapper that accumulates many options.
+  There are subclasses to deal with \ida{HTML} and \ida{JSON} responses, and generally it takes a lot of work when setting \ida{AJAX} requests.
+  For example, there are shortcuts in the \texttt{Element} class that with a simple one-line method can completely replace an element with a remote fragment.
+  \item[Utilities] Four classes that have no place in previous categories: a cookie handler, a \ida{JSON} encoder/decoder, a \texttt{domready} event (that springs when the, ehem, \ida{DOM} is ready) and a Flash bridge (\texttt{Swiff}).
+\end{description}
+
+% subsection mootools_core (end)
+
+\subsection{MooTools More} % (fold)
+\label{sub:mootools_more}
+
+In a separate package, official plugins outside of the previous categories have been compiled.
+This includes advanced pieces of code that apply in too specific situations to be included in the main distribution, like form handling, interface widgets, advanced effects and other extras.
+There are too many to be explained in this document, but the most important ones used in the project could be quickly enumerated:
+
+\begin{description}
+  \item[Class.Occlude] This class implements the singleton pattern, and ties the resulting object to a predefined \ida{DOM} element.
+  \item[Hash] A simple hash implementation, with methods that make it more useful to hold collections than a simple \idx{JavaScript} objects.
+  \item[Element.Position / Element.Measure] Handy wrappers that calculate the exact dimensions of an object.
+  \item[Fx.Elements] To animate several elements at the same time.
+  \item[Fx.Accordion] A visual effect suited to make room for several elements in a limited space: as one element expands, the others gradually collapse.
+  \item[Fx.Move] Another visual effect to move an element from one location to another.
+  Positions need not to be defined in coordinates, they can rather be automatically calculated from target elements.
+  \item[Drag / Drag.Move] To easily add drag\et{}drop capabilities, making use of events to treat all possible outcomes.
+  It also offers shortcuts to make an element automatically draggable and/or resizable.
+  \item[Request.JSONP] Similar class to \texttt{Request}, but using the \ida{JSONP} technique to retrieve remote data from other domains.
+  \item[Assets] To dynamically load scripts, stylesheets, images and other resources.
+  \item[Hash.Cookie] This class handles the creation of a cookie that will contain a plain hash.
+\end{description}
+
+% subsection mootools_more (end)
 
 % section mootools (end)
