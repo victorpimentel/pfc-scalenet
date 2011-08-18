@@ -162,6 +162,9 @@ These additions are meaningfully named and can be organized into eight categorie
   The base class is \texttt{Fx}, but normally developers should use \texttt{Fx.Tween} (to animate one property in an element) or \texttt{Fx.Morph} (to animate more than one property at the same time).
   There are also shortcut methods in \texttt{Element} for simple and quick animations.
   Apart from those classes, \texttt{Fx.Transitions} offers a broad collection of tweening transitions.
+  
+  The idea behind this effect library is that several key steps are specified and then additional steps are generated to fill the time.
+  Depending on the type of the effect, intermediate values are calculated and applied using \ida{CSS} at a custom-spaced time interval to simulate the animation.
   \item[Request] An \ida{AJAX} wrapper that accumulates many options.
   There are subclasses to deal with \ida{HTML} and \ida{JSON} responses, and generally it takes a lot of work when setting \ida{AJAX} requests.
   For example, there are shortcuts in the \texttt{Element} class that with a simple one-line method can completely replace an element with a remote fragment.
