@@ -87,6 +87,13 @@ With \idx{MooTools}, several architectural design decisions like the use of \emp
 The first thing to know about \idx{MooTools} is that works by \emph{monkey-patching} the native objects.
 This means that it modifies the prototype of that objects and extends or changes its functionality.
 
+\begin{wrapfigure}{r}{0.5\textwidth}
+  \centering
+    \includegraphics[width=0.48\textwidth]{logo-mootools}
+  \caption{MooTools logo}
+  \label{fig:logo-mootools}
+\end{wrapfigure}
+
 Some experts consider this to be a very bad practice because code from different parties can easily collide.
 However, this \idx{JavaScript} feature is very powerful and in good hands it turns out extremely convenient.
 Due to this, it is very straightforward to write code with \idx{MooTools}, and the resulting code do not have to look different from raw \idx{JavaScript}.
@@ -103,6 +110,9 @@ These additions are meaningfully named and can be organized into eight categorie
   \item[Class] This is probably the heart of \idc{MooTools}.
   \idc{Class} is an object that encapsulates all the prototype-based inheritance system into the much more intelligible classic \ida{OOP}.
   Basically, a \idx{Class} is just an object with shortcuts to simulate traditional class inheritance and interface implementation.
+  
+  This does not hide any good side effect of the prototype system, for example a class can be modified and extended in any time: it is as dynamic as any \idx{JavaScript} object.
+  Simply, it is easier to use for a programmer that prototypes.
   
 \begin{lstlisting}[language=JavaScript,label=mootoolsclass,caption=MooTools class definitions]
   var Animal = new Class({
@@ -133,9 +143,6 @@ These additions are meaningfully named and can be organized into eight categorie
     }
   });
 \end{lstlisting}
-  
-  This does not hide any good side effect of the prototype system, for example a class can be modified and extended in any time: it is as dynamic as any \idx{JavaScript} object.
-  Simply, it is easier to use for a programmer that prototypes.
   
   On top of that, three powerful abstractions are built into the framework and appear in most other classes (that implement them):
   \begin{description}
