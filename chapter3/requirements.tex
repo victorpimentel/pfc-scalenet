@@ -1,0 +1,305 @@
+\section{New Requirements} % (fold)
+\label{sec:new_requirements}
+
+There are new requirements that need to be satisfied within the redesigned \ida{PNAI} interface.
+These requirements were extracted in several team meetings as the work advanced.
+It could be divided into roughly three phases: a initial phase (a full redesign), a second phase (adding more functionality) and a third phase (implementing the mobile version).
+
+\subsection{User Requirements} % (fold)
+\label{sub:user_requirements}
+
+As this was a new iteration over an already developed product, there were multiple requirements that were already set and implemented.
+Those requirements are not discussed since they are out of the limits of this work.
+Therefore, this is a list of only the new requirements resulted from the team feedback:
+
+\begin{center}
+  \begin{userrequirement}[Redesign interface]
+    \label{tab:requirementredesign}%
+    \requirementprio{High}
+    \requirementphase{Initial phase}
+    \requirementdesc{Overall design must be modernized, keeping the same elements, but giving a fresher, more professional look.
+    Animations could be included to give a more responsive experience.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Adapt to different resolutions]
+    \label{tab:requirementreadapt}%
+    \requirementprio{High}
+    \requirementphase{Initial phase}
+    \requirementdesc{The new design must not be static like the previous one, it must adapt when the user resizes the browser so that it fills in the available space and does not trigger browser scrollbars.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Show device name]
+    \label{tab:requirementdevicename}%
+    \requirementprio{Medium}
+    \requirementphase{Initial phase}
+    \requirementdesc{The device name (set by the user) must be displayed besides the device representation.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Load real user devices]
+    \label{tab:requirementrealdevices}%
+    \requirementprio{Low}
+    \requirementphase{Initial phase}
+    \requirementdesc{The old interface always loaded the same three devices, independently of the user and its real registered devices.
+    This new interface shall support an undefined number of devices, and load them dynamically at the beginning.
+    It also shall create or delete devices at any moment when the backend commands it.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Put screenshots in session icons]
+    \label{tab:requirementscreenshots}%
+    \requirementprio{Low}
+    \requirementphase{Initial phase}
+    \requirementdesc{The old interface always showed the same generic icon for all sessions.
+    This new interface shall show the real screenshot already stored for each video file.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Reorganize devices]
+    \label{tab:requirementreorganize}%
+    \requirementprio{Medium}
+    \requirementphase{Initial phase}
+    \requirementdesc{User must be able to move around its devices in the \ida{PNAI} interface, reordering them as they wish.
+    In any case, all devices must be fully visible at any time.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Resize devices]
+    \label{tab:requirementresize}%
+    \requirementprio{Low}
+    \requirementphase{Initial phase}
+    \requirementdesc{User must be able to scale its devices in the \ida{PNAI} interface, making them bigger or smaller, within certain bounds to guaranty that sessions have room to be drawn inside them.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Browser compatibility]
+    \label{tab:requirementcompatible}%
+    \requirementprio{High}
+    \requirementphase{Initial phase}
+    \requirementdesc{It shall be compatible with latest versions of all popular devices: \idx{Internet Explorer} 7+, \idx{Firefox}, Opera, Safari and Chrome.
+    The only exception shall be \idx{Internet Explorer} 6, for practical reasons.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Integrate the \idx{IPTVplus} interface]
+    \label{tab:requirementiptv}%
+    \requirementprio{High}
+    \requirementphase{Second phase}
+    \requirementdesc{The \idx{IPTVplus} interface (see Figure~\ref{fig:iptvplus}) must be implemented as a sidebar inside the \ida{PNAI} interface.
+    That way, the user must be able to buy new content within the \ida{PNAI} interface, all just in one page.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Buy content onto a device]
+    \label{tab:requirementcontentdevice}%
+    \requirementprio{Medium}
+    \requirementphase{Second phase}
+    \requirementdesc{When the user buys new content from this \ida{PNAI} interface, it shall be able to select another device as the destination to directly play that content other than the default device.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Buy content onto a buddy]
+    \label{tab:requirementcontentbuddy}%
+    \requirementprio{Medium}
+    \requirementphase{Second phase}
+    \requirementdesc{When the user buys new content from this \ida{PNAI} interface, it shall be able to select another buddy as the destination to directly play that content.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Resize/collapse sidebar]
+    \label{tab:requirementsidebar}%
+    \requirementprio{Medium}
+    \requirementphase{Second phase}
+    \requirementdesc{The user must be able to horizontally resize the sidebar to a custom size, that must be less than 50\% of the page width.
+    Therefore, the \idx{IPTVplus} interface (see Figure~\ref{fig:iptvplus}) must be implemented as a sidebar inside the \ida{PNAI} interface.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Design and adapt a mobile interface]
+    \label{tab:requirementmobile}%
+    \requirementprio{High}
+    \requirementphase{Third phase}
+    \requirementdesc{A new mobile interface must be created for popular modern smartphones with a touchscreen, specifically for the \idx{iOS} and \idx{Android} platforms.
+    The interface shall retain all functionality of the \ida{PNAI} desktop interface.
+    Elements and abstractions must be adapted to mobile peculiarities so that the user experience is comfortable.}
+  \end{userrequirement}
+\end{center}
+
+Outside of these requirements, there were some \emph{implied} requirements, due to the experimental nature of this project: this effort was planned for showcasing purposes rather than for real customers.
+For example, delivering a product with certain quality but as fast as possible derives on some decisions like trying to not rewrite other parts of the system unless completely necessary.
+
+% subsection user_requirements (end)
+
+\subsection{Software Requirements} % (fold)
+\label{sub:software_requirements}
+
+After some deliberation, those previous user-centered requirements result in several software requirements.
+These requirements are more specific and precise, giving a more approximate measure of the complexity of the tasks.
+
+\begin{center}
+  \begin{softwarerequirement}[Replace the \idx{Java} applet]
+    \label{tab:requirementapplet}%
+    \requirementprio{High}
+    \requirementphase{Third phase}
+    \requirementdesc{Both \idx{iOS} and \idx{Android} do not recognize the \idx{Java} applet, so it must be replace with a native \idx{JavaScript} solution.
+    This means that all the \idx{Java} code directly related to the applet must be ported to \idx{JavaScript}, and an alternative for pushing data to the browser must be considered.}
+  \end{softwarerequirement}
+\end{center}
+
+% subsection software_requirements (end)
+
+\subsection{New Use Cases} % (fold)
+\label{sub:new_use_cases}
+
+\begin{center}
+  \begin{usecase}[Buy new content]
+    \label{tab:usecasebuy}%
+    \usecaseactor{System user}
+    \usecasepre{The user must have at least one device online. Also, the sidebar must be opened having the active tab set to \emph{Content}.}
+    \usecasepost{A new session must start on the default user device, or if that device is offline, on one of the online devices. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for that device.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User clicks on the \emph{Buy} (\emph{Play} if the content is free) button of the wanted content.
+        \item A popup window appears asking for confirmation.
+        \item The user confirms the action clicking on the button.
+        \item The popup window closes.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing on the default device, or another online device if it is disconnected.
+        \item The popup disappears and a session icon is created inside of the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item The user cancels the action.
+        \item The popup window closes and action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{6}
+        \item There is an error with the server and the session does not initiate.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Buy new content onto a device]
+    \label{tab:usecasebuydevice}%
+    \usecaseactor{System user}
+    \usecasepre{The user must have at least one device online. Also, the sidebar must be opened having the active tab set to \emph{Content}.}
+    \usecasepost{A new session must start on that selected device. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for that device.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the content icon.
+        \item A copy of the content icon appears under the user's cursor, and follows the cursor until the user drops it.
+        \item User drops the cloned content icon into another device that is online.
+        \item A popup window appears asking for confirmation.
+        \item The user confirms the action clicking on the button.
+        \item The popup window closes.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing on that device.
+        \item The popup disappears and a session icon is created inside of the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{1}
+        \item User drops the content icon into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{3}
+        \item The user cancels the action.
+        \item The popup window closes and action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{7}
+        \item There is an error with the server and the session does not initiate.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Buy new content onto a buddy]
+    \label{tab:usecasebuybuddy}%
+    \usecaseactor{System user}
+    \usecasepre{The user must have at least one buddy online. Also, the sidebar must be opened having the active tab set to \emph{Content}.}
+    \usecasepost{A new session must start on the default (or online) device of that selected buddy. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for that buddy.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the content icon.
+        \item A copy of the content icon appears under the user's cursor, and follows the cursor until the user drops it.
+        \item Without releasing the icon, the user moves the mouse to the buddies tab, and keeps it there for a second.
+        \item The buddies tab gets selected, revealing the buddies.
+        \item User drops the cloned content icon into a buddy that is online.
+        \item A popup window appears asking for confirmation.
+        \item The user confirms the action clicking on the button.
+        \item The popup window closes.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing on the default (or online) device of that selected buddy.
+        \item The popup disappears and a session icon is created right to the destination buddy's name.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{1}
+        \item User drops the content icon into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{4}
+        \item User drops the content icon into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{6}
+        \item The user cancels the action.
+        \item The popup window closes and action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{4}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{9}
+        \item There is an error with the server and the session does not initiate.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+% subsection new_use_cases (end)
+
+% section new_requirements (end)

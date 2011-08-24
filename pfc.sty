@@ -160,6 +160,73 @@
   \end{longtable}
 }
 
+\newcounter{userrequirement}
+\newcounter{softwarerequirement}
+
+\newcommand{\userrequirementtitle}[1]{
+  \multirow{2}{*}{\large{\textbf{\textsc{User Req. \arabic{userrequirement}}}}} &
+  \multirow{2}{*}{\textbf{#1}} \\
+  & \\%
+}
+\newcommand{\softwarerequirementtitle}[1]{
+  \multirow{2}{*}{\large{\textbf{\textsc{Soft. Req. \arabic{softwarerequirement}}}}} &
+  \multirow{2}{*}{\textbf{#1}} \\
+  & \\%
+}
+
+\newcommand{\requirementinfo}[2]{#1 & #2\\ \hline}
+\newcommand{\requirementprio}[1]{\requirementinfo{Priority}{#1}}
+\newcommand{\requirementphase}[1]{\requirementinfo{Phase}{#1}}
+\newcommand{\requirementdesc}[1]{\requirementinfo{Description}{#1}}
+
+\newenvironment{userrequirement}[1][]{
+  \renewcommand{\tabcolsep}{0.025\textwidth}
+  \renewcommand\arraystretch{1.25}
+  \addtocounter{userrequirement}{1}
+  \rowcolors{1}{white}{blue!5}
+  \begin{longtable}{|p{0.22\textwidth}|p{0.67\textwidth}|}
+  \caption{User requirement \arabic{userrequirement} -- #1}\\
+  \hiderowcolors
+  \hline \userrequirementtitle{#1} \hline
+  \showrowcolors
+  \endfirsthead
+  \caption[]{User requirement \arabic{userrequirement} -- #1 (continued)}\\
+  \hiderowcolors
+  \hline \userrequirementtitle{#1}
+  \showrowcolors
+  \endhead
+  \multicolumn{2}{|r|}{\small\emph{continued on next page}}\\
+  \hline
+  \endfoot
+  \endlastfoot
+    }{
+  \end{longtable}
+}
+
+\newenvironment{softwarerequirement}[1][]{
+  \renewcommand{\tabcolsep}{0.025\textwidth}
+  \renewcommand\arraystretch{1.25}
+  \addtocounter{softwarerequirement}{1}
+  \rowcolors{1}{white}{blue!5}
+  \begin{longtable}{|p{0.22\textwidth}|p{0.67\textwidth}|}
+  \caption{Software requirement \arabic{softwarerequirement} -- #1}\\
+  \hiderowcolors
+  \hline \softwarerequirementtitle{#1} \hline
+  \showrowcolors
+  \endfirsthead
+  \caption[]{Software requirement \arabic{softwarerequirement} -- #1 (continued)}\\
+  \hiderowcolors
+  \hline \softwarerequirementtitle{#1}
+  \showrowcolors
+  \endhead
+  \multicolumn{2}{|r|}{\small\emph{continued on next page}}\\
+  \hline
+  \endfoot
+  \endlastfoot
+    }{
+  \end{longtable}
+}
+
 \newcommand{\generictitletwo}[2]{
   \multirow{2}{*}{\textbf{#1}} &
   \multirow{2}{*}{\textbf{#2}} \\
