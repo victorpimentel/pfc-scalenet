@@ -47,11 +47,11 @@ Since then, several alternatives for creating real-time applications have been d
 
 After considering all options, the \ida{APE} project looked the most promising one.
 Eventually, just the proxy socket was needed, so it was merely a drop-in replacement for the \idx{Java} applet.
-In any case, as its server deployment (see \S~\ref{sec:apeconfig}) consists on almost exclusively installing the \idx{Debian} \ida{APE} package, it results in an elegant and painless solution.
+In any case, as its server deployment (see \S\ref{sec:apeconfig}) consists on almost exclusively installing the \idx{Debian} \ida{APE} package, it results in an elegant and painless solution.
 
 % subsection comet (end)
 
-\subsection{How the APE server works} % (fold)
+\subsection{How the APE Server Works} % (fold)
 \label{sub:how_the_ape_server_works}
 
 As we said, the system needs two components: one to be installed in the server and a script to be included in our web application.
@@ -69,7 +69,7 @@ There are some modules and plugins implemented by default, like one that acts as
 With those two simple modules a lot of applications can be written without needing a custom module.
 
 The server maintains a list of named channels; each channel holds one or more users that can write and read from that channel.
-Again, every user can have more than one connection, for example an user that has two tabs open in the same browser, or that have two sessions in two different devices at the same time.
+Again, every user can have more than one connection, for example a user that has two tabs open in the same browser, or that have two sessions in two different devices at the same time.
 For this, the server \ida{DNS} must be configured to answer to multiple dynamic subdomains  (\verb|1.ape.domain.com|, \verb|2.ape.domain.com|, \verb|42.ape.domain.com|, etc).
 
 In the browser, a set of scripts must be added to our web application so that they can talk with the backend: the \ac{APE} \ac{JSF}\index{APE JSF}.
