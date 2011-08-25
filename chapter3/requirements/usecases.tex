@@ -1,0 +1,599 @@
+\subsection{New Use Cases} % (fold)
+\label{sub:new_use_cases}
+
+From the previous requirements, there are new use cases that needs to be addressed, mostly from the second phase.
+For starters, three important scenarios are related to the new content tab, to cover exactly the three use cases missing in Figure~\ref{fig:usecasesiptv}.
+
+\begin{center}
+  \begin{usecase}[Buy new content]
+    \label{tab:usecasebuy}%
+    \usecaseactor{System user}
+    \usecasepre{The user must have at least one device online. Also, the sidebar must be opened having the active tab set to \emph{Content}.}
+    \usecasepost{A new session must start on the default user device, or if that device is offline, on one of the online devices. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for that device.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User clicks on the \emph{Buy} (\emph{Play} if the content is free) button of the wanted content.
+        \item A popup window appears asking for confirmation.
+        \item The user confirms the action clicking on the button.
+        \item The popup window closes.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing on the default device, or another online device if it is disconnected.
+        \item The popup disappears and a session icon is created inside of the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item The user cancels the action.
+        \item The popup window closes and action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{6}
+        \item There is an error with the server and the session does not initiate.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Buy new content onto a device]
+    \label{tab:usecasebuydevice}%
+    \usecaseactor{System user}
+    \usecasepre{The user must have at least one device online. Also, the sidebar must be opened having the active tab set to \emph{Content}.}
+    \usecasepost{A new session must start on that selected device. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for that device.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the content icon.
+        \item A copy of the content icon appears under the user's cursor, and follows the cursor until the user drops it.
+        \item User drops the cloned content icon into another device that is online.
+        \item A popup window appears asking for confirmation.
+        \item The user confirms the action clicking on the button.
+        \item The popup window closes.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing on that device.
+        \item The popup disappears and a session icon is created inside of the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{1}
+        \item User drops the content icon into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{3}
+        \item The user cancels the action.
+        \item The popup window closes and action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{7}
+        \item There is an error with the server and the session does not initiate.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Buy new content onto a buddy]
+    \label{tab:usecasebuybuddy}%
+    \usecaseactor{System user}
+    \usecasepre{The user must have at least one buddy online. Also, the sidebar must be opened having the active tab set to \emph{Content}.}
+    \usecasepost{A new session must start on the default (or online) device of that selected buddy. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for that buddy.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the content icon.
+        \item A copy of the content icon appears under the user's cursor, and follows the cursor until the user drops it.
+        \item Without releasing the icon, the user moves the mouse to the buddies tab, and keeps it there for a second.
+        \item The buddies tab gets selected, revealing the buddies.
+        \item User drops the cloned content icon into a buddy that is online.
+        \item A popup window appears asking for confirmation.
+        \item The user confirms the action clicking on the button.
+        \item The popup window closes.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing on the default (or online) device of that selected buddy.
+        \item The popup disappears and a session icon is created right to the destination buddy's name.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{1}
+        \item User drops the content icon into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{4}
+        \item User drops the content icon into a blank space.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{6}
+        \item The user cancels the action.
+        \item The popup window closes and action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{4}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{9}
+        \item There is an error with the server and the session does not initiate.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+To handle the requirements from UR9 to UR12, a new sidebar needs to be implemented with extra functionality.
+This collapsible sidebar will have two tabs to control the content of the sidebar, triggering some new use cases.
+
+\begin{center}
+  \begin{usecase}[Resize sidebar]
+    \label{tab:usecaseresizesidebar}%
+    \usecaseactor{System user}
+    \usecasepre{The application is fully loaded.}
+    \usecasepost{The sidebar must be opened at the exact point the user released the mouse, within certain bounds.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User starts dragging the left border of the sidebar.
+        \item The width of the sidebar grows or shrinks following the mouse, readapting the device list to that space in every step.
+        \item When the user releases the mouse, the sidebar stays in that size.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item The mouse goes to the half left part of the page or further to the left.
+        \item The sidebar stays filling only the 50\% right part of the page.
+        \item When the user releases the mouse, the sidebar stays in that size (half of the page).
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Collapse sidebar]
+    \label{tab:usecasecollapsesidebar}%
+    \usecaseactor{System user}
+    \usecasepre{The sidebar must be opened.}
+    \usecasepost{The sidebar must be collapsed.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User clicks on the sidebar handler.
+        \item The sidebar is collapsed and the devices are readapted in that new space.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{0}
+        \item User clicks on the currently selected tab.
+        \item The sidebar is collapsed and the devices are readapted in that new space.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{0}
+        \item User starts dragging the left border of the sidebar until its gets to the right part of the page (exactly to the 15\% space in the right).
+        \item The sidebar is collapsed and the devices are readapted in that new space.
+        \item User releases the mouse.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Open sidebar]
+    \label{tab:usecaseopensidebar}%
+    \usecaseactor{System user}
+    \usecasepre{The sidebar must be collapsed.}
+    \usecasepost{The sidebar must be opened.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User clicks on the sidebar handler.
+        \item The sidebar is opened and the devices are readapted in that new space.
+        \item The previous selected tab gets selected.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{0}
+        \item User clicks on any tab.
+        \item The sidebar is opened and the devices are readapted in that new space.
+        \item That tab gets selected.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{0}
+        \item User starts dragging the left border of the sidebar until its gets to the left part of the page (exactly the 85\% space in the left).
+        \item The sidebar is collapsed and the devices are readapted in that new space.
+        \item The previous selected tab gets selected.
+        \item User releases the mouse.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Select tab]
+    \label{tab:usecaseselecttab}%
+    \usecaseactor{System user}
+    \usecasepre{The sidebar must be either collapsed or opened with the active tab set to the other tab.}
+    \usecasepost{The tab must be selected, i.e., the sidebar should show the content for that tab.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User clicks on the tab.
+        \item The tab is selected and its content is changed to the content for that tab.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{1}
+        \item If the sidebar is collapsed, then the sidebar is opened.
+        \item The tab is selected and its content is changed to the content for that tab.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+The initial phase requirements also need some use cases, although less critical than the others.
+For example, the ability of moving and resizing devices (UR6) can be divided into two use cases.
+
+\begin{center}
+  \begin{usecase}[Move device]
+    \label{tab:usecasemovedevice}%
+    \usecaseactor{System user}
+    \usecasepre{There is at least one registered device for that user.}
+    \usecasepost{The device is moved to a new position.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User moves the mouse over the device he wants to move.
+        \item Handlers for moving and resizing that device fade in.
+        \item User starts dragging the handler or the title of that device (this title is covering the top of the user).
+        \item The device moves following the mouse.
+        \item When the user releases the mouse, the device stays in that position.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{3}
+        \item The mouse is moved out of bounds.
+        \item The device stays inside of those limits, in the nearest position to the mouse.
+        \item When the user releases the mouse, the device stays in that position.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Resize device]
+    \label{tab:usecaseresizedevice}%
+    \usecaseactor{System user}
+    \usecasepre{There is at least one registered device for that user.}
+    \usecasepost{The device is resized.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User moves the mouse over the device he wants to resize.
+        \item Handlers for moving and resizing that device fade in.
+        \item User starts dragging the resize handler (at the bottom right part of the device).
+        \item The device resizes following the mouse, keeping its relative ratio.
+        These limits must ensure that the device icon is fully displayed.
+        \item When the user releases the mouse, the device stays in that size.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{3}
+        \item The mouse is moved out of bounds.
+        \item The device stays inside of the fixed limits, in the nearest position to the mouse.
+        These limits must ensure that the device icon is fully displayed and that there are enough space for the session icons to be drawn inside.
+        \item When the user releases the mouse, the device stays in that size.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+All of those use cases are defined considering the desktop interface.
+Since the third phase consists on developing another very different interface, more use cases have to be defined for that mobile version.
+
+\begin{center}
+  \begin{usecase}[Select tab (mobile)]
+    \label{tab:usecaseselecttabmobile}%
+    \usecaseactor{System user}
+    \usecasepre{The application is fully loaded and it is not blocked.}
+    \usecasepost{The tab must be selected, i.e., the main view should show the content for that tab.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the tab.
+        \item The tab is selected and the main view is changed to show the content related to that tab.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Stop a session of a device (mobile)]
+    \label{tab:usecasestopdevicemobile}%
+    \usecaseactor{System user}
+    \usecasepre{A session is already running on a device, and it is showing in the \ida{PNAI} interface near that device's icon.}
+    \usecasepost{Session must terminate, i.e., the content must stop playing. The users must be notified with a popup and the session icon must be deleted from the \ida{PNAI} interface.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the session icon.
+        \item A menu appears over the session icon.
+        \item User taps the \emph{Stop} option.
+        \item The popup menu disappears.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content stops playing.
+        \item The popup disappears and the session icon is deleted from the view.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User taps outside the menu.
+        \item The popup menu disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{5}
+        \item There is an error with the server and the content keeps playing.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Stop a session of a buddy (mobile)]
+    \label{tab:usecasestopbuddymobile}%
+    \usecaseactor{System user}
+    \usecasepre{A session owned by the user is running on a device, and it is showing in the \ida{PNAI} interface near that buddy's name.}
+    \usecasepost{Session must terminate, i.e., the content must stop playing. The user must be notified with a popup and the session icon must be deleted from the \ida{PNAI} interface. The buddy is \emph{not} notified, the content stops without warning.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the session icon.
+        \item A menu appears over the session icon.
+        \item User taps the \emph{Stop} option.
+        \item The popup menu disappears.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content stops playing.
+        \item The popup disappears and the session icon is deleted from the view.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User taps outside the menu.
+        \item The popup menu disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{5}
+        \item There is an error with the server and the content keeps playing.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Copy a session to a device (mobile)]
+    \label{tab:usecasecopydevicemobile}%
+    \usecaseactor{System user}
+    \usecasepre{A session is already running on a device/buddy, and it is showing in the \ida{PNAI} interface near that device/buddy. Also, there is another device online.}
+    \usecasepost{Session must be copied to that device, i.e., the content must be duplicated and played on that device. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for the second device.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the session icon.
+        \item A menu appears over the session icon.
+        \item User taps the \emph{Duplicate} option.
+        \item The popup menu disappears.
+        \item The interface changes to notify the user that now he has to select the destination device.
+        \item If the devices tab is not selected, user taps on the devices tab icon.
+        \item User taps on the device he wants.
+        \item The interface changes back to the normal state.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing in the other device.
+        \item The popup disappears and the session icon is created near the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User taps outside the menu.
+        \item The popup menu disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{5}
+        \item User taps the \emph{Cancel} button, or in the add content tab.
+        \item The interface changes back to the normal state.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[d]
+        \setcounter{enumi}{9}
+        \item There is an error with the server and the content is not duplicated.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Copy a session to a buddy (mobile)]
+    \label{tab:usecasecopybuddymobile}%
+    \usecaseactor{System user}
+    \usecasepre{A session is already running on a device/buddy, and it is showing in the \ida{PNAI} interface inside of that device/buddy. Also, there is another buddy online.}
+    \usecasepost{Session must be copied to that buddy, i.e., the content must be duplicated and played on the buddy's default device. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface near the name of that buddy. The buddy is \emph{not} notified, the content plays without warning.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the session icon.
+        \item A menu appears over the session icon.
+        \item User taps the \emph{Duplicate} option.
+        \item The popup menu disappears.
+        \item The interface changes to notify the user that now he has to select the destination buddy.
+        \item If the buddies tab is not selected, user taps on the buddies tab icon.
+        \item User taps on the buddy he wants.
+        \item The interface changes back to the normal state.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content starts playing in the buddy's device.
+        \item The popup disappears and the session icon is created near the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User taps outside the menu.
+        \item The popup menu disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{5}
+        \item User taps the \emph{Cancel} button, or in the \emph{Add Content} tab.
+        \item The interface changes back to the normal state.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[d]
+        \setcounter{enumi}{9}
+        \item There is an error with the server and the content is not duplicated.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Transfer a session to a device (mobile)]
+    \label{tab:usecasetransferdevicemobile}%
+    \usecaseactor{System user}
+    \usecasepre{A session is already running on a device/buddy, and it is showing in the \ida{PNAI} interface inside of that device/buddy. Also, there is another device online.}
+    \usecasepost{Session must be transferred to that device, i.e., playback must be stopped at the source and started at the destination device. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface for the second device.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the session icon.
+        \item A menu appears over the session icon.
+        \item User taps the \emph{Hand over} option.
+        \item The popup menu disappears.
+        \item The interface changes to notify the user that now he has to select the destination device.
+        \item If the devices tab is not selected, user taps on the devices tab icon.
+        \item User taps on the device he wants.
+        \item The interface changes back to the normal state.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content stops playing in that device and starts playing in the other device.
+        \item The popup disappears, the session icon is deleted from the device and created near the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User taps outside the menu.
+        \item The popup menu disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{5}
+        \item User taps the \emph{Cancel} button, or in the add content tab.
+        \item The interface changes back to the normal state.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[d]
+        \setcounter{enumi}{9}
+        \item There is an error with the server and the content is not transferred.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+\begin{center}
+  \begin{usecase}[Transfer a session to a buddy (mobile)]
+    \label{tab:usecasetransferbuddymobile}%
+    \usecaseactor{System user}
+    \usecasepre{A session is already running on a device/buddy, and it is showing in the \ida{PNAI} interface inside of that device/buddy. Also, there is another buddy online.}
+    \usecasepost{Session must be transferred to that buddy, i.e., playback must be stopped at the source and started at the buddy's default device. The user must be notified with a popup and the session icon must appear in the \ida{PNAI} interface near the name of that buddy. The buddy is \emph{not} notified, the content plays without warning.}
+    \usecasemain{
+      \begin{usecasepath}
+        \item User taps on the session icon.
+        \item A menu appears over the session icon.
+        \item User taps the \emph{Hand over} option.
+        \item The popup menu disappears.
+        \item The interface changes to notify the user that now he has to select the destination buddy.
+        \item If the buddies tab is not selected, user taps on the buddies tab icon.
+        \item User taps on the buddy he wants.
+        \item The interface changes back to the normal state.
+        \item A popup appears to notify the user that the action is in progress.
+        \item The content stops playing in that device and starts playing in the buddy's device.
+        \item The popup disappears, the session icon is deleted from the device and created near the destination device.
+      \end{usecasepath}
+    }
+    \usecasealt{1}{
+      \begin{usecasepath}[b]
+        \setcounter{enumi}{2}
+        \item User taps outside the menu.
+        \item The popup menu disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{2}{
+      \begin{usecasepath}[c]
+        \setcounter{enumi}{5}
+        \item User taps the \emph{Cancel} button, or in the \emph{Add Content} tab.
+        \item The interface changes back to the normal state.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+    \usecasealt{3}{
+      \begin{usecasepath}[d]
+        \setcounter{enumi}{9}
+        \item There is an error with the server and the content is not transferred.
+        \item The content of the popup changes to notify the user that there was an error with the server and the action could not be completed.
+        After 5 seconds it disappears.
+        \item Action is cancelled.
+      \end{usecasepath}
+    }
+  \end{usecase}
+\end{center}
+
+% subsection new_use_cases (end)
