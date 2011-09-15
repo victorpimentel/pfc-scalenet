@@ -5,7 +5,161 @@ There are new requirements that need to be satisfied within the redesigned \ida{
 These requirements were extracted in several team meetings as the work advanced.
 They could be divided into roughly three phases: a initial phase (a full redesign), a second phase (adding more functionality) and a third phase (implementing the mobile version).
 
-\input{chapter3/requirements/userrequirements}
-\input{chapter3/requirements/usecases}
+\subsection{User Requirements} % (fold)
+\label{sub:user_requirements}
+
+As this was a new iteration over an already developed product, there were multiple requirements that were already set and implemented.
+Those requirements are not discussed since they are out of the limits of this work.
+Therefore, this is a list of only the new requirements resulted from the team feedback:
+
+\begin{center}
+  \begin{userrequirement}[Redesign interface]
+    \label{tab:requirementredesign}%
+    \requirementprio{High}
+    \requirementphase{Initial phase}
+    \requirementdesc{Overall design must be modernized, keeping the same elements, but giving a fresher, more professional look.
+    Animations could be included to give a more responsive experience.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Adapt to different resolutions]
+    \label{tab:requirementreadapt}%
+    \requirementprio{High}
+    \requirementphase{Initial phase}
+    \requirementdesc{The new design must not be static like the previous one, it must adapt when the user resizes the browser so that it fills in the available space and does not trigger browser scrollbars.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Show device name]
+    \label{tab:requirementdevicename}%
+    \requirementprio{Medium}
+    \requirementphase{Initial phase}
+    \requirementdesc{The device name (set by the user) must be displayed besides the device representation.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Load real user devices]
+    \label{tab:requirementrealdevices}%
+    \requirementprio{Low}
+    \requirementphase{Initial phase}
+    \requirementdesc{The old interface always loaded the same three devices, independently of the user and its real registered devices.
+    This new interface shall support an undefined number of devices, and load them dynamically at the beginning.
+    It also shall create or delete devices at any moment when the backend commands it.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Put screenshots in session icons]
+    \label{tab:requirementscreenshots}%
+    \requirementprio{Low}
+    \requirementphase{Initial phase}
+    \requirementdesc{The old interface always showed the same generic icon for all sessions.
+    This new interface shall show the real screenshot already stored for each video file.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Reorganize devices]
+    \label{tab:requirementreorganize}%
+    \requirementprio{Medium}
+    \requirementphase{Initial phase}
+    \requirementdesc{User must be able to move around its devices in the \ida{PNAI} interface, reordering them as they wish.
+    In any case, all devices must be fully visible at any time.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Resize devices]
+    \label{tab:requirementresize}%
+    \requirementprio{Low}
+    \requirementphase{Initial phase}
+    \requirementdesc{User must be able to scale its devices in the \ida{PNAI} interface, making them bigger or smaller, within certain bounds to guaranty that sessions have room to be drawn inside them.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Browser compatibility]
+    \label{tab:requirementcompatible}%
+    \requirementprio{High}
+    \requirementphase{Initial phase}
+    \requirementdesc{It shall be compatible with latest versions of all popular devices: \idx{Internet Explorer} 7+, \idx{Firefox}, Opera, Safari and Chrome.
+    The only exception shall be \idx{Internet Explorer} 6, for practical reasons.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Integrate the \idx{IPTVplus} interface]
+    \label{tab:requirementiptv}%
+    \requirementprio{High}
+    \requirementphase{Second phase}
+    \requirementdesc{The \idx{IPTVplus} interface (see Figure~\ref{fig:iptvplus}) must be implemented as a sidebar inside the \ida{PNAI} interface.
+    That way, the user must be able to buy new content within the \ida{PNAI} interface, all just in one page.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Buy content onto a device]
+    \label{tab:requirementcontentdevice}%
+    \requirementprio{Medium}
+    \requirementphase{Second phase}
+    \requirementdesc{When the user buys new content from this \ida{PNAI} interface, it shall be able to select another device as the destination to directly play that content other than the default device.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Buy content onto a buddy]
+    \label{tab:requirementcontentbuddy}%
+    \requirementprio{Medium}
+    \requirementphase{Second phase}
+    \requirementdesc{When the user buys new content from this \ida{PNAI} interface, it shall be able to select another buddy as the destination to directly play that content.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Resize/collapse sidebar]
+    \label{tab:requirementsidebar}%
+    \requirementprio{Medium}
+    \requirementphase{Second phase}
+    \requirementdesc{The user must be able to horizontally resize the sidebar to a custom size, that must be less than 50\% of the page width.
+    Therefore, the \idx{IPTVplus} interface (see Figure~\ref{fig:iptvplus}) must be implemented as a sidebar inside the \ida{PNAI} interface.}
+  \end{userrequirement}
+\end{center}
+
+\begin{center}
+  \begin{userrequirement}[Design and adapt a mobile interface]
+    \label{tab:requirementmobile}%
+    \requirementprio{High}
+    \requirementphase{Third phase}
+    \requirementdesc{A new mobile interface must be created for popular modern smartphones with a touchscreen, specifically for the \idx{iOS} and \idx{Android} platforms.
+    The interface shall retain all functionality of the \ida{PNAI} desktop interface.
+    Elements and abstractions must be adapted to mobile peculiarities so that the user experience is comfortable.}
+  \end{userrequirement}
+\end{center}
+
+Outside of these requirements, there were some \emph{implied} requirements, due to the experimental nature of this project: this effort was planned for showcasing purposes rather than for real customers.
+For example, delivering a product with certain quality but as fast as possible derives on some decisions like trying to not rewrite other parts of the system unless completely necessary.
+
+% subsection user_requirements (end)
+
+\subsection{Software Requirements} % (fold)
+\label{sub:software_requirements}
+
+After some deliberation, those previous user-centered requirements result in several software requirements.
+These requirements are more specific and precise, giving a more approximate measure of the complexity of the tasks.
+
+\begin{center}
+  \begin{softwarerequirement}[Replace the \idx{Java} applet]
+    \label{tab:requirementapplet}%
+    \requirementprio{High}
+    \requirementphase{Third phase}
+    \requirementdesc{Both \idx{iOS} and \idx{Android} do not recognize the \idx{Java} applet, so it must be replace with a native \idx{JavaScript} solution.
+    This means that all the \idx{Java} code directly related to the applet must be ported to \idx{JavaScript}, and an alternative for pushing data to the browser must be considered.}
+  \end{softwarerequirement}
+\end{center}
+
+% subsection software_requirements (end)
 
 % section new_requirements (end)
