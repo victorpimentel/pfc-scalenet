@@ -1,0 +1,56 @@
+\section{Interface Design} % (fold)
+\label{sec:interface_design}
+
+The interface design was not a straightforward task, but rather an iterative process where several alternatives were weighted.
+Constant feedback from other members of the project helped shaping it until getting to the final design.
+At the end of this work two interfaces were fully designed to bring the same functionality under both desktop and mobile constraints.
+
+\subsection{Redesign} % (fold)
+\label{sub:redesign}
+
+The previous design had several flaws that needed to be fixed.
+Also, since more functionality were implemented, additional abstractions needed to be designed.
+Considering these two facts, the main points behind this redesign were:
+
+\begin{description}
+  \item[Organization] The previous design was quite chaotic, the elements were just scattered and the visual impact was odd.
+  By constraining the design to a grid, elements fall into place, so the user impression is much better.
+  \item[Simplicity] For example, the previous background was a little distracting, and the colors gave more importance to the background than to the foreground elements.
+  By simplifying the shapes and desaturating the colors, now elements are more easily recognizable.
+  
+  Also, buttons are easier to distinguish now, because they are bright orange while the rest of the interface is desaturated.
+  All new images also follow this convention, so that they do not feel out of place.
+  Another example is the new trash icon: it is desaturated by default, but when the user drags something onto that icon, it activates showing the full color version of that image.
+  \item[Increased contrast] Some texts in the previous design were very difficult to read: white over very light orange, for example.
+  In this design this was a concern, and it results in a high contrast color palette: white over black, black over white.
+  Other design tricks also help with the contrast, like adding shadows in some texts labels.
+  \item[Smoothness] Animations have been heavily used in the interface, to give the interface a responsive feeling to the user actions.
+  For example, when the user drags the icon it slightly fades and when the mouse is over a valid container it turns opaque.
+  
+  Also, when the icon is released onto an invalid container or when a session is duplicated/transferred, the icon smoothly \emph{flies} from one point to another.
+  These nice little touches are not just superfluous gimmicks, but they improve the user experience.
+  \item[Adaptability] The previous interface was static, all elements had fixed sizes and positions.
+  Now, the elements are designed to be resized automatically to fit the available space.
+  \item[Customization] The user can now move and resize his devices, so there are new elements to make this task easier.
+  When the mouse is over a device, two handles appear: one to move it and another one to resize it.
+  The user just has to drag them to see how the devices change live.
+  
+  Another visual element needed to be added for resizing the sidebar as a cue to the user, and it works mostly in the same way.
+  The two panes of the interface resize accordingly with the position of that knob.
+  \item[Fast recognizability] For the user it is more useful tagging the sessions with a still image from the video rather than a generic icon.
+  That is the most effective way to visually discriminate two different sessions.
+  \item[Condensed] On the one hand simplicity was one of our goals, but on the other hand more information will be added to the sidebar.
+  This has been solved by adding \emph{tabs} to the sidebar so that the user can alternate between his buddy list and the new content list.
+  
+  Also, in the new content list an \emph{accordion} has been implemented to handle the different categories.
+  So when content from one category is shown, the others are collapsed.
+\end{description}
+
+% subsection redesign (end)
+
+\subsection{Mobile Design} % (fold)
+\label{sub:mobile_design}
+
+% subsection mobile_design (end)
+
+% section interface_design (end)
