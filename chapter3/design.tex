@@ -171,19 +171,19 @@ There is also an interesting detail, as those figures also reveal how the sessio
 
 \begin{figure}[htbp]
   \centering
-  \subfigure[When the icon reaches a valid device, the icon turns opaque]{
+  \subfigure[Initial position of the device]{
     \label{fig:pnai-moving}
     \includegraphics[width=\textwidth]{pnai-moving}
   }
-  \subfigure[Popup window that ask for confirmation]{
+  \subfigure[User drags the device's title to the new position]{
     \label{fig:pnai-moved}
     \includegraphics[width=\textwidth]{pnai-moved}
   }
-  \caption{Buying new content from the PNAI}
+  \caption{Moving a device in the PNAI}
   \label{fig:pnai-move}
 \end{figure}
 
-All this interface customizations are remembered the next time the user visits that page, using cookies to store that information.
+All these interface customizations are remembered the next time the user visits that page, using cookies to store that information.
 Also, if the user resizes the window, the position and size of the devices are recalculated on the fly.
 
 % subsection redesign (end)
@@ -191,6 +191,151 @@ Also, if the user resizes the window, the position and size of the devices are r
 \subsection{Mobile Design} % (fold)
 \label{sub:mobile_design}
 
-% subsection mobile_design (end)
+For the mobile version, the interface has been completely rethought.
+The design is based on the \idx{iOS} guidelines for native applications: there is a title to inform the user where he is, there is also a tab bar and the main content is displayed in a list view.
 
+Figure~\ref{fig:pnai-mobile} illustrates the login view and the three tab views.
+In some views, scrolling is needed to reveal all the content, so the user can drag the main view up or down with his finger while the title and the tab bar maintain their position in the screen.
+To achieve this effect, the \idx{iScroll} library has been used.
+
+\begin{figure}[htbp]
+  \centering
+  \subfigure[Initial login view]{
+    \label{fig:pnai-mobile-login}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-login}
+  }
+  \subfigure[Devices tab view]{
+    \label{fig:pnai-mobile-devices}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-devices}
+  }
+  \subfigure[Buddies tab view]{
+    \label{fig:pnai-mobile-buddies}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-buddies}
+  }
+  \subfigure[Add content tab view]{
+    \label{fig:pnai-mobile-content}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-content}
+  }
+  \caption{New PNAI interface for mobile devices}
+  \label{fig:pnai-mobile}
+\end{figure}
+
+The screen that welcomes the user is the login view.
+This is new respect the desktop version because the login was handled by other component, while in the mobile version there should be no frames and it should be redesign for mobile devices.
+It also explains why a button for logging the user out is added to the app's title.
+
+The functionality is divided into three tab views: \emph{devices}, \emph{buddies} and \emph{Add Content}.
+The first one is equivalent to the left view in the desktop version, while the other two are similar to the sidebar tabs.
+The user can reveal one of the tabs at a time, limiting the information in the screen comparing with the desktop version, something normal because the available space is smaller.
+
+Once the user has logged in, the user sees his list of devices with the current sessions.
+The main difference from the desktop is that sessions are not shown inside of the device icon but at its side.
+To navigate between the tabs, a tab bar is always available at the bottom of the screen, working and looking exactly as any native application in the \idx{iOS} platform.
+
+To maintain the same feeling, the buddy list is designed in a similar way, but more compact.
+The content list follows another \idx{iOS} guideline for displaying list, and it looks like a regular \texttt{UIListView}\footnote{\texttt{UIListView} is a component defined in the \idx{iOS} SDK for creating lists.}, making the web application feel even more like a native application.
+
+Regarding the implementation, except the icons, most of the interface is done strictly with \ida{CSS} properties:
+all buttons, shadows, gradients and backgrounds are done with multiple \ida{CSS}3 gradients.
+Even the font for the offline text uses the \texttt{@font-face} property.
+
+It is important to remark that this interface is not a native application, it is the same web application running full screen in an \idx{iPhone}.
+In this case, the user added a shortcut to the \idx{ScaleNet} web page on the home screen, so it is shown as any other app (see Figure~\ref{fig:pnai-mobile-homescreen}).
+
+\begin{figure}[htbp]
+  \centering
+  \subfigure[The pink icon launches ScaleNet]{
+    \label{fig:pnai-mobile-homescreen}
+    \includegraphics[width=0.48\textwidth]{pnai-mobile-homescreen}
+  }
+  \subfigure[The startup image in action]{
+    \label{fig:pnai-mobile-initial}
+    \includegraphics[width=0.48\textwidth]{pnai-mobile-initial}
+  }
+  \subfigure[The interface adapts to the Safari browser]{
+    \label{fig:pnai-mobile-safari}
+    \includegraphics[width=0.295\textwidth]{pnai-mobile-safari}
+  }
+  \subfigure[When the device is rotated, it automatically resizes to a landscape view]{
+    \label{fig:pnai-mobile-landscape}
+    \includegraphics[width=0.665\textwidth]{pnai-mobile-landscape}
+  }
+  \caption{Mobile PNAI interface in different situations}
+  \label{fig:pnai-mobile-flexible}
+\end{figure}
+
+However the web app is flexible and when the web page is visited from the Safari browser it adapts to the available space (see Figure~\ref{fig:pnai-mobile-safari}).
+Because of this, the app can also be used in landscape mode (see Figure~\ref{fig:pnai-mobile-landscape}), triggered automatically when the user rotates the device.
+
+When any app is launched, \idx{iOS} has a mechanism that shows a static image until the app is loaded.
+According to the guidelines, this image should not be a splash image just for showing the logo of the app or company, but it should contain an empty interface with maybe a loading message.
+This \emph{tricks} the user perception so that the app seems to load much faster, and since web applications are usually slower to load, it is a very welcome addition (see Figure~\ref{fig:pnai-mobile-initial}.
+
+Because drag\et{}drop is not viable, as it is used for scrolling, a different approach needed to be taken for the session actions.
+While the previous approach first selected the destination and then the action, now it is the opposite, first the action and then the destination.
+
+The idea is simple: the user taps on the session he wants, then a menu appears with three options (transfer, duplicate, stop), he selects one of them and finally, if he chooses transfer or duplicate, he taps on the destination device or buddy.
+This approach was explained in detail in use cases 19 to 24.
+Figure~\ref{fig:pnai-mobile-transfer} shows how the process looks like in this new interface.
+
+\begin{figure}[htbp]
+  \centering
+  \subfigure[A menu appears when the user taps over the session]{
+    \label{fig:pnai-mobile-menu}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-menu}
+  }
+  \subfigure[Then the target selection mode activates, title slowly "pulses" into yellow]{
+    \label{fig:pnai-mobile-target}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-target}
+  }
+  \subfigure[User selects a device, the interface updates with information]{
+    \label{fig:pnai-mobile-info}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-info}
+  }
+  \subfigure[The session is transferred]{
+    \label{fig:pnai-mobile-transferred}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-transferred}
+  }
+  \caption{Transferring a session in the mobile PNAI interface}
+  \label{fig:pnai-mobile-transfer}
+\end{figure}
+
+Overall, the main point in the design was to follow the \idx{iOS} guidelines for native apps, so the menu is pixel-exact with the built-in menu that appears to copy, cut and paste text.
+The behavior is also copied: when the user taps outside of the menu, the action is cancelled.
+
+In the target selection mode, the title background displays a yellow pulse effect to get the user attention, similarly to the title that appears when there is a phone call in progress.
+Other elements, like the information panel or the \emph{Tap me} area, were designed trying to keep it simple but elegant.
+
+The purchase process of new content is slightly different, since there is a specific tab for it (see Figure~\ref{fig:pnai-mobile-buy}).
+In the content list there are image stills, some information and buttons to buy those contents.
+
+\begin{figure}[htbp]
+  \centering
+  \subfigure[The user wants to buy a session]{
+    \label{fig:pnai-mobile-buy1}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-buy1}
+  }
+  \subfigure[The first tap reveals the button, the second tap buys the content]{
+    \label{fig:pnai-mobile-buy2}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-buy2}
+  }
+  \subfigure[Target selection mode, only online devices and buddies are selectable]{
+    \label{fig:pnai-mobile-buytarget}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-buytarget}
+  }
+  \subfigure[The progress is notified]{
+    \label{fig:pnai-mobile-buyinfo}
+    \includegraphics[width=0.475\textwidth]{pnai-mobile-buyinfo}
+  }
+  \caption{Buying content in the mobile PNAI interface}
+  \label{fig:pnai-mobile-buy}
+\end{figure}
+
+To actually buy anything the user has to tap twice the button, since it is very easy to accidentally tap on it.
+This behavior is the same as in the AppStore or the iTunes app, so the user should be already familiarized with it.
+
+Once the desired content has been chosen, the application automatically changes to the device tab so the user can select the destination.
+The rest of the process is the same as in a transfer or duplication.
+In any action, the user can also select a buddy as the target, he only has to change to the buddies tab and then he can select any online buddy.
+% subsection mobile_design (end)
 % section interface_design (end)
