@@ -1,6 +1,27 @@
 \section{Objectives} % (fold)
 \label{sec:objectives}
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The initial objective of the work was creating a modernized version of the \ida{PNAI} so that the interface were not only elegant but easy and fun to use.
+As this work is for demonstrating the underlying technologies, things like efficiency or complete stability were not so important.
 
+Even then, quality is always a welcomed addition, so a generic objective was developing a considerable sized \idx{JavaScript} application while maintaining a clear codebase.
+That is not very easy to do with \idx{JavaScript}, so that impacted on the decision to use certain tools over others.
+
+Also, the web application had to work on most browsers, but since we can control the demonstrator, we could reasonably drop some less used browsers if they could hinder the development.
+Because of that, compatibility with \idx{Internet Explorer} 6 was dropped.
+
+Giving that the \ida{PNAI} application is a little part of \idx{ScaleNet}, another goal was changing as less components as needed to avoid breaking other things.
+This translates in no changes in the database, no changes in the messages and, even if one component -- the applet -- was replaced, the rest of the system does not even notice it.
+Also, the deployment should be as simple as possible, the system already has a lot of dependencies.
+
+As the project advanced, the goals evolved into filling other holes in the user experience.
+Between them, the most important goal was unifying all functionality regarding sessions in one interface.
+That is, to be able to buy content directly from the \ida{PNAI}, without having to go to other page first.
+
+Another new objective was building a mobile web application compatible with \idx{iPhone} and other touch devices.
+A mobile web application was chosen instead of a native app because that way the application is compatible with almost any device, and the web application will be faster to develop giving that most of the code can be recycled.
+However, native applications feel \emph{better} than web pages, so that resulted in trying to mimic the experience of a native application in the mobile browser.
+
+At the end of this document these objectives are evaluated to know if they were fulfilled, and at which level.
+Additionally, some future goals are delineated for a plausible iteration over this work.
 % section objectives (end)
