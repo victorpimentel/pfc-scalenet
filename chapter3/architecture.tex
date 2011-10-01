@@ -143,10 +143,11 @@ The \idc{Content} and \idc{ContentList} classes are completely new, as the funct
 
 In the desktop there are two approaches: to directly buy the piece by clicking the \emph{Buy} button, or by dragging the icon to a specific container.
 For the second approach the system is very similar to dragging sessions, with a method to add the dragging functionality and another to handle a successful action.
+In both situations, a confirmation popup will appear -- the \texttt{options.link} sets the address to open.
 One important difference is that, when the user drags the icon to the buddies tab, that tab gets revealed.
 
 In the mobile version the \idc{createMobileHTMLContainer} method handles the whole \emph{tap twice to buy the content} experience, and the posterior selection of a target.
-Because of that, this method is somewhat complex.
+Because of that, this method is somewhat complex, but since it does not need any additional confirmation, it can directly tell the backend that the user wants to buy that content -- for that the address contacted in the \ida{AJAX} call is the one stored in the \texttt{options.ajaxlink} property.
 
 There is one last interesting detail about this class: when a new piece of content is created, it traverses the current session list and updates the session icon with the thumb icon for that content.
 This means that, when the content is loaded, the current sessions get their characteristic icons, even if that information was not provided by the \ida{OSGi} bundle through the socket.
@@ -184,4 +185,137 @@ It also deals with its resizing and visibility, something that needed a lot of a
 Its mobile counterpart is the \idc{BarTab} class, that administers the navigation system based on the bottom tabs and nearly everything related in the mobile interface, like orientation changes.
 To successfully implement the tab bar, it uses \idx{iScroll}, another \idx{JavaScript} component designed for \idx{Webkit} mobile browsers (see Section~\ref{sec:mobile}).
 % subsection javascript_codebase (end)
+
+\subsection{PHP Codebase} % (fold)
+\label{sub:php_codebase}
+
+In the server all modified code is implemented in \ida{PHP} scripts, sharing the same tree as the \idx{IPTVplus} interface.
+Figure~\ref{fig:phpdir} shows all the new files in bold, in contrast to Section~\ref{sub:iptvplus}
+The main page remains mostly the same, just updating some styles to modernize and fix some bugs without changing the overall style.
+
+\begin{figure}[htbp]
+  \dirtree{%
+    .1 scalenet/.
+      .2 index.php.
+      .2 sub/.
+        .3 includes/.
+          .4 \textbf{c2d-ajax.php}.
+          .4 c2d.php.
+          .4 inhalt.php.
+          .4 popup.php.
+        .3 IPTVplus.php.
+        .3 \textbf{IPTVplusJSON.php}.
+        .3 personal/.
+          .4 sessions.php.
+        .3 personal.php.
+        .3 \textbf{pnai/}.
+          .4 \textbf{cache.manifest}.
+          .4 \textbf{css/}.
+          .4 \textbf{desktop.php}.
+          .4 \textbf{images/}.
+          .4 \textbf{index.php}.
+          .4 \textbf{js/}.
+            .5 \textbf{ape-jsf/}.
+            .5 \textbf{appletglue.js}.
+            .5 \textbf{backendlink.js}.
+            .5 \textbf{bartab.js}.
+            .5 \textbf{buddies.js}.
+            .5 \textbf{containers.js}.
+            .5 \textbf{content.js}.
+            .5 \textbf{iscroll/}.
+            .5 \textbf{main-mobile.js}.
+            .5 \textbf{main.js}.
+            .5 \textbf{model.js}.
+            .5 \textbf{mootools-1.2.4-core-yc.js}.
+            .5 \textbf{mootools-1.2.4.4-more.js}.
+            .5 \textbf{notifications.js}.
+            .5 \textbf{sessions.js}.
+            .5 \textbf{sidebar.js}.
+            .5 \textbf{util.js}.
+          .4 \textbf{mobile-auth.inc.php}.
+          .4 \textbf{mobile.php}.
+  }
+  \caption{New PHP directory}
+  \label{fig:phpdir}
+\end{figure}
+
+In the desktop, the user starts visiting the \texttt{index.php} (see Figure~\ref{fig:scalenet-frontpage}), where he can choose between the old \idx{IPTVplus} application, the \ida{PNAI} (at the right) and another different application, the MeshBed.
+Once the user clicks on the \emph{myNetwork} link, the \texttt{personal.php} page presents a login form (see Figure~\ref{fig:scalenet-login}).
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{scalenet-frontpage}
+  \caption{ScaleNet front page}
+  \label{fig:scalenet-frontpage}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{scalenet-login}
+  \caption{ScaleNet login page}
+  \label{fig:scalenet-login}
+\end{figure}
+
+If the user logs in successfully, that page will change to include the \idc{session.php} page.
+In that page a frame is defined: previously it linked to the server built by the \idx{OSGi} bundle, but now it just links to the \texttt{desktop.php} page in the \texttt{pnai} directory.
+The whole picture looks like Figure~\ref{fig:pnai-buddies}.
+
+However, if the user try to visit the front page from an \idx{iOS} or \idx{Android} device, he will be redirected to the \idx{mobile.php} page in the \texttt{pnai} directory.
+If the user is not logged in, the \texttt{mobile-auth.inc.php} displays the login form (see Figure~\ref{fig:pnai-mobile-login}), but if he is already logged in, his devices are directly shown (see Figure~\ref{fig:pnai-mobile-devices}).
+
+That way, all code related to the new \ida{PNAI} is all isolated in the \idx{pnai} directory.
+Both \texttt{desktop.php} and \texttt{mobile.php} are the respective main pages for the two interfaces, and they define only some basic elements needed in the page structure.
+In the \texttt{css} directory all the styles are stored in two different files -- one for each file.
+Also, that directory contains the web fonts used for some effects.
+Finishing with the assets, the \texttt{images} directory stores all the needed art files for the interface.
+
+Finally, the \texttt{js} directory is the home for all \idx{JavaScript} code.
+Each file includes one or more \idx{MooTools} classes organized by topic.
+Most of them are self explanatory, except \texttt{utils.js} that defines the \idc{InfoPanel} and \idc{PopupMenu} classes.
+
+The desktop version includes all files except \texttt{bartab.js} -- that contains only that class --, \texttt{iscroll} -- the third party library --, and \texttt{main-mobile.js} -- the main function that prepares all.
+The mobile version includes all files except \texttt{sidebar.js} -- the \texttt{Drawer} class --, \texttt{notifications.js} -- the \idx{Growl} library --, and \texttt{main.js} -- the desktop version of that main function.
+
+The last file to explain, and probably the less important, is \idx{cache.manifest}.
+This file is used to help the mobile browser caching the application static assets -- \idx{JavaScript}, \ida{CSS} and images.
+Its content is basically a plain list of all static resources.
+
+Going up to the \texttt{sub} directory, there are two new \ida{PHP} scripts.
+Both are designed as the \ida{AJAX} versions of other two scripts, so their output is formatted in \ida{JSON}/\ida{JSONP} instead of \ida{HTML}.
+\texttt{IPTVplusJSON.php} returns the list of contents available to buy and \texttt{c2d-ajax.php} receives purchase requests so the content can start streaming.
+
+Both connects to the \ida{IMS} server through a socket, then they send a command, the \ida{IMS} responds and then they format the output accordingly.
+\texttt{IPTVplusJSON.php} sends the \texttt{list} command, it receives the content list in a string where every new line is a new content, and it formats it like in Listing~\ref{iptvplusjson}.
+It is no surprise that it contains exactly the same information as in the \idc{Content} \idx{MooTools} class.
+
+\begin{lstlisting}[language=JavaScript,label=iptvplusjson,caption=JSON content list example]
+myCallback({
+  "error": false,
+  "content": [
+    {
+      "id": "MYID",
+      "img": "/scalenet/sub/iptvplus/images/...jpg",
+      "title": "Content title",
+      "type": "tv",
+      "priority": "everybody",
+      "price": "3",
+      "desc": "Content description",
+      "quality": "100\/300\/...2000\/4000",
+      "link": "popup.php?price=3&link=c2d.php?%3Ftype%3Dtv%26...",
+      "ajaxlink": "c2d-ajax.php?type=tv&quality=...&content=MYID&impu="
+    },
+    {...}
+  ]
+});
+\end{lstlisting}
+
+The response, a \idx{JavaScript} object, is wrapped into a function call which name is defined by passing a parameter to the script.
+One of the properties of that object is \texttt{error}, that contains a message for the user if the content list could not be retrieved.
+The main property is \texttt{content}, an array made by objects with the required data for each piece of content.
+
+As explained before, the \texttt{link} is used by the desktop version and the \texttt{ajaxlink} by the mobile version.
+Each of one is already prepared to be called with all parameters except the destination \texttt{impu}.
+Consequently, the \texttt{c2d-ajax.php} script receives that request with those parameters, then it opens the socket and sends a \texttt{refer} command.
+The response to the browser is the \texttt{error} message in case of a problem or simply an object with the content \texttt{\{result:~'OK'\}} in case of success.
+% subsection php_codebase (end)
 % section architectural_design (end)
