@@ -5,9 +5,6 @@ There are new requirements that need to be satisfied within the redesigned \ida{
 These requirements were extracted in several team meetings as the work advanced.
 They could be divided into roughly three phases: a initial phase (a full redesign), a second phase (adding more functionality) and a third phase (implementing the mobile version).
 
-\subsection{User Requirements} % (fold)
-\label{sub:user_requirements}
-
 As this was a new iteration over an already developed product, there were multiple requirements that were already set and implemented.
 Those requirements are not discussed since they are out of the limits of this work.
 Therefore, this is a list of only the new requirements resulted from the team feedback:
@@ -141,25 +138,5 @@ Therefore, this is a list of only the new requirements resulted from the team fe
 
 Outside of these requirements, there were some \emph{implied} requirements, due to the experimental nature of this project: this effort was planned for showcasing purposes rather than for real customers.
 For example, delivering a product with certain quality but as fast as possible derives on some decisions like trying to not rewrite other parts of the system unless completely necessary.
-
-% subsection user_requirements (end)
-
-\subsection{Software Requirements} % (fold)
-\label{sub:software_requirements}
-
-After some deliberation, those previous user-centered requirements result in several software requirements.
-These requirements are more specific and precise, giving a more approximate measure of the complexity of the tasks.
-
-\begin{center}
-  \begin{softwarerequirement}[Replace the \idx{Java} applet]
-    \label{tab:requirementapplet}%
-    \requirementprio{High}
-    \requirementphase{Third phase}
-    \requirementdesc{Both \idx{iOS} and \idx{Android} do not recognize the \idx{Java} applet, so it must be replace with a native \idx{JavaScript} solution.
-    This means that all the \idx{Java} code directly related to the applet must be ported to \idx{JavaScript}, and an alternative for pushing data to the browser must be considered.}
-  \end{softwarerequirement}
-\end{center}
-
-% subsection software_requirements (end)
 
 % section new_requirements (end)
