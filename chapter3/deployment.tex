@@ -1,12 +1,20 @@
-\section{APE Server\index{APE server} Installation and Configuration} % (fold)
-\label{sec:apeconfig}
+\section{Deployment} % (fold)
+\label{sec:deployment}
 
-In this section the installation and configuration of the \ac{APE} server\index{APE server} are defined step by step.
+The installation of the whole \idx{ScaleNet} application is out of this project scope, however it is necessary to explain the upgrade from a previous version.
+Since one of the goals was to be as less disruptive as possible, it should be fairly easy to deploy the new system into an existing installation.
+The steps can be roughly summarized in three:
 
-\subsection{Install the Server} % (fold)
+\begin{description}
+  \item[Replace the \ida{PHP} sources.] The whole \texttt{scalenet} directory has to be copied over the old one in the same location.
+  \item[Install the \ida{APE} server.] This just means installing a package.
+  \item[Configure \idas{BIND}.] \ida{DNS} needs some custom rules.
+\end{description}
+
+\subsection{Install the APE Server} % (fold)
 \label{sub:apeinstall}
 
-The \ac{APE} download page \cite{ApeDownload} contains packages for different operating systems and architectures.
+The \ida{APE} download page \cite{ApeDownload} contains packages for different operating systems and architectures.
 In this case, since the system is Debian-based we should use the DEB package.
 Once the correct package is downloaded, it can be installed on the \idx{Application Server} by typing Listing~\vref{apeinstallation} from the same directory as the package is stored.
 
@@ -14,7 +22,7 @@ Once the correct package is downloaded, it can be installed on the \idx{Applicat
   sudo dpkg -i ape-1.0.i386.deb
 \end{lstlisting}
 
-After that, the \ac{APE} server daemon (\idc{aped}) is automatically started with the default configuration \cite{ApeSetup}.
+After that, the \ida{APE} server daemon (\idc{aped}) is automatically started with the default configuration \cite{ApeSetup}.
 It can be checked by visiting the url \url{webportal.imusu.mobile.dtrd.de:6969}.
 
 % subsection apeinstall (end)
@@ -42,7 +50,5 @@ Listing~\vref{bindrestart}.
 \begin{lstlisting}[label=bindrestart,caption=BIND restart command]
   sudo /etc/init.d/bind restart
 \end{lstlisting}
-
 % subsection bind (end)
-
-% section apeconfig (end)
+% section deployment (end)
