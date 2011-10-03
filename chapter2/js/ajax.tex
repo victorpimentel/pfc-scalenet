@@ -24,7 +24,7 @@ As this was gradually introduced, web developers started using it but it did not
 Then, the term \ida{AJAX} was coined \cite{AJAX} to designate the technologies involved in the process, though most of them can be replaced by others while maintaining the same spirit.
 Seeing how useful it had become, the \ida{W3C} decided to standardize the \idx{XMLHttpRequest} object.
 
-As depicted in Figure~\ref{fig:ajax-application-model}, this approach needs another layer of complexity in the client to handle the data and update the interface.
+As depicted in Figure~\vref{fig:ajax-application-model}, this approach needs another layer of complexity in the client to handle the data and update the interface.
 This \ida{AJAX} engine means that much more \idx{JavaScript} code in the client is needed.
 Eventually, this enables the rise of heavy web applications running in the client, with a substantial codebase to maintain and support across several browsers.
 
@@ -35,7 +35,7 @@ Eventually, this enables the rise of heavy web applications running in the clien
   \label{fig:ajax-application-model}
 \end{figure}
 
-From the point of view of the user, the experience is much less disruptive than the classic model, as seen on Figure~\ref{fig:ajax-flow}.
+From the point of view of the user, the experience is much less disruptive than the classic model, as seen on Figure~\vref{fig:ajax-flow}.
 When a user clicks a link or a button in a traditional web application, the user interface blocks, goes blank, and he has to wait until another page is fully reloaded if he wants to continue with another task.
 
 \begin{figure}[htbp]
@@ -62,7 +62,7 @@ In the case of this project, since it was mostly experimental and not oriented f
 \subsubsection{How XMLHttpRequest works} % (fold)
 \label{ssub:xmlhttprequest}
 
-First of all, a \idx{XMLHttpRequest} object must be created, and a custom function that will be act as a callback must be set in its \texttt{onreadystatechange} property.
+First of all, a \idx{XMLHttpRequest} object must be created, and a custom function that will be act as a callback must be set in its \idc{onreadystatechange} property.
 The next step consists of opening the connection to the server, with its \texttt{open()} method, specifying at least three parameters: first the \ida{HTTP} method to use (\texttt{"GET"} or \texttt{"POST"}), then the url that we wish to contact and finally if the requests should be asynchronous or not.
 This last parameter is usually set to \texttt{true}, otherwise the user interface will block.
 
@@ -72,7 +72,7 @@ Additionally, and only if needed, the \texttt{setRequestHeader()} method could b
 If the request is asynchronous, the flow of the program will continue normally; if not, the program will block until the server sends all the data.
 
 Some time later, the server will answer with the response data.
-Then, the callback specified in the \texttt{onreadystatechange} property will be called, with all the needed data already updated in the \idx{XMLHttpRequest} object.
+Then, the callback specified in the \idc{onreadystatechange} property will be called, with all the needed data already updated in the \idx{XMLHttpRequest} object.
 Actually, this callback will be called not only once but several times, each time reporting the progress of the request.
 To be sure that the request was completed it is need to check that the \texttt{readyState} property is exactly 4, and to know that the requested resource is ok that the \texttt{status} property is 200 (this is the \ida{HTTP} state response).
 
@@ -97,7 +97,7 @@ The concept is simple and it is based on the fact that it is possible to add ext
 Just add a \texttt{script} tag with the desired \ida{URL} and it will be executed; use the \ida{DOM} and that script can be dynamically added after the page is loaded, just like \ida{AJAX}.
 Of course, that script must be written in \idx{JavaScript}, so that explains why  \ida{JSON} is used to pass the required data.
 
-Listing~\ref{jsondata} shows how some data could be expressed in \ida{JSON} so that it can be used as an \ida{AJAX} response.
+Listing~\vref{jsondata} shows how some data could be expressed in \ida{JSON} so that it can be used as an \ida{AJAX} response.
 A question appears, how is that data going to be executed in order to access it?
 The answer is by telling the external server to wrap it up in some function that we have define in our \idx{JavaScript} code.
 The way to tell that to the other server is to add the name of the function to the requested \ida{URL} as a parameter (usually called \texttt{jsonCallback} or just \texttt{callback}).
@@ -111,7 +111,7 @@ The way to tell that to the other server is to add the name of the function to t
   }
 \end{lstlisting}
 
-For example, if we tell the other server that the function is called \texttt{doSomethingWithData()}, it can then wrap it up in a way that the data is the parameter for that function (see Listing~\ref{jsonpdata}).
+For example, if we tell the other server that the function is called \texttt{doSomethingWithData()}, it can then wrap it up in a way that the data is the parameter for that function (see Listing~\vref{jsonpdata}).
 Since this code will be executed in our web application, it will call that function with that data at the exact moment the file is received and parsed.
 Therefore, that function must be defined in the global object, so it can process the received data without any problem.
 

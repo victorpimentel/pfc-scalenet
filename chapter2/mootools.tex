@@ -68,9 +68,9 @@ This decision was backed up by these reasons:
   \idx{MooTools} also helps reducing the lines of code, but it has more tools for writing code in a very modular, reusable and robust way, for example by using classes and other abstractions.
 
   It also improves the readability of the code, something hard to do in \idx{JavaScript}.
-  Another important point of this framework is that it is based on prototype extensions (mainly \idc{DOM} extensions), so the syntax is very Object-Oriented and the code seems very clean.
+  Another important point of this framework is that it is based on prototype extensions (mainly \idx{DOM} extensions), so the syntax is very Object-Oriented and the code seems very clean.
 
-  \item[Used by the \ac{APE} server\index{APE server}]
+  \item[Used by the \ida{APE} server]
   So if we use that component, it will be very straightforward to write extensions in \idx{JavaScript} also in the server.
   This will mean that we could use the same coding style and the same tools in the server as in the client.
 
@@ -107,7 +107,7 @@ These additions are meaningfully named and can be organized into eight categorie
   \item[Types] Five important native types have been supercharged with a myriad of utility functions, filling a lot of holes in the \idx{JavaScript} specification: to deal with collections and iterators (\idc{Array}), to manipulate strings (\idc{String}) and numbers (\idc{Number}), to modify and custom call functions (\idc{Function}), to add information to events (\idc{Event}) and even to modify the properties in any object (\idc{Object}).
   \item[Browser] A new object (\idc{Browser}) is created with all the information about the browser and its environment conveniently organized.
   This not only includes the browser version, the installed plugins and the user platfom, but it also detects some key features.
-  \item[Class] This is probably the heart of \idc{MooTools}.
+  \item[Class] This is probably the heart of \idx{MooTools}.
   \idc{Class} is an object that encapsulates all the prototype-based inheritance system into the much more intelligible classic \ida{OOP}.
   Basically, a \idx{Class} is just an object with shortcuts to simulate traditional class inheritance and interface implementation.
   
@@ -160,22 +160,22 @@ These additions are meaningfully named and can be organized into eight categorie
   \item[Element] As any other good modern framework, \idx{MooTools} offers extensive support for \ida{DOM} manipulation.
   It has two global shortcut functions baked in: the dollar function \texttt{\$()} acts mostly as an alias for \texttt{document.getElementById()}, while \texttt{\$\$()} selects an array of \ida{DOM} elements based on the specified \ida{CSS} selector.
   
-  These two functions returns objects of type \texttt{Element}: \ida{DOM} elements supercharged with utility extensions.
+  These two functions returns objects of type \idc{Element}: \ida{DOM} elements supercharged with utility extensions.
   For example, the constructor allows to quickly build an element with its own attributes, styles, size and events at once.
   Not only it is more expressive but it handles for us developers the differences between all supported browsers.
   \item[Fx] In the beginning, \idx{MooTools} was only a lightweight library to add visual effects, but with time it became a full-fledged framework.
   Consequently, it is no surprise to say that it has a very robust animation system in place.
   
-  The base class is \texttt{Fx}, but normally developers should use \texttt{Fx.Tween} (to animate one property in an element) or \texttt{Fx.Morph} (to animate more than one property at the same time).
-  There are also shortcut methods in \texttt{Element} for simple and quick animations.
+  The base class is \idc{Fx}, but normally developers should use \texttt{Fx.Tween} (to animate one property in an element) or \texttt{Fx.Morph} (to animate more than one property at the same time).
+  There are also shortcut methods in \idc{Element} for simple and quick animations.
   Apart from those classes, \texttt{Fx.Transitions} offers a broad collection of tweening transitions.
   
   The idea behind this effect library is that several key steps are specified and then additional steps are generated to fill the time.
   Depending on the type of the effect, intermediate values are calculated and applied using \ida{CSS} at a custom-spaced time interval to simulate the animation.
   \item[Request] An \ida{AJAX} wrapper that accumulates many options.
   There are subclasses to deal with \ida{HTML} and \ida{JSON} responses, and generally it takes a lot of work when setting \ida{AJAX} requests.
-  For example, there are shortcuts in the \texttt{Element} class that with a simple one-line method can completely replace an element with a remote fragment.
-  \item[Utilities] Four classes that have no place in previous categories: a cookie handler, a \ida{JSON} encoder/decoder, a \texttt{domready} event (that springs when the, ehem, \ida{DOM} is ready) and a Flash bridge (\texttt{Swiff}).
+  For example, there are shortcuts in the \idc{Element} class that with a simple one-line method can completely replace an element with a remote fragment.
+  \item[Utilities] Four classes that have no place in previous categories: a cookie handler, a \ida{JSON} encoder/decoder, a \idc{domready} event (that springs when the, ehem, \ida{DOM} is ready) and a Flash bridge (\idc{Swiff}).
 \end{description}
 
 % subsection mootools_core (end)
@@ -195,9 +195,9 @@ There are too many to be explained in this document, but the most important ones
   \item[Fx.Accordion] A visual effect suited to make room for several elements in a limited space: as one element expands, the others gradually collapse.
   \item[Fx.Move] Another visual effect to move an element from one location to another.
   Positions need not to be defined in coordinates, they can rather be automatically calculated from target elements.
-  \item[Drag / Drag.Move] To easily add drag\et{}drop capabilities, making use of events to treat all possible outcomes.
+  \item[Drag / Drag.Move] To easily add \idx{drag\et{}drop} capabilities, making use of events to treat all possible outcomes.
   It also offers shortcuts to make an element automatically draggable and/or resizable.
-  \item[Request.JSONP] Similar class to \texttt{Request}, but using the \ida{JSONP} technique to retrieve remote data from other domains.
+  \item[Request.JSONP] Similar class to \idc{Request}, but using the \ida{JSONP} technique to retrieve remote data from other domains.
   \item[Assets] To dynamically load scripts, stylesheets, images and other resources.
   \item[Hash.Cookie] This class handles the creation of a cookie that will contain a plain hash.
 \end{description}

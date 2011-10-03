@@ -3,7 +3,7 @@
 
 The same codebase (classes, resources, etc.) is shared between the \ida{OSGi} backend and the \idx{Java applet}, taking advantage of the fact that they are written in the same language.
 Though this does not mean that the final executables are the same, since two bundles are generated, one for each purpose.
-More details about how \ida{OSGi} and \idx{Java applet}s work in general are discussed on \S\ref{sec:java}.
+More details about how \ida{OSGi} and \idx{Java applet}s work in general are discussed on \S\vref{sec:java}.
 
 \begin{figure}[htbp]
   \centering
@@ -12,7 +12,7 @@ More details about how \ida{OSGi} and \idx{Java applet}s work in general are dis
   \label{fig:class-pnai-java-old}
 \end{figure}
 
-Figure~\ref{fig:class-pnai-java-old} shows all the packages involved in the \idx{Java applet}.
+Figure~\vref{fig:class-pnai-java-old} shows all the packages involved in the \idx{Java applet}.
 All classes exclusively related to the \ida{OSGi} backend are ignored, since they are not important for this work.
 
 This diagram contains two packages: \idc{Applet} and \idc{Model}.
@@ -21,7 +21,7 @@ The first one encloses all the logic needed to contact the socket in the backend
 From those classes it is easy to identify the three external parameters needed by the \idx{Java applet}: the user identifier (\ida{SIP} format, email-like), and hostname and port used by the backend (where the socket is reached).
 
 The \idc{Model} package, shared with the backend codebase, comprises all the data model objects.
-This includes utilities to create objects from strings, following the formats explained in Tables~\ref{tab:notificationsexamples} and \ref{tab:requestsexamples}.
+This includes utilities to create objects from strings, following the formats explained in Tables~\vref{tab:notificationsexamples} and \vref{tab:requestsexamples}.
 The attributes for each class object are the same used in those tables.
 
 To create a \idc{Buddy}, \idc{Device} or \idc{Session}, a factory pattern is used, calling the static method \idc{fromString}\footnote{For technical reasons the method \idc{fromString} could not be underlined in the diagram, as the \idas{UML} specification recommends for static methods/attributes.

@@ -30,7 +30,7 @@ The most important ones are:
 
 \begin{description}
   \item[window] This object represents the browser window itself, and it allows the retrieval and modification of several properties related to the browser in general and the document window in particular.
-  Since this is the global object, all of its properties are initially accessible with no need to specify \texttt{window}, as if they were \emph{local variables}, so for example \texttt{location} is the same as \texttt{window.location}.
+  Since this is the global object, all of its properties are initially accessible with no need to specify \idc{window}, as if they were \emph{local variables}, so for example \idc{location} is the same as \texttt{window.location}.
   It has lots of attributes, some of the most important being:
   \begin{description}
     \item[window.location] Through this property the location (\ida{URL}) for the window can be accessed and modified.
@@ -49,7 +49,6 @@ The most important ones are:
     \item[window.open()] It opens an additional window with the size and properties specified.
     \item[window.close()] It closes the current window but it only works if the window was opened programmatically by \idx{JavaScript}.
     \item[window.scroll()] This function scrolls the window to a particular coordinate in the document.
-    \item[window.resizeTo()] This function dynamically resizes the window.
     \item[window.escape() / window.unescape()] A very useful utility function to encode/decode special characters in a string so it is suitable for cookie storage or \ida{HTTP} requests.
   \end{description}
   \item[document] The interface of this object comprises all the necessary tools to retrieve and modify the document, with particularly valuable functions for \ida{DOM} retrieval.
@@ -83,7 +82,7 @@ The most important ones are:
     The difference between the two functions if that the former returns only the first matched element and the latter returns all the matched elements.
     It is only supported by very modern browsers, but it appears to have a bright future because of its ease of use and familiarity.
   \end{description}
-  \item[element] Once an element is retrieved or created using the \ida{DOM}, the returned object conforms to the \texttt{element} interface.
+  \item[element] Once an element is retrieved or created using the \ida{DOM}, the returned object conforms to the \idc{element} interface.
   This interface details all the actual properties to modify not only the \ida{DOM} structure, but the style and content of that certain element.
   \begin{description}
     \item[element.parentNode] Returns the parent node of this element.
@@ -95,7 +94,7 @@ The most important ones are:
     \item[element.className] Sets and gets the class attribute of the element.
     \item[element.clientHeight / element.clientWidth] Returns the element size, counting the padding but not the border.
     \item[element.offsetHeight / element.offsetWidth] Returns the element size, counting both the padding and the border.
-    \item[element.offsetLeft / element.offsetTop] Returns the distances from the left/top border to the \texttt{offsetParent}'s node.
+    \item[element.offsetLeft / element.offsetTop] Returns the distances from the left/top border to the \idc{offsetParent}'s node.
     \item[element.offsetParent] This is the parent node from which all offset calculations are currently computed.
     Depending on \idx{CSS} properties, it could be the immediate parent node or other ancestor.
     \item[element.innerHTML] Sets and gets the content of the element as a string with HTML markup, quite useful and convenient.

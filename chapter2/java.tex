@@ -2,7 +2,7 @@
 \label{sec:java}
 
 Nowadays, \idx{Java} is the most popular programming platform in corporative environments.
-In \idx{ScaleNet} it is used in an \idx{OSGi} module that it is always running in the background providing real-time communication with the browser, besides a \idx{Java} applet.
+In \idx{ScaleNet} it is used in an \idx{OSGi} module that it is always running in the background providing real-time communication with the browser, besides a \idx{Java applet}.
 In the end, no Java code was written for this project, since one of the goals was to move the files out of the \idx{OSGi} bundle to the \ida{PHP} scripts folder.
 
 \subsection{History} % (fold)
@@ -18,7 +18,7 @@ In the end, no Java code was written for this project, since one of the goals wa
 \emph{James Gosling} originally developed the language at \emph{Sun Microsystems} and released it to the public in 1995, within a initiative called \emph{Green Project} started in that company in 1991.
 
 At first it was targeted at the digital cable television industry, but its true potential revealed to be the Internet, a much more dynamic platform.
-It became rapidly popular for its promise of running anywhere, and even more after the most used browsers added support for \idx{Java} applets.
+It became rapidly popular for its promise of running anywhere, and even more after the most used browsers added support for \idx{Java applet}s.
 
 The main difference with the existing languages was the \ida{JVM}.
 It allowed to compile a program in an intermediate byte code that can run on any \idx{Java} supported device, independently of the underlying architecture.
@@ -76,7 +76,7 @@ It offers a series of basic APIs to develop services, like logging, a \ida{HTTP}
 
 An application or component developed for \ida{OSGi} is called a bundle, and it is a self-contained package with the compiled byte code, additional resources and a manifest.
 According to that manifest, any bundle can be remotely installed, started, stopped, updated or uninstalled without requiring a reboot.
-Figure~\ref{fig:osgi-layering} shows how bundles can interact with the framework and with each other.
+Figure~\vref{fig:osgi-layering} shows how bundles can interact with the framework and with each other.
 
 \begin{figure}[htbp]
   \centering
@@ -90,7 +90,7 @@ There is also a vibrant open source community, having several open source implem
 \ida{OSGi} R4 is the version used by this bundle, released originally in 2006 and currently the latest version available.
 
 Once the framework is loaded, a console is available to manage all bundles.
-Table~\ref{tab:osgicommands} lists the most used commands for that console.
+Table~\vref{tab:osgicommands} lists the most used commands for that console.
 This console will be running in the background all the time, so it may be useful to attach the process to a \idc{screen} process.
 
 \begin{generictable}[\idx{OSGi} commands]{2}
@@ -116,7 +116,7 @@ In this case it is used for building an application server, taking advantage of 
 \subsection{Java Applets} % (fold)
 \label{sub:javaapplets}
 
-A \idx{Java} applet is a small application written in \idx{Java} designed to be executed inside of a web browser, i.e., in the client machine.
+A \idx{Java applet} is a small application written in \idx{Java} designed to be executed inside of a web browser, i.e., in the client machine.
 An \idc{applet} \ida{HTML} tag (or the more recommendable \idc{object}) is embedded in the code specifying where the package is located, the dimensions that applet will occupy in the rendered page and the parameters that will receive.
 Then the browser downloads it (distributed as a \ida{JAR} package), and executes it in the scope of that web page.
 
@@ -124,14 +124,14 @@ This enabled the development of interactive web applications with a much better 
 It was often used for graphic and resource-intensive applications, like plotting or basic gaming before Adobe Flash was popular.
 
 Since it provides access to most of the \ida{JVM} classes, some web applications used them for functions not natively possible in a browser.
-For example in this project a \idx{Java} applet is used solely for its native socket capabilities.
+For example in this project a \idx{Java applet} is used solely for its native socket capabilities.
 
 Security is critical in a platform like this that allows running code from the web with near-native privileges.
 To alleviate this, by default an applet has very restricted access to the local filesystem and web pages.
 The solution is to sign the applet with a trusted entity's certificate, relaxing those limitations.
 In practice, this is an extra step that slows any iterative development and hardens deployments in corporative environments.
 
-However, the rise of new standards and unsupported devices, the huge popularity of Adobe Flash, the qualitative improvements in \idx{JavaScript} performance and the disruptively poor user experience crippled its future and nowadays \emph{native} web alternatives are preferred over \idx{Java} applets.
+However, the rise of new standards and unsupported devices, the huge popularity of Adobe Flash, the qualitative improvements in \idx{JavaScript} performance and the disruptively poor user experience crippled its future and nowadays \emph{native} web alternatives are preferred over \idx{Java applet}s.
 
 % subsection javaapplets (end)
 

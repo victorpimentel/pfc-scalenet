@@ -1,10 +1,10 @@
 \section{Components} % (fold)
 \label{sec:components}
 
-Most of the components remained untouched after this work was finished, so for most interfaces Figure~\ref{fig:componentdiagramsold} is still a good approximation.
-The only exception is the removal of the \idx{Java} applet in favor of two \ida{APE} components: the client code (\ida{APE} JSF) and the server code (\ida{APE} Server).
+Most of the components remained untouched after this work was finished, so for most interfaces Figure~\vref{fig:componentdiagramsold} is still a good approximation.
+The only exception is the removal of the \idx{Java applet} in favor of two \ida{APE} components: the client code (\ida{APE} \ida{JSF}) and the server code (\ida{APE} Server).
 
-Figure~\ref{fig:componentdiagrams} shows how these additions reflect in the overall system, and how this new \emph{proxy} does not affect components in the backend.
+Figure~\vref{fig:componentdiagrams} shows how these additions reflect in the overall system, and how this new \emph{proxy} does not affect components in the backend.
 Regarding this view, there are several things to consider:
 
 \begin{figure}[htbp]
@@ -16,19 +16,19 @@ Regarding this view, there are several things to consider:
 
 \begin{itemize}
   \item All web interface files (\ida{HTML}, \ida{CSS}, \idx{JavaScript}) that were previously served by the \ida{OSGi} server are now served by the \idx{Apache} server.
-  Exactly, they are in a folder alongside the \ida{PHP} files for \idx{IPTVPlus} and other services.
+  Exactly, they are in a folder alongside the \ida{PHP} files for \idx{IPTVplus} and other services.
   
   This change responds to development and testing convenience, since any change in those \emph{static} files meant that the \ida{OSGi} bundle had to be compiled, replaced and restarted.
   From now on, any change in those files will be immediately reflected, and the performance should be even better than before.
   \item The \textbf{\ida{APE} server} acts just as a proxy between the \ida{OSGi} bundle and the pure \idx{JavaScript} interface.
   Its solely function is to pass the \ida{AJAX} requests to the \ida{TCP} socket, and to translate any \ida{TCP} transmission into \ida{AJAX} responses.
-  For the \ida{OSGi}, it is as if it were talking to the \idx{Java} applet, since the received messages follow the same pattern.
-  \item The \textbf{\ida{APE} JSF} is a \idx{JavaScript} component that handles the push communication between the server and the browser, allowing the \idx{JavaScript} codebase to not worry about that.
+  For the \ida{OSGi}, it is as if it were talking to the \idx{Java applet}, since the received messages follow the same pattern.
+  \item The \textbf{\ida{APE} \ida{JSF}} is a \idx{JavaScript} component that handles the push communication between the server and the browser, allowing the \idx{JavaScript} codebase to not worry about that.
   The communication is asynchronous and in real time, so the web interface can do other things while waiting for the response.
   
-  As it is used, basically it provides an object that emulates a \idx{TCP} socket, with functions to send data and callbacks to receive data, that are transmitted in different \idx{Comet} protocols (see \S\ref{sub:comet}).
+  As it is used, basically it provides an object that emulates a \idx{TCP} socket, with functions to send data and callbacks to receive data, that are transmitted in different \idx{Comet} protocols (see \S\vref{sub:comet}).
   After a period of inactivity, the real socket is closed, so no resources are wasted.
-  \item Since the \idx{Java} applet is gone, that component diagram is valid for the desktop and mobile interfaces.
+  \item Since the \idx{Java applet} is gone, that component diagram is valid for the desktop and mobile interfaces.
   The only difference in those web applications is, precisely, the code related with the interface.
 \end{itemize}
 
@@ -39,8 +39,8 @@ Regarding this view, there are several things to consider:
   \label{fig:sequence-handover}
 \end{figure}
 
-Figure~\ref{fig:sequence-handover} shows the modified flow after these changes were done.
-All communications in the servers are exactly the same as in Figure~\ref{fig:sequence-handover-old}, so that right part is omitted for brevity.
+Figure~\vref{fig:sequence-handover} shows the modified flow after these changes were done.
+All communications in the servers are exactly the same as in Figure~\vref{fig:sequence-handover-old}, so that right part is omitted for brevity.
 The scenario is also the same: the user wants to transfer a session from his device to one of his buddies.
 
 Again, blue lines belong to the main logical flow, yellow ones belong to the video streaming process, and the new pink ones belong to the constant flow between the \ida{APE} components.
@@ -54,6 +54,6 @@ First, the connection is always alive and ready; for that the browser must immed
 In other occasions, the browser has to send a request with data, so it must cancel the current request and make another one (\texttt{CMD(1)}).
 
 After all, the addition of the \ida{APE} server just affects the web interface written in \idx{JavaScript}.
-Most of the code can be preserved and, with a new module written in \idx{JavaScript} porting the \idx{Java} applet functionality (see Figure~\ref{fig:class-pnai-java-old}), the existing code only needs minor modifications.
+Most of the code can be preserved and, with a new module written in \idx{JavaScript} porting the \idx{Java applet} functionality (see Figure~\vref{fig:class-pnai-java-old}), the existing code only needs minor modifications.
 
 % section components (end)

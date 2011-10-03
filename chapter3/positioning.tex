@@ -50,7 +50,7 @@ This formula synthesizes the idea that, given a certain number of elements N:
   \item In that case, we choose the grid of size $x+1$, this way we want to apply the ceiling function to the squared root to obtain the next following integer.
 \end{itemize}
 
-Figure~\ref{fig:algorithm-boxes} shows consecutive examples using from one element to thirteen elements, so that we can appreciate what all of this means.
+Figure~\vref{fig:algorithm-boxes} shows consecutive examples using from one element to thirteen elements, so that we can appreciate what all of this means.
 Without looking very hard at the examples, we can guess an improvement without making the calculation severely complicate.
 
 \begin{figure}[htbp]
@@ -137,7 +137,7 @@ Is there any case in which we have to shrink the grid by two or more?
 
 The answer is no.
 
-Well, in Figure~\ref{fig:algorithm-boxes} is obvious that this does not happen with sixteen elements or less, and that is a sufficiently big number of devices a person can own in the system.
+Well, in Figure~\vref{fig:algorithm-boxes} is obvious that this does not happen with sixteen elements or less, and that is a sufficiently big number of devices a person can own in the system.
 But we can mathematically prove this by calculating if a grid of $(x - 1) \cdot (x - 1)$ elements can hold more elements that the grid of $x \cdot (x - 2)$.
 
 If that is the case, then we would not need to shrink the grid in any case by two because the grid will be already horizontally shorter.
@@ -149,7 +149,7 @@ It is quick to prove this is true following the steps explained from eq.~\eqref{
   1 &<& 0 \label{xdem3}
 \end{eqnarray}
 
-Figure~\ref{fig:algorithm-boxes-fixed} shows the results after applying this final algorithm, filling more space in some situations.
+Figure~\vref{fig:algorithm-boxes-fixed} shows the results after applying this final algorithm, filling more space in some situations.
 Using this algorithm we can calculate the height, width, vertical and horizontal offset for every element, so that it keeps its aspect ratio while placing it in the middle of the allocated space.
 
 \begin{figure}[htbp]
@@ -237,7 +237,7 @@ Each \idc{Hash} that is stored in every \idc{Cookie} is composed by the four
 values needed for positioning the element: \idc{offsetX}, \idc{offsetY},
 \idc{width} and \idc{height}.
 These values are percentages respect the container (the devices list) and a
-\idc{Hash} example is presented in Listing~\ref{cookiehash}.
+\idc{Hash} example is presented in Listing~\vref{cookiehash}.
 
 \begin{lstlisting}[language=JavaScript,label=cookiehash,caption=Cookie Hash example]
   {

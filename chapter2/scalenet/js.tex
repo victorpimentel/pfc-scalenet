@@ -6,14 +6,14 @@ The code resides in the resources folder of the \ida{OSGi} bundle, where all the
 When requested by a browser, these files are served by the \ida{OSGi}-based server, not \idx{Apache}.
 
 \idx{JavaScript} classes are organized in several source files, each file acting as if they were traditional packages.
-As discussed on \S\ref{sec:javascript}, \emph{class} is not the right term to refer to a \idx{JavaScript} object, but it will be used through this document for simplicity's sake.
+As discussed on \S\vref{sec:javascript}, \emph{class} is not the right term to refer to a \idx{JavaScript} object, but it will be used through this document for simplicity's sake.
 
 Additionally, in the old codebase the use of global variables is wildly used, and they are quite important to understand how the application works.
 Since the \ida{UML} language is designed for \ida{OOP}, there is no easy solution to specify those variables in the same diagram.
 However, a workaround is to directly copy how the \ida{DOM} works and put all those variables under the global \idc{window} object.
 
-Figure~\ref{fig:class-pnai-js-old} shows a diagram with all the classes involved and the relationships between them.
-Figure~\ref{fig:class-pnai-global-old} completes the picture adding the global object and the relationships between it and the custom classes.
+Figure~\vref{fig:class-pnai-js-old} shows a diagram with all the classes involved and the relationships between them.
+Figure~\vref{fig:class-pnai-global-old} completes the picture adding the global object and the relationships between it and the custom classes.
 
 \begin{figure}[htbp]
   \centering
@@ -75,7 +75,7 @@ There are two kind of sessions: \idc{VideoSession} and \idc{AudioSession}, and t
 The \idc{moveto} method is the one in charge, not only of moving the session to a new container, but also of creating the visual representation for that session.
 Unlike the containers, where the \idc{init} method creates the \idc{div}, sessions are not showed in the screen until the parent is explicitly set with this \idc{moveto} method.
 
-Besides this custom code, there is one external dependency for handling drag\et{}drop in a convenient way.
+Besides this custom code, there is one external dependency for handling \idx{drag\et{}drop} in a convenient way.
 The library is \idc{wz\_dragdrop}\footnote{Original site seems broken, but a copy is available on:\\ \url{http://gualtierozorni.altervista.org/dragdrop/dragdrop_e.htm}}, written by German author \emph{Walter Zorn}.
 It comes from the early days of \idx{JavaScript}, trying to provide a cross-browser solution for this problem.
 This library has been discontinued, but at the same time a lot of modern alternatives offer a better, simpler and cleaner approach.
@@ -91,7 +91,7 @@ This is the only one that needed to be redefined, and basically it does this:
   \item Get the session with that id (\idc{draggedSession}).
   \item Get the container where the session was before (\idc{sourceContainer}).
   \item Calculate the container where the session has been dropped using its coordinates and the function \idc{getContainer} (\idc{targetContainer}).
-  \item If the target container is the trash, pass the action to the \idc{Java applet} using the \idc{notifyApplet} function.
+  \item If the target container is the trash, pass the action to the \idx{Java applet} using the \idc{notifyApplet} function.
   \item If there is a valid target container, show a popup menu giving the user the option to transfer the session, copy it or cancel the action.
   \item If there is a problem with the target or no target is chosen, cancel the action and move the session icon back to the original container.
 \end{itemize}
@@ -121,7 +121,7 @@ Their names are very straightforward, and all of them update the stored data wit
 Since the devices in the screen are prefixed, the \idc{createDevice} and \idc{deleteDevice} functions act differently, only changing the online status of the device but never creating or deleting existing devices.
 
 Finally, there is also some \idx{JavaScript} code to setup the page, analogous to the \emph{main} function in other languages like C or Java.
-Listing~\ref{mainjs} shows this setup code.
+Listing~\vref{mainjs} shows this setup code.
 
 \begin{lstlisting}[float=htbp,label=mainjs,language=javascript,caption=Setup code] % javascript
 var myIMPI = 'hahn@imusu.mobile.dtrd.de';

@@ -46,7 +46,7 @@ Considering these two facts, the main points behind this redesign were:
   So when content from one category is shown, the others are collapsed.
 \end{description}
 
-Figure~\ref{fig:pnai-buddies} shows how the new interface looks like, in contrast to the old interface showed in Figure~\ref{fig:pnai-old} (that figure only contains the main frame).
+Figure~\vref{fig:pnai-buddies} shows how the new interface looks like, in contrast to the old interface showed in Figure~\vref{fig:pnai-old} (that figure only contains the main frame).
 In that figure there are several obvious changes, new icons like the trash and buddies, new elements and the overall look.
 However most of the same abstractions are used, like drawing sessions inside of the devices.
 
@@ -58,9 +58,9 @@ However most of the same abstractions are used, like drawing sessions inside of 
 \end{figure}
 
 But now there are two tabs; the previous figure showing the buddy list like the old interface.
-Figure~\ref{fig:pnai-content} exposes the second tab, the content list, that appears if the user clicks on the \emph{Content} tab.
-This content list encloses all the information of the \idx{IPTVplus} page (see Figure~\ref{fig:iptvplus}) but without having to leave this page.
-Initially the content list appears completely collapsed (Figure~\ref{fig:pnai-content-closed}) and then the user can click on any category and videos from that category will be shown (Figure~\ref{fig:pnai-content-open}).
+Figure~\vref{fig:pnai-content} exposes the second tab, the content list, that appears if the user clicks on the \emph{Content} tab.
+This content list encloses all the information of the \idx{IPTVplus} page (see Figure~\vref{fig:iptvplus}) but without having to leave this page.
+Initially the content list appears completely collapsed (Figure~\vref{fig:pnai-content-closed}) and then the user can click on any category and videos from that category will be shown (Figure~\vref{fig:pnai-content-open}).
 
 \begin{figure}[htbp]
   \centering
@@ -77,7 +77,7 @@ Initially the content list appears completely collapsed (Figure~\ref{fig:pnai-co
 \end{figure}
 
 As explained before, the sidebar can be dynamically resized by dragging the sidebar knob, making it as bigger as half the page.
-The sidebar can also be collapsed by clicking on that knob or on the current tab, and the interface results like in Figure~\ref{fig:pnai-collapsed}.
+The sidebar can also be collapsed by clicking on that knob or on the current tab, and the interface results like in Figure~\vref{fig:pnai-collapsed}.
 
 \begin{figure}[htbp]
   \centering
@@ -86,7 +86,7 @@ The sidebar can also be collapsed by clicking on that knob or on the current tab
   \label{fig:pnai-collapsed}
 \end{figure}
 
-Figure~\ref{fig:pnai-handover} describes several steps in the transferring of a session.
+Figure~\vref{fig:pnai-handover} describes several steps in the transferring of a session.
 First the user drags the desired current session and drops it on another device.
 Then a menu appears and the user clicks on the first option.
 The interface notifies the backend so the video stops playing in the first container and starts playing in the second one.
@@ -114,7 +114,7 @@ When everything is finished, the popup disappears and the icon \emph{flies} to t
 The process of buying new content can be triggered by clicking on any button that says \emph{Buy} (the session starts playing on the default device) or by dragging the icon from the content list to the desired device/buddy.
 Since the buddy list is hidden, to select a buddy the user has to move the session to the \emph{Buddy} tab and then the buddy list appears.
 
-Figure~\ref{fig:pnai-buy-content} contains some details of this process.
+Figure~\vref{fig:pnai-buy-content} contains some details of this process.
 First we can see how the user is dragging the session to the device, and how the dragged session icon has a different appearance depending on its position.
 The second detail is the popup window that appears to confirm the action.
 
@@ -137,7 +137,7 @@ The second detail is the popup window that appears to confirm the action.
 \end{figure}
 
 Sessions are deleted the same way as before, by dragging them from the device/buddy to the container.
-Figure~\ref{fig:pnai-delete} exhibits another detail when deleting a session.
+Figure~\vref{fig:pnai-delete} exhibits another detail when deleting a session.
 Notice that when the session icon reaches the trash, the trash icon recovers its true color.
 
 \begin{figure}[htbp]
@@ -149,7 +149,7 @@ Notice that when the session icon reaches the trash, the trash icon recovers its
 
 When the mouse stops on top of a container, two handles appear.
 The one at the bottom left corner is for resizing that particular device.
-Figure~\ref{fig:pnai-scale} shows how the device readapts to the required scale, resizing also the active sessions to the available space.
+Figure~\vref{fig:pnai-scale} shows how the device readapts to the required scale, resizing also the active sessions to the available space.
 
 \begin{figure}[htbp]
   \centering
@@ -166,7 +166,7 @@ Figure~\ref{fig:pnai-scale} shows how the device readapts to the required scale,
 \end{figure}
 
 The other handle appears in the top left corner and it is for moving the device to another position.
-Figure~\ref{fig:pnai-move} shows how a device can be repositioned to anywhere in the left pane of the page.
+Figure~\vref{fig:pnai-move} shows how a device can be repositioned to anywhere in the left pane of the page.
 There is also an interesting detail, as those figures also reveal how the sessions are drawn in the buddy list.
 
 \begin{figure}[htbp]
@@ -194,7 +194,7 @@ Also, if the user resizes the window, the position and size of the devices are r
 For the mobile version, the interface has been completely rethought.
 The design is based on the \idx{iOS} guidelines for native applications: there is a title to inform the user where he is, there is also a tab bar and the main content is displayed in a list view.
 
-Figure~\ref{fig:pnai-mobile} illustrates the login view and the three tab views.
+Figure~\vref{fig:pnai-mobile} illustrates the login view and the three tab views.
 In some views, scrolling is needed to reveal all the content, so the user can drag the main view up or down with his finger while the title and the tab bar maintain their position in the screen.
 To achieve this effect, the \idx{iScroll} library has been used.
 
@@ -233,14 +233,14 @@ The main difference from the desktop is that sessions are not shown inside of th
 To navigate between the tabs, a tab bar is always available at the bottom of the screen, working and looking exactly as any native application in the \idx{iOS} platform.
 
 To maintain the same feeling, the buddy list is designed in a similar way, but more compact.
-The content list follows another \idx{iOS} guideline for displaying list, and it looks like a regular \texttt{UIListView}\footnote{\texttt{UIListView} is a component defined in the \idx{iOS} SDK for creating lists.}, making the web application feel even more like a native application.
+The content list follows another \idx{iOS} guideline for displaying list, and it looks like a regular \idc{UIListView}\footnote{\texttt{UIListView} is a component defined in the \idx{iOS} SDK for creating lists.}, making the web application feel even more like a native application.
 
 Regarding the implementation, except the icons, most of the interface is done strictly with \ida{CSS} properties:
 all buttons, shadows, gradients and backgrounds are done with multiple \ida{CSS}3 gradients.
-Even the font for the offline text uses the \texttt{@font-face} property.
+Even the font for the offline text uses the \idc{@font-face} property.
 
 It is important to remark that this interface is not a native application, it is the same web application running full screen in an \idx{iPhone}.
-In this case, the user added a shortcut to the \idx{ScaleNet} web page on the home screen, so it is shown as any other app (see Figure~\ref{fig:pnai-mobile-homescreen}).
+In this case, the user added a shortcut to the \idx{ScaleNet} web page on the home screen, so it is shown as any other app (see Figure~\vref{fig:pnai-mobile-homescreen}).
 
 \begin{figure}[htbp]
   \centering
@@ -264,19 +264,19 @@ In this case, the user added a shortcut to the \idx{ScaleNet} web page on the ho
   \label{fig:pnai-mobile-flexible}
 \end{figure}
 
-However the web app is flexible and when the web page is visited from the Safari browser it adapts to the available space (see Figure~\ref{fig:pnai-mobile-safari}).
-Because of this, the app can also be used in landscape mode (see Figure~\ref{fig:pnai-mobile-landscape}), triggered automatically when the user rotates the device.
+However the web app is flexible and when the web page is visited from the Safari browser it adapts to the available space (see Figure~\vref{fig:pnai-mobile-safari}).
+Because of this, the app can also be used in landscape mode (see Figure~\vref{fig:pnai-mobile-landscape}), triggered automatically when the user rotates the device.
 
 When any app is launched, \idx{iOS} has a mechanism that shows a static image until the app is loaded.
 According to the guidelines, this image should not be a splash image just for showing the logo of the app or company, but it should contain an empty interface with maybe a loading message.
-This \emph{tricks} the user perception so that the app seems to load much faster, and since web applications are usually slower to load, it is a very welcome addition (see Figure~\ref{fig:pnai-mobile-initial}.
+This \emph{tricks} the user perception so that the app seems to load much faster, and since web applications are usually slower to load, it is a very welcome addition (see Figure~\vref{fig:pnai-mobile-initial}.
 
-Because drag\et{}drop is not viable, as it is used for scrolling, a different approach needed to be taken for the session actions.
+Because \idx{drag\et{}drop} is not viable, as it is used for scrolling, a different approach needed to be taken for the session actions.
 While the previous approach first selected the destination and then the action, now it is the opposite, first the action and then the destination.
 
 The idea is simple: the user taps on the session he wants, then a menu appears with three options (transfer, duplicate, stop), he selects one of them and finally, if he chooses transfer or duplicate, he taps on the destination device or buddy.
 This approach was explained in detail in use cases 19 to 24.
-Figure~\ref{fig:pnai-mobile-transfer} shows how the process looks like in this new interface.
+Figure~\vref{fig:pnai-mobile-transfer} shows how the process looks like in this new interface.
 
 \begin{figure}[htbp]
   \centering
@@ -306,7 +306,7 @@ The behavior is also copied: when the user taps outside of the menu, the action 
 In the target selection mode, the title background displays a yellow pulse effect to get the user attention, similarly to the title that appears when there is a phone call in progress.
 Other elements, like the information panel or the \emph{Tap me} area, were designed trying to keep it simple but elegant.
 
-The purchase process of new content is slightly different, since there is a specific tab for it (see Figure~\ref{fig:pnai-mobile-buy}).
+The purchase process of new content is slightly different, since there is a specific tab for it (see Figure~\vref{fig:pnai-mobile-buy}).
 In the content list there are image stills, some information and buttons to buy those contents.
 
 \begin{figure}[htbp]

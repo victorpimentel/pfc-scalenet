@@ -1,8 +1,8 @@
 \subsubsection{Personal DB} % (fold)
 \label{ssub:personaldb}
 
-The database that is directly used by the \ida{PNAI} is the \idx{Personal DB}. The most important table is the \texttt{current\_session} table, where is all the information about the sessions that are currently active.
-Table~\ref{tab:sessiondb} explains all the fields in this table, and Table~\ref{tab:sessiondbexample} details an example entry.
+The database that is directly used by the \ida{PNAI} is the \idx{Personal DB}. The most important table is the \idc{current\_session} table, where is all the information about the sessions that are currently active.
+Table~\vref{tab:sessiondb} explains all the fields in this table, and Table~\vref{tab:sessiondbexample} details an example entry.
 
 \begin{generictable}[Current session table architecture]{2}
   {|p{0.21\textwidth}|p{0.69\textwidth}|}
@@ -16,13 +16,13 @@ Table~\ref{tab:sessiondb} explains all the fields in this table, and Table~\ref{
   \idc{as} & \idx{Application Server} identity (client to AS) or NULL (client to client) \\ \hline
   \idc{ip} & \ida{IP} address for impu \\ \hline
   \idc{initiator} & impu who sends the INVITE message \\ \hline
-  \idc{owner} & impi who needs to pay for the session. Usually the impi who sends the INVITE message, but it can be the impi who sends the REFER message in case of transfer/duplication \\ \hline
+  \idc{owner} & impi who needs to pay for the session. Usually the impi who sends the \idc{invite} message, but it can be the impi who sends the \idc{refer} message in case of transfer/duplication \\ \hline
   \idc{session\_name} & Name of the session \\ \hline
   \idc{type} & Type of the session (audio/video) \\ \hline
   \idc{bw} & Bandwidth of the session \\ \hline
   \idc{source} & \ida{URL} of the source \\ \hline
   \idc{lov} & Type of video transmission (live/video on demand/tv)\\ \hline
-  \idc{cid/did/tid} & Integers related to \ida{QoS} parameters \\ \hline
+  \idc{cid}/\idc{did}/\idc{tid} & Integers related to \ida{QoS} parameters \\ \hline
   \idc{session\_flag} &
   0 if it is a normal session \newline
   1 if it is a transferred session \newline
@@ -48,12 +48,12 @@ Table~\ref{tab:sessiondb} explains all the fields in this table, and Table~\ref{
   \idc{bw} & 5000 \\ \hline
   \idc{source} & http://appserver:9000 \\ \hline
   \idc{lov} & video on demand\\ \hline
-  \idc{cid/did/tid} & 3/5/12 \\ \hline
+  \idc{cid}/\idc{did}/\idc{tid} & 3/5/12 \\ \hline
   \idc{session\_flag} & 0 \\ \hline
 \end{generictable}
 
-Other important table is the \texttt{user\_status} table, that lists all the users in the system and some basic information about them.
-Table~\ref{tab:userdb} explains all the fields in this table, and Table~\ref{tab:userdbexample} details an example entry.
+Other important table is the \idc{user\_status} table, that lists all the users in the system and some basic information about them.
+Table~\vref{tab:userdb} explains all the fields in this table, and Table~\vref{tab:userdbexample} details an example entry.
 
 \begin{generictable}[User status table architecture]{2}
   {|p{0.21\textwidth}|p{0.69\textwidth}|}
@@ -79,15 +79,15 @@ Table~\ref{tab:userdb} explains all the fields in this table, and Table~\ref{tab
   \idc{status} & 1 \\ \hline
 \end{generictable}
 
-Finally, there is a third table that handles the relationships between friends called \texttt{web\_buddylist}.
-It is a very simple table modeling a classic many-to-many relationship, but anyway Table~\ref{tab:buddydb} explains all its fields, and Table~\ref{tab:buddydbexample} details an example entry.
+Finally, there is a third table that handles the relationships between friends called \idc{web\_buddylist}.
+It is a very simple table modeling a classic many-to-many relationship, but anyway Table~\vref{tab:buddydb} explains all its fields, and Table~\vref{tab:buddydbexample} details an example entry.
 
 \begin{generictable}[Buddy list table architecture]{2}
   {|p{0.2\textwidth}|p{0.69\textwidth}|}
   {\generictitletwo{Field name}{Description}}
   \label{tab:buddydb}%
   \idc{id} & Identifier, auto-increment integer \\ \hline
-  \idc{impi\_id} & Unique id to identify impi (identical to impi\_id of \texttt{user\_status} table) \\ \hline
+  \idc{impi\_id} & Unique id to identify impi (identical to impi\_id of \idc{user\_status} table) \\ \hline
   \idc{buddy\_impi\_id} & Unique id to identify the buddy impi \\ \hline
 \end{generictable}
 

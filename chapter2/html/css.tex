@@ -28,7 +28,7 @@ Each rule can affect several elements, and each element can be affected by sever
 
 Every rule consists of one or more \emph{selectors} and one or more properties stated inside the declaration block.
 A selector is a pattern matching elements in the \ida{HTML} source.
-Table~\vref{tab:cssselectors} contains all the available selectors in \ida{CSS} 2.1\footnote{The information depicted in Table~\ref{tab:cssselectors} has been extracted from the official specification documentation, specifically from here: \url{http://www.w3.org/TR/CSS2/selector.html}}.
+Table~\vref{tab:cssselectors} contains all the available selectors in \ida{CSS} 2.1\footnote{The information depicted in Table~\vref{tab:cssselectors} has been extracted from the official specification documentation, specifically from here: \url{http://www.w3.org/TR/CSS2/selector.html}}.
 
 Those selectors can be mixed and put together composing a more complex selector targeting specific elements.
 When several selectors share the same declarations, they may be grouped into a comma-separated list to avoid repetition.
@@ -89,7 +89,7 @@ After those selectors, the declaration block is written between curly brackets.
 This block contains a list of declarations, and each declaration is composed by a property, a colon acting as separator (`:'), a value and a semi-colon (`;').
 Those declarations change the properties for the matched elements.
 The number of properties is just too large to be specified in this document, however it is important to explain some of them.
-Listing~\ref{cssexample} sums up all the explained syntax.
+Listing~\vref{cssexample} sums up all the explained syntax.
 
 \begin{lstlisting}[float=htbp,label=cssexample,language=css,caption=\idx{CSS} example code]
   selector [, selector2, ...][:pseudo-class] {
@@ -123,7 +123,7 @@ In CSS 2.1 there are three positioning schemes defined:
   \end{description}
   \item[Floats] A floated element is taken out of the normal flow and shifted to a side.
   The property \idc{float} can be set as \idc{left} or \idc{right}, to push the element to those sides, and any value triggers the element to have the \idc{display} property set to \idc{block}.
-  Following elements in the normal flow are wrapped alongside the floated element, as shown in Figure~\ref{fig:css-floats}.
+  Following elements in the normal flow are wrapped alongside the floated element, as shown in Figure~\vref{fig:css-floats}.
   \begin{figure}[htbp]
     \centering
       \includegraphics[width=\textwidth]{css-floats}
@@ -173,7 +173,7 @@ For practical purposes, this limits the \idc{z-index} usefulness: if an element 
 
 In \ida{CSS} each element is treated as a rectangular box.
 That box consists of several components, so the final looks and dimensions are defined by the resulting composition of those components.
-Figure~\ref{fig:css-boxmodel} and Figure~\ref{fig:css-boxmodel-3d}\footnote{Original image from: \url{http://www.hicksdesign.co.uk/boxmodel/}.} break down a box into its different components.
+Figure~\vref{fig:css-boxmodel} and Figure~\vref{fig:css-boxmodel-3d}\footnote{Original image from: \url{http://www.hicksdesign.co.uk/boxmodel/}.} break down a box into its different components.
 
 \begin{figure}[htbp]
   \centering

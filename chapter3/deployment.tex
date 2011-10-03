@@ -6,7 +6,7 @@ Since one of the goals was to be as less disruptive as possible, it should be fa
 The steps can be roughly summarized in three:
 
 \begin{description}
-  \item[Replace the \ida{PHP} sources.] The whole \texttt{scalenet} directory has to be copied over the old one in the same location.
+  \item[Replace the \ida{PHP} sources.] The whole \idc{scalenet} directory has to be copied over the old one in the same location.
   \item[Install the \ida{APE} server.] This just means installing a package.
   \item[Configure \idas{BIND}.] \ida{DNS} needs some custom rules.
 \end{description}
@@ -30,9 +30,9 @@ It can be checked by visiting the url \url{webportal.imusu.mobile.dtrd.de:6969}.
 \subsection{Configure BIND} % (fold)
 \label{sub:bind}
 
-The \ida{IMS} core is the machine that provides the \idas{DNS} service through \idas{BIND}, and that service needs to be configured to allow the \ac{APE} server\index{APE server} to use a lot of different dynamic subdomains like \verb|1.ape.webportal|, \verb|2.ape.webportal|, \verb|567.ape.webportal|, etc.
+The \ida{IMS} core is the machine that provides the \idas{DNS} service through \idas{BIND}, and that service needs to be configured to allow the \ida{APE} server to use a lot of different dynamic subdomains like \verb|1.ape.webportal|, \verb|2.ape.webportal|, \verb|567.ape.webportal|, etc.
 
-This is how the \ac{APE} server\index{APE server} works by default, and it appears that there is no way to configure the \ac{APE} server\index{APE server} for using only one domain \cite{ApeConfig}.
+This is how the \ida{APE} server works by default, and it appears that there is no way to configure the \ida{APE} server for using only one domain \cite{ApeConfig}.
 
 So, in the file \verb|/etc/bind/imusu.dnszone| located in the \ida{IMS} core
 we have to look for the \emph{webportal} entry and change that section to look

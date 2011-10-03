@@ -2,7 +2,7 @@
 \label{sec:architectural_design}
 
 The biggest chunk of work -- measured in lines of code -- comes from the \idx{JavaScript} codebase.
-All code from the \idx{Java} applet was ported to \idx{JavaScript}, adding more classes to the front-end code.
+All code from the \idx{Java applet} was ported to \idx{JavaScript}, adding more classes to the front-end code.
 Most of the existing code was rewritten to seize specific features of \idx{MooTools}, and other classes needed to be added for the new elements.
 
 At the same time, some code from the \ida{OSGi} bundle shifts to \ida{PHP} files, including all statics files needed to run the web application.
@@ -29,7 +29,7 @@ It also results on two methods to create each one of the interfaces and diverted
 But that applies in few situations, and most of the code the same -- not similar but physically the same.
 
 The \idx{Java} code for the applet was relatively straight to port to \idx{JavaScript}.
-As figure~\ref{fig:class-pnai-java-port} shows, the model classes are very much alike, since they mostly contain data and methods to transform that data into a string that can be transmitted back to the server.
+As figure~\vref{fig:class-pnai-java-port} shows, the model classes are very much alike, since they mostly contain data and methods to transform that data into a string that can be transmitted back to the server.
 
 \begin{figure}[htbp]
   \centering
@@ -41,7 +41,7 @@ As figure~\ref{fig:class-pnai-java-port} shows, the model classes are very much 
 The main difference is how the models are instantiated.
 Before, the factory pattern was used to create objects from a string, but now that approach would have been more difficult to implement in \idx{JavaScript} and specially with \idx{MooTools} classes.
 Now, the only way to create an object is directly \emph{instantiating} that object, even if no option is provided.
-Later, the \idc{fromString()} functions can be used to parse any string and fill its options.
+Later, the \idc{fromString} functions can be used to parse any string and fill its options.
 
 The other difference is related with the way the parameters of a class are given, something used in almost all classes.
 This \idc{Options} interface -- provided by the \idx{MooTools} framework -- is a very powerful approach that allows the setting of any number of optional parameters in a class with only one line, without having to explicitly treat every value in the constructor.
@@ -80,7 +80,7 @@ Finally, that object contains some parameters to ease the development and custom
   \item[ScaleNet.host/ScaleNet.port] Host and port of the socket in the backend.
 \end{description}
 
-Figure~\ref{fig:class-pnai-containers} shows all code involving containers.
+Figure~\vref{fig:class-pnai-containers} shows all code involving containers.
 To deal with dimensions the new \idc{ContainerDimensions} class has been extracted from \idc{Container}, to homogenize and ease the work with positions and sizes across the application.
 Also, it encapsulates all the logic needed to transform dimensions between pixels and percentages.
 
@@ -100,27 +100,27 @@ The device dimensions are defined in percentages, to be able to place the elemen
 To avoid that bug, those functions automatically transform percentages to pixels at the beginning of the resizing/repositioning, and they change it back to percentages when the action is done.
 
 The \idc{Container} class also demonstrates how the same code can handle two interfaces.
-Since the created elements are very different, two functions are added to create the specific version -- \idc{createHTMLContainer()} for desktop and \idc{createMobileHTMLContainer()} for mobile.
+Since the created elements are very different, two functions are added to create the specific version -- \idc{createHTMLContainer} for desktop and \idc{createMobileHTMLContainer} for mobile.
 Each of them uses \idx{MooTools} to dynamically create and add the elements to the \ida{DOM}.
 When a container is created, the desktop/mobile flags can be checked so the correct method is called.
 
-The last new method is called \texttt{pack()} and its goal is to resize the container to the available space.
+The last new method is called \idc{pack} and its goal is to resize the container to the available space.
 This is needed for the desktop version because devices have to maintain the same aspect ratio, and because their sessions are drawn on top of the container -- in another element acting like a mask.
 When the window size changes or when the element is resized, that mask needs to be repositioned and resized to the updated size.
 
 Apart from that, the class implements the \idx{Events} class, another \idx{MooTools} addition that comes very handy to inject additional code in prefixed places in the class.
 Basically, functions can be registered for some custom \emph{events}, in the code of the class the \idc{fireEvent} function is called when appropriate, so when that code is executed all registered functions are called.
-For example, the \idc{enable} method fires the \texttt{enabled} event, so any other class can inject their code every time the \idc{enable} method is executed.
+For example, the \idc{enable} method fires the \idc{enabled} event, so any other class can inject their code every time the \idc{enable} method is executed.
 
 The \idc{DeviceList} class has been added to offer some functionality similar to the existing \idc{BuddyList} class.
-The most important method is \idc{addDevices}, a function that populates the device list with the specified devices, ordering them so that they fill all available space (see Section~\ref{sec:positioning}).
+The most important method is \idc{addDevices}, a function that populates the device list with the specified devices, ordering them so that they fill all available space (see \S\vref{sec:positioning}).
 Another function is provided to \emph{pack} every device at once, useful when resizing the window or the sidebar.
 The rest is just the usual structure for handling a list.
 
 \idc{BuddyList} and \idc{Buddy} are not very interesting, they just have been updated to \idx{MooTools} classes, but its functionality is mostly the same.
 If something, the code has been simplified in favor of moving as much code as possible to the \idc{Container} class, to avoid duplicating code.
 
-Figure~\ref{fig:class-pnai-sessions} comprises all classes around sessions and content items in general.
+Figure~\vref{fig:class-pnai-sessions} comprises all classes around sessions and content items in general.
 In the \idc{Session} class, the \idc{moveTo} method continues to be very important, since the visual representation of a session is not created until the session is moved to a container.
 It is also in charge of moving sessions from a container to another, creating a nice animation using \idx{MooTools}.
 
@@ -143,11 +143,11 @@ The \idc{Content} and \idc{ContentList} classes are completely new, as the funct
 
 In the desktop there are two approaches: to directly buy the piece by clicking the \emph{Buy} button, or by dragging the icon to a specific container.
 For the second approach the system is very similar to dragging sessions, with a method to add the dragging functionality and another to handle a successful action.
-In both situations, a confirmation popup will appear -- the \texttt{options.link} sets the address to open.
+In both situations, a confirmation popup will appear -- the \idc{options.link} sets the address to open.
 One important difference is that, when the user drags the icon to the buddies tab, that tab gets revealed.
 
 In the mobile version the \idc{createMobileHTMLContainer} method handles the whole \emph{tap twice to buy the content} experience, and the posterior selection of a target.
-Because of that, this method is somewhat complex, but since it does not need any additional confirmation, it can directly tell the backend that the user wants to buy that content -- for that the address contacted in the \ida{AJAX} call is the one stored in the \texttt{options.ajaxlink} property.
+Because of that, this method is somewhat complex, but since it does not need any additional confirmation, it can directly tell the backend that the user wants to buy that content -- for that the address contacted in the \ida{AJAX} call is the one stored in the \idc{options.ajaxlink} property.
 
 There is one last interesting detail about this class: when a new piece of content is created, it traverses the current session list and updates the session icon with the thumb icon for that content.
 This means that, when the content is loaded, the current sessions get their characteristic icons, even if that information was not provided by the \ida{OSGi} bundle through the socket.
@@ -157,9 +157,9 @@ The \idc{ContentList} class is in charge of not only collecting and categorizing
 The \idc{loadContent} method is the most important one, since it dynamically retrieves that list from the server after the page is loaded.
 The information is obtained with a \ida{JSONP} request to a \idx{PHP} page.
 
-Figure~\ref{fig:class-pnai-interface} gathers the rest of the classes in the \idx{JavaScript} codebase, mostly related with interface elements and their behavior.
+Figure~\vref{fig:class-pnai-interface} gathers the rest of the classes in the \idx{JavaScript} codebase, mostly related with interface elements and their behavior.
 The \idc{PopupMenu} class is in charge of showing the popup menu to the user with the available options -- transfer, duplicate and stop sessions --, and react to the user selection.
-In that occasions, the \idx{AppletNotifier} is created on demand.
+In that occasions, the \idc{AppletNotifier} is created on demand.
 In the mobile version, this class also is in charge of the select destination mode.
 
 \begin{figure}[htbp]
@@ -183,14 +183,14 @@ The \idc{Drawer} class is specific to the desktop interface, and it manages all 
 It also deals with its resizing and visibility, something that needed a lot of attention to fix quirky bugs in \idx{Internet Explorer}.
 
 Its mobile counterpart is the \idc{BarTab} class, that administers the navigation system based on the bottom tabs and nearly everything related in the mobile interface, like orientation changes.
-To successfully implement the tab bar, it uses \idx{iScroll}, another \idx{JavaScript} component designed for \idx{Webkit} mobile browsers (see Section~\ref{sec:mobile}).
+To successfully implement the tab bar, it uses \idx{iScroll}, another \idx{JavaScript} component designed for \idx{Webkit} mobile browsers (see \S\vref{sec:mobile}).
 % subsection javascript_codebase (end)
 
 \subsection{PHP Codebase} % (fold)
 \label{sub:php_codebase}
 
 In the server all modified code is implemented in \ida{PHP} scripts, sharing the same tree as the \idx{IPTVplus} interface.
-Figure~\ref{fig:phpdir} shows all the new files in bold, in contrast to Section~\ref{sub:iptvplus}
+Figure~\vref{fig:phpdir} shows all the new files in bold, in contrast to \S\vref{sub:iptvplus}
 The main page remains mostly the same, just updating some styles to modernize and fix some bugs without changing the overall style.
 
 \begin{figure}[htbp]
@@ -239,8 +239,8 @@ The main page remains mostly the same, just updating some styles to modernize an
   \label{fig:phpdir}
 \end{figure}
 
-In the desktop, the user starts visiting the \texttt{index.php} (see Figure~\ref{fig:scalenet-frontpage}), where he can choose between the old \idx{IPTVplus} application, the \ida{PNAI} (at the right) and another different application, the MeshBed.
-Once the user clicks on the \emph{myNetwork} link, the \texttt{personal.php} page presents a login form (see Figure~\ref{fig:scalenet-login}).
+In the desktop, the user starts visiting the \idc{index.php} (see Figure~\vref{fig:scalenet-frontpage}), where he can choose between the old \idx{IPTVplus} application, the \ida{PNAI} (at the right) and another different application, the MeshBed.
+Once the user clicks on the \emph{myNetwork} link, the \idc{personal.php} page presents a login form (see Figure~\vref{fig:scalenet-login}).
 
 \begin{figure}[htbp]
   \centering
@@ -257,36 +257,32 @@ Once the user clicks on the \emph{myNetwork} link, the \texttt{personal.php} pag
 \end{figure}
 
 If the user logs in successfully, that page will change to include the \idc{session.php} page.
-In that page a frame is defined: previously it linked to the server built by the \idx{OSGi} bundle, but now it just links to the \texttt{desktop.php} page in the \texttt{pnai} directory.
-The whole picture looks like Figure~\ref{fig:pnai-buddies}.
+In that page a frame is defined: previously it linked to the server built by the \idx{OSGi} bundle, but now it just links to the \idc{desktop.php} page in the \idc{pnai} directory.
+The whole picture looks like Figure~\vref{fig:pnai-buddies}.
 
-However, if the user try to visit the front page from an \idx{iOS} or \idx{Android} device, he will be redirected to the \idx{mobile.php} page in the \texttt{pnai} directory.
-If the user is not logged in, the \texttt{mobile-auth.inc.php} displays the login form (see Figure~\ref{fig:pnai-mobile-login}), but if he is already logged in, his devices are directly shown (see Figure~\ref{fig:pnai-mobile-devices}).
+However, if the user try to visit the front page from an \idx{iOS} or \idx{Android} device, he will be redirected to the \idc{mobile.php} page in the \idc{pnai} directory.
+If the user is not logged in, the \idc{mobile-auth.inc.php} displays the login form (see Figure~\vref{fig:pnai-mobile-login}), but if he is already logged in, his devices are directly shown (see Figure~\vref{fig:pnai-mobile-devices}).
 
-That way, all code related to the new \ida{PNAI} is all isolated in the \idx{pnai} directory.
-Both \texttt{desktop.php} and \texttt{mobile.php} are the respective main pages for the two interfaces, and they define only some basic elements needed in the page structure.
-In the \texttt{css} directory all the styles are stored in two different files -- one for each file.
+That way, all code related to the new \ida{PNAI} is all isolated in the \idc{pnai} directory.
+Both \idc{desktop.php} and \idc{mobile.php} are the respective main pages for the two interfaces, and they define only some basic elements needed in the page structure.
+In the \idc{css} directory all the styles are stored in two different files -- one for each file.
 Also, that directory contains the web fonts used for some effects.
-Finishing with the assets, the \texttt{images} directory stores all the needed art files for the interface.
+Finishing with the assets, the \idc{images} directory stores all the needed art files for the interface.
 
-Finally, the \texttt{js} directory is the home for all \idx{JavaScript} code.
+Finally, the \idc{js} directory is the home for all \idx{JavaScript} code.
 Each file includes one or more \idx{MooTools} classes organized by topic.
-Most of them are self explanatory, except \texttt{utils.js} that defines the \idc{InfoPanel} and \idc{PopupMenu} classes.
+Most of them are self explanatory, except \idc{utils.js} that defines the \idc{InfoPanel} and \idc{PopupMenu} classes.
 
-The desktop version includes all files except \texttt{bartab.js} -- that contains only that class --, \texttt{iscroll} -- the third party library --, and \texttt{main-mobile.js} -- the main function that prepares all.
-The mobile version includes all files except \texttt{sidebar.js} -- the \texttt{Drawer} class --, \texttt{notifications.js} -- the \idx{Growl} library --, and \texttt{main.js} -- the desktop version of that main function.
+The desktop version includes all files except \idc{bartab.js} -- that contains only that class --, \idc{iscroll} -- the third party library --, and \idc{main-mobile.js} -- the main function that prepares all.
+The mobile version includes all files except \idc{sidebar.js} -- the \idc{Drawer} class --, \idc{notifications.js} -- the \idx{Growl} library --, and \idc{main.js} -- the desktop version of that main function.
 
 The last file to explain, and probably the less important, is \idx{cache.manifest}.
 This file is used to help the mobile browser caching the application static assets -- \idx{JavaScript}, \ida{CSS} and images.
 Its content is basically a plain list of all static resources.
 
-Going up to the \texttt{sub} directory, there are two new \ida{PHP} scripts.
+Going up to the \idc{sub} directory, there are two new \ida{PHP} scripts.
 Both are designed as the \ida{AJAX} versions of other two scripts, so their output is formatted in \ida{JSON}/\ida{JSONP} instead of \ida{HTML}.
-\texttt{IPTVplusJSON.php} returns the list of contents available to buy and \texttt{c2d-ajax.php} receives purchase requests so the content can start streaming.
-
-Both connects to the \ida{IMS} server through a socket, then they send a command, the \ida{IMS} responds and then they format the output accordingly.
-\texttt{IPTVplusJSON.php} sends the \texttt{list} command, it receives the content list in a string where every new line is a new content, and it formats it like in Listing~\ref{iptvplusjson}.
-It is no surprise that it contains exactly the same information as in the \idc{Content} \idx{MooTools} class.
+\idc{IPTVplusJSON.php} returns the list of contents available to buy and \idc{c2d-ajax.php} receives purchase requests so the content can start streaming.
 
 \begin{lstlisting}[language=JavaScript,label=iptvplusjson,caption=JSON content list example]
 myCallback({
@@ -309,13 +305,17 @@ myCallback({
 });
 \end{lstlisting}
 
-The response, a \idx{JavaScript} object, is wrapped into a function call which name is defined by passing a parameter to the script.
-One of the properties of that object is \texttt{error}, that contains a message for the user if the content list could not be retrieved.
-The main property is \texttt{content}, an array made by objects with the required data for each piece of content.
+Both connects to the \ida{IMS} server through a socket, then they send a command, the \ida{IMS} responds and then they format the output accordingly.
+\idc{IPTVplusJSON.php} sends the \idc{list} command, it receives the content list in a string where every new line is a new content, and it formats it like in Listing~\vref{iptvplusjson}.
+It is no surprise that it contains exactly the same information as in the \idc{Content} \idx{MooTools} class.
 
-As explained before, the \texttt{link} is used by the desktop version and the \texttt{ajaxlink} by the mobile version.
-Each of one is already prepared to be called with all parameters except the destination \texttt{impu}.
-Consequently, the \texttt{c2d-ajax.php} script receives that request with those parameters, then it opens the socket and sends a \texttt{refer} command.
-The response to the browser is the \texttt{error} message in case of a problem or simply an object with the content \texttt{\{result:~'OK'\}} in case of success.
+The response, a \idx{JavaScript} object, is wrapped into a function call which name is defined by passing a parameter to the script.
+One of the properties of that object is \idc{error}, that contains a message for the user if the content list could not be retrieved.
+The main property is \idc{content}, an array made by objects with the required data for each piece of content.
+
+As explained before, the \idc{link} is used by the desktop version and the \idc{ajaxlink} by the mobile version.
+Each of one is already prepared to be called with all parameters except the destination \idc{impu}.
+Consequently, the \idc{c2d-ajax.php} script receives that request with those parameters, then it opens the socket and sends a \idc{refer} command.
+The response to the browser is the \idc{error} message in case of a problem or simply an object with the content \texttt{\{result:~'OK'\}} in case of success.
 % subsection php_codebase (end)
 % section architectural_design (end)
