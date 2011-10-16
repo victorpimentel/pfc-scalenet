@@ -1,0 +1,47 @@
+\section{Software Validation and Verification} % (fold)
+\label{sec:software_validation_and_verification}
+
+Due to the nature of the service applications running in the demonstration, none of them include unit tests or any other form of automated software testing.
+Though these tests are a proved tool for developing reliable software, the scope of this project is limited to demonstrations purposes and the resulting application will not be used in the wild by many people.
+
+Therefore it is preferred to speed up the development as much as possible rather than testing every little possibility so that no minor bugs are introduced.
+For these reasons this application did not include those tests, and the validation process consisted on trying all major use cases in all devices and browsers.
+For development and testing there were several devices:
+
+\begin{itemize}
+  \item The main development laptop, running Ubuntu. To ease the testing phase, two virtual machines were used in this laptop\footnote{Microsoft offers free virtual machines to test websites with all major versions of \ida{IE}: \url{http://www.microsoft.com/download/en/details.aspx?id=11575}}:
+  \begin{itemize}
+    \item Windows Vista with \ida{IE} 7.
+    \item Windows Vista with \ida{IE} 8.
+  \end{itemize}
+  \item A laptop running Windows XP.
+  \item A desktop computer running Windows Vista, with a TV acting as its monitor screen.
+  \item A laptop running Windows Vista.
+  \item An \idx{iPhone 3G} running \idx{iOS} 3.
+\end{itemize}
+
+Most of the development time was spent on the Ubuntu laptop, using \idx{Google Chrome} as the default browser because of the fantastic debugging tools it has built in.
+On the other machines, several browsers were tested in a regularly fashion to ensure the application to keep a certain compatibility with them.
+Table~\vref{tab:testbrowsers} lists all used browsers and under which platforms they were tested.
+
+\begin{invisibletable}[Test browsers]{2}
+  {p{0.25\textwidth} p{0.55\textwidth}}
+  \label{tab:testbrowsers}%
+  \ida{IE} 7 (Windows) & \idx{Firefox} 3.6 (Windows/Ubuntu)\\
+  \ida{IE} 8 (Windows) & \idx{Opera} 10.5 (Windows)\\
+  \idx{Safari} 4 (Windows) & \idx{Google Chrome} 5 (Windows/Ubuntu)\\
+\end{invisibletable}
+
+Initial testing also included \ida{IE} 6, but as the project advanced it was clear that support for this dated browser had to be dropped in order to maintain a sane development pace.
+Even then, a considerable amount of the project time was spent fixing bugs with more modern versions of \ida{IE}, by far the most buggy of the five browsers.
+
+The mobile version was properly tested just in the \idx{Safari} browser for the \idx{iPhone} during all development, and also in \idx{Google Chrome} under Ubuntu, given its a similar engine -- \idx{WebKit} -- and that it is much faster and easier to debug.
+At the end, some further testing in the \idx{Android} emulator was done, but only to assess that the main interface was functional, knowing that the overall design was going to look different.
+
+Continuously, and specially in every major step in the process, the application was tested in every browser.
+Detailing here a formal collection of test cases will not add any useful information to this document, so that was dismissed.
+
+Actually, real tests consisted on manually trying every path of the 24 use cases, the first 15 in the desktop browsers and the last 9 in the mobile browser.
+Tables on \S\vref{ssub:usecasesold} and \S\vref{sub:new_use_cases} are exhaustive enough to describe the initial conditions and the expected outcome.
+Also, in \S\vref{sec:interface_design} lots of pictures already depict the real outcome; they are not mockups but real screenshots of the application running under several browsers.
+% section software_validation_and_verification (end)

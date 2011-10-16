@@ -18,7 +18,7 @@ All classes are implemented as \idx{MooTools} classes, to embrace its utilities 
 One of the things that are possible is to easily gain functionality from more than one class, by \emph{implementing} that \idx{MooTools} class (in reality it is more like extending).
 
 Another pitfall was that the browser compatibility had to be very broad, and the codebase should remain the same for every browser.
-The \idx{MooTools} library homogenized most of peculiarities, nevertheless some very specific hacks were needed for \idx{Internet Explorer}.
+The \idx{MooTools} library homogenized most of peculiarities, nevertheless some very specific hacks were needed for \ida{IE}.
 This became most handy in animations, but any \ida{DOM} homogenization is welcomed.
 
 To avoid duplicity, it was decided that the same \idx{JavaScript} logic would handle the two interfaces.
@@ -93,10 +93,10 @@ Also, it encapsulates all the logic needed to transform dimensions between pixel
 
 The \idc{Container} class has received some improvements to implement the new functionality.
 This includes the addition of functions to make the \ida{DOM} element both draggable and resizable.
-These functions use some \idx{MooTools} classes for the hard work, but the dimensions are treated there to avoid \idx{Internet Explorer} glitches.
+These functions use some \idx{MooTools} classes for the hard work, but the dimensions are treated there to avoid \ida{IE} glitches.
 
 The device dimensions are defined in percentages, to be able to place the elements filling the page even if the user reopen the web application with a different window size.
-\idx{Internet Explorer} does not like that, and the animations only works smoothly if the dimensions are specified in absolute units, i.e, pixels.
+\ida{IE} does not like that, and the animations only works smoothly if the dimensions are specified in absolute units, i.e, pixels.
 To avoid that bug, those functions automatically transform percentages to pixels at the beginning of the resizing/repositioning, and they change it back to percentages when the action is done.
 
 The \idc{Container} class also demonstrates how the same code can handle two interfaces.
@@ -180,7 +180,7 @@ However, in the mobile version another approach was needed, because the previous
 It was more efficient to do it by hand, therefore a very basic notification system was implemented allowing also the chaining of messages with a simple but elegant look.
 
 The \idc{Drawer} class is specific to the desktop interface, and it manages all aspects regarding the sidebar, such as tabbed navigation.
-It also deals with its resizing and visibility, something that needed a lot of attention to fix quirky bugs in \idx{Internet Explorer}.
+It also deals with its resizing and visibility, something that needed a lot of attention to fix quirky bugs in \ida{IE}.
 
 Its mobile counterpart is the \idc{BarTab} class, that administers the navigation system based on the bottom tabs and nearly everything related in the mobile interface, like orientation changes.
 To successfully implement the tab bar, it uses \idx{iScroll}, another \idx{JavaScript} component designed for \idx{Webkit} mobile browsers (see \S\vref{sec:mobile}).

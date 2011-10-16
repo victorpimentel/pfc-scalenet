@@ -231,13 +231,8 @@ Other good reason is that it is the most simple way of allowing different arrang
 Finally, it is universal as it is supported by almost every browser.
 
 The final decision is to have one \idc{Cookie} for each device.
-This is very straightforward for the implementation, since a \idc{Cookie} can
-have the name of the container.
-Each \idc{Hash} that is stored in every \idc{Cookie} is composed by the four
-values needed for positioning the element: \idc{offsetX}, \idc{offsetY},
-\idc{width} and \idc{height}.
-These values are percentages respect the container (the devices list) and a
-\idc{Hash} example is presented in Listing~\vref{cookiehash}.
+This is very straightforward for the implementation, since a \idc{Cookie} can have the name of the container.
+Each \idc{Hash} is composed by the four values needed for positioning the element: \idc{offsetX}, \idc{offsetY}, \idc{width} and \idc{height}, as percentages respect the container. An example is presented in Listing~\vref{cookiehash}.
 
 \begin{lstlisting}[language=JavaScript,label=cookiehash,caption=Cookie Hash example]
   {
