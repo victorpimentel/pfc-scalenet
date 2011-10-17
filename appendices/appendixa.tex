@@ -19,8 +19,155 @@
 
 \newpage
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\section{Project Phases} % (fold)
+\label{sec:project_phases}
 
+As explained in \S\vref{sec:phases}, the project could be divided equally in three phases.
+Giving that the project accounts for a total of six months, each phase takes approximately two months.
+Figure~\vref{fig:gannt-diagram} depicts a Gannt diagram with the project phases and their tasks.
+Each phase can be roughly divided into three tasks:
+
+\begin{description}
+  \item[Design] This task consists on designing both the interface and the internal architecture.
+  In this phase some state of the art research has to be done, but due to previous experience in the field it could be completed at the same time the system is designed.
+  \item[Implementation] This task refers to the actual coding according to the prior design.
+  \item[Testing] This task just includes testing and debugging the application in all relevant browsers.
+\end{description}
+
+In reality, due to the dynamic nature of the project, these tasks are not as easy to divide as they collide: some design is done with actual code, and when implementing something it is almost impossible to not test the code to some point.
+However, those are a good approximation of the main tasks in those weeks, in that there is more designing at the beginning and more testing at the end.
+
+In the first phase, the design task is important because it includes the initial research, but it was very easy to start since I had already the previous version to tinker with.
+The implementation task is very important in this phase because all the \idx{JavaScript} codebase will be ported to \idx{MooTools}, so there will be a lot of changes, not in the external interface but in the real code.
+
+The first testing task was not decisive because \ida{IE} compatibility is delayed to the second phase, so the only thing to do is trying the developed application in the real demonstrator.
+
+\begin{landscape}
+\addtolength{\headsep}{3cm}
+\parbox[c][\textwidth][s]{\linewidth}{%
+\vfill
+\begin{tikzpicture}[x=.85cm, y=0.65cm]
+  \begin{ganttchart}{24}
+    \gantttitlelist{1,...,24}{1} \\
+    \ganttmilestone{Start -}{0} \\
+    \ganttgroup{First Phase}{1}{8} \\
+    \ganttbar[bar={fill=green!50}]{Design}{1}{2} \\
+    \ganttlinkedbar[bar={fill=yellow!50}]{Implementation}{3}{7} \\
+    \ganttlinkedbar[bar={fill=red!50}]{Testing}{8}{8} \\
+    \ganttlinkedmilestone{First Meeting}{8} \\
+    \ganttgroup{Second Phase}{9}{16} \\
+    \ganttbar[bar={fill=green!50}]{Design}{9}{9} \\
+    \ganttlinkedbar[bar={fill=yellow!50}]{Implementation}{10}{13} \\
+    \ganttlinkedbar[bar={fill=red!50}]{Testing}{14}{16} \\
+    \ganttlinkedmilestone{Second Meeting}{16} \\
+    \ganttgroup{Third Phase}{17}{24} \\
+    \ganttbar[bar={fill=green!50}]{Design}{17}{19} \\
+    \ganttlinkedbar[bar={fill=yellow!50}]{Implementation}{20}{22} \\
+    \ganttlinkedbar[bar={fill=red!50}]{Testing}{23}{24} \ganttnewline
+    \ganttbar[bar={fill=blue!50}]{Documentation}{20}{24} \ganttnewline
+    \ganttlinkedmilestone{Final Delivery}{24}
+  \end{ganttchart}
+\end{tikzpicture}
+\label{fig:gannt-diagram}%
+\captionof{figure}{Project schedule}
+\vfill
+}
+\end{landscape}
+
+In the second phase, the design is not very time consuming, since the initial research is already done and the interface is more or less defined.
+Graphically, only the sidebar has to be designed, and it is easy to design the architecture of the new functionality because the paradigms are already defined.
+
+The implementation is again the beast, since the \idx{Java} code is fully ported to \idx{JavaScript}, new classes have to be implemented and some \ida{PHP} scripts have to be written to retrieve the content the application needs.
+The testing is now much more time consuming, since testing with \ida{IE} is contemplated.
+
+In the third and final phase, the mobile interface was designed from scratch, that explains why the design task takes longer.
+In contrast, there is not a lot of code to be written, because the code from the desktop version will be reused, so the implementation task is shorter than before.
+
+Finally, the testing task includes proving that everything is working in every browser, so that should take some time.
+But it will be shorter than in the second phase, because the relevant bugs with \ida{IE} were already polished.
+In parallel to this third phase, certain documentation needs to be written for future reference, so some time for that is reserved.
+
+At the end of each phase, there is a meeting with all members involved in the project to explain how the work is progressing.
+In these meetings not only the results are shown but also important feedback is retrieved from my tutor and other \ida{T-Labs} immediate superiors.
+The last meeting is reserved to summarize all work and to deliver the software.
+\nicesectionending
+% section project_phases (end)
+
+\section{Material Expenses} % (fold)
+\label{sec:material_expenses}
+
+The material expenses only account for the material needed for the development, that is, the two laptops and the \idx{iPhone}.
+Equipment used in the demonstrator is not included in the expenses because as a shared resource those computers are considered already amortized by previous projects.
+
+Due that the provided machines belongs to \ida{T-Labs} and they will be repurposed after this project, it would be misleading adding the whole cost to this project budget.
+A life of two years (24 months) is considered for the \idx{iPhone}, and three years (36 months) for the laptops.
+Since the project only lasts six months, a simple amortization is used to calculate the real cost.
+
+Table~\vref{tab:materialexpenses} comprises the computed material expenses in euros.
+Two laptops, one display and one phone are considered for these calculations, the equipment used those six months specifically for this project.
+Software costs are not taken into account because all software used is free; the only software with cost is Windows XP and the cost of that SO is already included into the laptop cost.
+
+\begin{generictable}[Material expenses]{4}
+  {|p{0.3\textwidth}|r|r|r|}
+  {\generictitlefour{Concept}{Cost/unit}{Amortized \%}{Total amount}}
+  \label{tab:materialexpenses}%
+  Fujitsu-Siemens Lifebook S7020 & 700 & 16.67\%    & 116.67 \\ \hline
+  Fujitsu-Siemens Lifebook S6420 & 700 & 16.67\%    & 116.67 \\ \hline
+  Toshiba PA 3553 (Display)      & 200 & 16.67\%    & 33.33  \\ \hline
+  \idx{iPhone} 3G 8GB            & 600 & 25.00\%    & 150.00 \\ \hline\hline\hline
+  \multicolumn{3}{|>{\columncolor[rgb]{0.95,0.95,1}}r|}{\textbf{Total without VAT}}  & 416.67 \\ \hline
+  \multicolumn{3}{|>{\columncolor[rgb]{1,1,1}}r|}{\textbf{VAT (16\%)}}         & 66.67  \\ \hline
+  \multicolumn{3}{|>{\columncolor[rgb]{0.95,0.95,1}}r|}{\textbf{Total}}              & 483.33 \\ \hline
+\end{generictable}
+\nicesectionending
+% section material_expenses (end)
+
+\section{Human Resources Expenses} % (fold)
+\label{sec:human_resources_expenses}
+
+The most important cost in the project is the engineer's wage, the person responsible for developing this project.
+Figure~\vref{fig:gannt-diagram} will help estimating the resulting cost, considering a working day of 8 hours, a working week of 5 days, 24 weeks of work, and an average wage of 50 Euros per hour of work.
+
+However, not every task requires the 100\% time or effort of that engineer, he could be working on other parallel projects (indeed, he was).
+Because of that, an estimated effort is assigned to each task.
+Table~\ref{tab:humanexpenses} details the human resources cost taking all this into account; as before, amounts are in euros.
+
+\begin{generictable}[Human resources expenses]{4}
+  {|p{0.4\textwidth}|r|r|r|}
+  {\generictitlefour{Concept}{Hours}{Effort}{Total amount}}
+  \label{tab:humanexpenses}%
+  Design (1st phase)          & 80  & 100\% & 4,000 \\ \hline
+  Implementation (1st phase)  & 200 & 100\% & 10,000 \\ \hline
+  Testing (1st phase)         & 40  & 60\%  & 1,200 \\ \hline
+  Design (2nd phase)          & 40  & 60\%  & 1,200 \\ \hline
+  Implementation (2nd phase)  & 160 & 40\%  & 3,200 \\ \hline
+  Testing (2nd phase)         & 120 & 60\%  & 3,600 \\ \hline
+  Design (3rd phase)          & 120 & 80\%  & 4,800 \\ \hline
+  Implementation (3rd phase)  & 120 & 80\%  & 4,800 \\ \hline
+  Testing (3rd phase)         & 80  & 80\%  & 3,200 \\ \hline
+  Documentation               & 200 & 20\%  & 2,000 \\ \hline\hline\hline
+  \multicolumn{3}{|>{\columncolor[rgb]{0.95,0.95,1}}r|}{\textbf{Total}}              & 38,000 \\ \hline
+\end{generictable}
+\nicesectionending
+% section human_resources_expenses (end)
+
+\section{Total Expenses} % (fold)
+\label{sec:total_expenses}
+
+Table~\ref{tab:totalexpenses} shows the final budget of the project, by adding the material expenses and the human resources expenses.
+As before, amounts are expressed in euros.
+
+\begin{generictable}[Total budget]{2}
+  {|p{0.4\textwidth}|r|}
+  {\generictitletwo{Concept}{Cost}}
+  \label{tab:totalexpenses}%
+  Material expenses        & 483.33    \\ \hline
+  Human resources expenses & 38,000    \\ \hline\hline\hline
+  \textbf{Total}           & 38,483.33 \\ \hline
+\end{generictable}
+
+The total cost of this project is \textbf{thirty eight thousand, four hundred and eighty three euros with thirty three cents}.
+
+% section total_expenses (end)
 \nicechapterending
-
 % chapter budget (end)
