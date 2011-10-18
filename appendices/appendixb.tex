@@ -1,5 +1,5 @@
-\chapter{One More Thing} % (fold)
-\label{cha:onemorething}
+\chapter{Resumen en Español} % (fold)
+\label{cha:resumen_en_espanol}
 
 \setlength{\epigraphwidth}{9.5cm}
 
@@ -18,8 +18,336 @@
 
 \newpage
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+\section{Introducción y Objetivos} % (fold)
+\label{sec:introduccion_y_objetivos}
 
+\subsection{Motivación} % (fold)
+\label{sub:motivacion}
+
+Internet ha causado un tremendo impacto en muchos aspectos de nuestra vida cotidiana. A medida que la sociedad se va acostumbrando a las facilidades de trabajar en línea, los hábitos cambian de manera acorde. Aplicaciones que tradicionalmente se ejecutaban de manera nativa en la máquina del usuario se están, gradualmente, convirtiéndose en aplicaciones web ejecutadas remotamente.
+
+Al mismo tiempo los navegadores han ido mejorando progresivamente hasta convertirse en potentes plataformas de desarrollo. Esta mejora ha dado lugar a la aparición de aplicaciones web de una gran complejidad basadas en HTML, CSS y JavaScript, distribuyendo una carga de procesamiento importante al cliente. A la vez, se obtienen interfaces flexibles capaces de adaptarse a dispositivos muy dispares.
+
+En este proyecto se documenta el desarrollo de una aplicación web avanzada cuyo propósito es controlar la reproducción de contenidos multimedia en varios dispositivos. Esta aplicación se ha realizado en colaboración con Deutsche Telekom AG, durante un estancia de seis meses en Berlín como parte del programa Erasmus Placement en 2010.
+
+Dicha aplicación se enmarca dentro del proyecto ScaleNet (2005-2009), una Red de Siguiente Generación (NGN) cuyo fin es un sistema que permita una integración escalable, rentable y eficiente de las diferentes tecnologías de acceso inalámbrico y por cable. El componente desarrollado, la Interfaz de Administración de la Red Personal (PNAI), es solo una pequeña parte de ScaleNet que sirve como ejemplo de aplicación sobre esta red.
+
+Aunque la interfaz para estas operaciones ya existía, se solicitó un rediseño completo que integrara mayor funcionalidad y que ofreciera una experiencia de usuario más agradable. Además de la interfaz principal para ordenadores de escritorio, también se explica el desarrollo de una interfaz web para dispositivos táctiles modernos.
+% subsection motivacion (end)
+
+\subsection{Objetivos} % (fold)
+\label{sub:objetivos}
+
+El objetivo principal era el rediseño y modernización de PNAI de tal manera que las demos sobre esa interfaz transmitieran una sensación más favorable de las tecnologías expuestas.
+Al imponer la restricción de seis meses sobre un sistema que no iba a ser usado en entornos críticos, era más importante maximizar el número de funcionalidades desarrolladas que asegurar cierta eficiencia o estabilidad completa.
+
+Sin embargo, este aspecto no hubiera que prestar atención a la calidad del software desarrollado o a la compatibilidad con un amplio espectro de navegadores.
+Al ser parte de un sistema con muchos componentes interdependientes, otro de los objetivos era cambiar lo menos posible las interfaces externas de los componentes modificados.
+
+A medida que el desarrollo avanzaba, los objetivos han ido evolucionando para rellenar huevos en la experiencia de usuario.
+El más importante es unificar IPTVplus y PNAI habilitando la compra de contenidos multimedia dentro de PNAI, evitando la disruptiva experiencia existente.
+
+Finalmente, el tercer gran objetivo fue crear una interfaz alternativa para dispositivos táctiles modernos, como el iPhone y los dispositivos móviles.
+Debido a las características especiales de estas plataformas, muchas abstracciones simplemente no funcionan (como el drag\et{}drop) e incluso algunos componentes como el applet de Java no pueden ejecutarse.
+% subsection objetivos (end)
+
+\subsection{Fases del Proyecto} % (fold)
+\label{sub:fases_del_proyecto}
+
+Desde un primer momento la planificación del proyecto ha sido muy dinámica, con algunos objetivos fijos pero con nuevos objetivos basados en el feedback del resto del equipo.
+De acuerdo al trabajo desarrollado, el proyecto puede dividirse en tres fases de tiempo más o menos equivalente:
+
+\begin{description}
+  \item[Fase inicial] Cubre los requisitos originales: rediseño de la interfaz y alguna funcionalidad menor referente a cómo se muestran los dispositivos en la pantalla.
+  En esta fase el código existente fue optimizado y portado al sistema de clases de MooTools.
+  \item[Fase intermedia] Una vez la anterior fase terminó, se recogieron nuevos requisitos para la interfaz, siendo el principal la adicción de una barra lateral con la lista de contenidos.
+  Otras tareas incluyen reemplazar el applet por APE (portando todo el código Java a JavaScript), modificar los ficheros PHP para recibir los contenidos vía AJAX y depurar la aplicación en Internet Explorer.
+  \item[Fase final] Todo el desarrollo de la versión móvil, a la vez que los archivos estáticos del bundle de OSGi fueron trasladados a una carpeta PHP.
+\end{description}
+% subsection fases_del_proyecto (end)
+\nicesectionending
+% section introduccion_y_objetivos (end)
+
+\section{Estado del Arte} % (fold)
+\label{sec:estado_del_arte}
+
+En esta sección se comentan las tecnologías existentes sobre las que se sustenta la aplicación desarrollada.
+La plataforma ScaleNet, al ser un proyecto no abierto al público, merece ser explicada con más detalle, especialmente sus aplicaciones PNAI e IPTVplus.
+Las demás tecnologías adicionales, dado que están disponibles públicamente, simplemente son listadas prestando atención únicamente a los aspectos peculiares para este proyecto.
+
+\subsection{ScaleNet} % (fold)
+\label{sub:scalenet}
+
+ScaleNet es un proyecto de investigación desarrollado entre 2005 y 2009 por diversas corporaciones incluyendo Deutsche Telekom AG.
+Concretamente, el departamento más implicado fueron los T-Labs.
+ScaleNet se puede definir como una Red de Siguiente Generación que integra diferentes tecnologías de acceso inalámbrico y por cable.
+
+Su infraestructura está basada en tener un identificador IP para todos los elementos lógicos de la red.
+Sobre ella se ofrecen diversos servicios, y cada usuario puede tener varias sesiones concurrentes de esos servicios, identificadas vía el protocolo SIP.
+En el plano de estos servicios el protocolo con el que se integran en el sistema es IMS, como muestra la figura~\ref{fig:scalenet-structure}.
+
+\subsubsection{Demostrador IMS} % (fold)
+\label{ssub:demostrador_ims}
+
+En las oficinas de T-Labs en Berlín está montado un sistema de demostración de ScaleNet, con diversos servidores, redes y dispositivos interconectados.
+Las figuras~\ref{fig:ims-arch} y \ref{fig:ims-setup} detallan cómo es el sistema tanto lógicamente como físicamente.
+
+En ellas se pueden distinguir el plano de transporte (una miríada de tecnologías de acceso a internet), el plano de comunicación (basado en el protocolo IMS) y el plano de servicios (dónde viven las aplicaciones del sistema).
+Los principales componentes físicos del sistema son:
+
+\begin{description}
+  \item[IMS Core] Esta máquina contiene el servidor IMS, el servidor Apache que sirve PHP y el servidor DNS.
+  \item[Application Server] En esta máquina se ejecuta el servidor IPTV, que transmite vídeo en streaming, y el servidor OSGi.
+  \item[Dispositivos de usuario] Los dispositivos que actúan como cliente en el sistema son un ordenador de escritorio cuya salida de vídeo está conectada a una televisión, un portátil y varios móviles.
+  Todos estos dispositivos ejecutan un cliente IMS en segundo plano, que los mantienen conectados en todo momento a los servidores, y que permiten que los servicios se inicien bajo demanda del sistema.
+  En la etapa final del proyecto se agregó un iPhone a estos dispositivos.
+\end{description}
+
+En este demostrador se ejecutan varias aplicaciones de prueba, incluyendo la aplicación que administra las sesiones de los usuarios en los dispositivos (PNAI) y la que ofrece vídeo bajo demanda (IPTVplus).
+
+\subsubsection{Personal Network Administration Interface (PNAI)} % (fold)
+\label{ssub:personal_network_administration_interface_pnai}
+
+La interfaz web que el usuario debe visitar para administrar sus sesiones se llama PNAI y contiene toda esta información centralizada:
+
+\begin{itemize}
+  \item Todos los dispositivos registrados por ese usuario y su estado de conexión.
+  \item Todos los contactos de ese usuario y sus respectivos estados de conexión.
+  \item Todas las sesiones multimedia relativas a ese usuario, es decir:
+  \begin{itemize}
+    \item Las sesiones que se están reproduciendo en sus dispositivos, ya sean compradas por él o no.
+    \item Las sesiones que se están reproduciendo en los dispositivos de sus contactos y que han sido compradas por ese usuario.
+  \end{itemize}
+\end{itemize}
+
+Aparte de mostrar esa información, el usuario puede ejercer diversas acciones sobre esas sesiones sobre esas sesiones.
+La figura~\ref{fig:usecasesiptv} muestra todas esas acciones, que básicamente se pueden resumir en:
+
+\begin{itemize}
+  \item Terminar la sesión de un dispositivo propio o de un contacto si el usuario es el propietario de la sesión.
+  \item Transferir o duplicar una sesión existente a un dispositivo propio o al de un contacto si el usuario es el propietario de la sesión.
+\end{itemize}
+
+Hay otras tareas de administración como seleccionar el dispositivo por defecto, añadir o eliminar dispositivos y añadir o eliminar contactos que no están incluidos en este documento porque se desarrollan en páginas independientes no modificadas en este proyecto.
+
+La figura~\ref{fig:pnai-old} muestra la interfaz en su versión antigua.
+Consiste de una lista de dispositivos a la izquierda y una lista de contactos a la derecha, ambos con estilos diferentes dependiendo de su estado de conexión.
+Además de los dispositivos del usuario, hay una papelera que sirve para eliminar sesiones.
+Las sesiones en ejecución se dibujan bien dentro del dispositivo pertinente o al lado del contacto que la está disfrutando.
+
+La interfaz no tiene botones, sino que está basada en drag\et{}drop (arrastrar y soltar).
+Las sesiones pueden ser arrastradas a la papelera para terminarlas, o pueden ser arrastradas a otro dispositivo o contacto.
+Una vez elegido el destino, aparece un menú con las opciones disponibles (Transferir, Duplicar o Cancelar), el usuario elige la opción, el menú desaparece y el servidor es notificado de la acción solicitada.
+
+Sobre el código, la interfaz está compuesta de varios componentes, que interactúan de acuerdo a la figura~\ref{fig:componentdiagramsold}.
+Hay varios aspectos de esa configuración que son interesantes para este proyecto:
+
+\begin{itemize}
+  \item Las comunicaciones necesarias para ofrecer los servicios reales se realizan sobre el protocolo SIP, pero están completamente separados de las partes que se van a modificar.
+  \item Existen dos bases de datos, aunque la interfaz no necesita conectarse a ellas porque los datos los recibe del componente OSGi, sí que necesita conectarse a ellas para recibir la información de IPTVplus.
+  \item El applet y el servidor OSGi se comunican a través de un socket TCP, de tal manera que siempre están conectados y cualquiera puede mandar cualquier dato en tiempo real.
+\end{itemize}
+
+La figura~\ref{fig:sequence-handover-old} describe el flujo de información entre los distintos componentes en el caso de que un usuario quiera transferir la sesión a otro dispositivo.
+El detalle más importante de esa figura es que la mayoría de comunicaciones entre componentes son asíncronas.
+
+También es importante conocer el formato de los mensajes transmitidos entre el applet y el servidor, que consisten en simple texto plano. La tabla~\ref{tab:notificationsexamples} lista el formato de todas las posibles notificaciones enviadas por el servidor al applet: simplemente notifica de los nuevos elementos (sesiones, dispositivos, contactos) o de los elementos que se borran.
+Por otro lado, la tabla~\ref{tab:requestsexamples} lista las peticiones que el applet hace al servidor, consistentes de la acción a realizar más la información necesaria para completarla.
+
+El código funcional relativo a la interfaz de PNAI se reparte entonces entre el applet de Java y los scripts de JavaScript.
+Las figuras~\ref{fig:class-pnai-java-old}, ~\ref{fig:class-pnai-js-old} y \ref{fig:class-pnai-global-old} detallan las clases implicadas en esta versión de la aplicación.
+% subsubsection personal_network_administration_interface_pnai (end)
+
+\subsubsection{IPTVplus} % (fold)
+\label{ssub:iptvplus}
+
+La otra interfaz del sistema relevante para este proyecto es IPTVplus, desde dónde el usuario puede comprar nuevos contenidos (creando nuevas sesiones en sus dispositivos).
+La figura~\ref{fig:iptvplus} muestra una captura de su apariencia, que es una página independiente de PNAI.
+
+Esta página está generada por PHP, recoge el contenido de otro componente a través de un socket TCP y lo formatea para mostrarlo al usuario.
+El resultado final es una lista de los contenidos disponibles con miniaturas, descripciones y botones para comprar esos contenidos.
+% subsubsection iptvplus (end)
+% subsection scalenet (end)
+
+\subsection{Tecnologías Adicionales} % (fold)
+\label{sub:tecnologias_adicionales}
+
+Para la realización de este proyecto diferentes tecnologías tuvieron que ser investigadas e integradas en el trabajo final.
+Dado que la mayoría están dirigidas a la web, las tecnologías elegidas son gratuitas y pueden ser libremente usadas.
+
+\begin{description}
+  \item[PHP] Como uno de los lenguajes/plataformas más populares para construir páginas web, diversas aplicaciones sobre ScaleNet están constituidas como una colección de scripts en este lenguaje.
+  \item[Java] Probablemente el lenguaje genérico más popular en el mundo, se usa en el proyecto inicialmente en dos lugares:
+  \begin{itemize}
+    \item En el servidor, en varios bundles de OSGi.
+    OSGi se trata de un framework para aplicaciones Java basado en módulos, y ofrece un modelo dinámico de componentes muy interesante para todo tipo de dispositivos.
+    En PNAI, se usa como componente en el servidor para mantener una comunicación en tiempo real con el navegador, además de como servidor para varios archivos estáticos.
+    \item En el navegador, a través del applet de PNAI, para soportar una comunicación de tiempo real a través de un socket TCP.
+  \end{itemize}
+  \item[HTML y CSS] Dado que la aplicación es una página web, es inevitable utilizar HTML+CSS para modelar la interfaz: HTML para maquetar el contenido y CSS para añadirle estilo.
+  Uno de los aspectos más importantes a tener en cuenta con estas tecnologías es que el soporte en los distintos navegadores varía considerablemente, así que hay que tener eso en cuenta ya sea diseñando para el mínimo común denominador o aceptando ciertas diferencias en distintos navegadores.
+  Además se ha diseñado dos interfaces: una para ordenadores y una para móviles; esta última hace uso extensivo de las nuevas capcidades de HTML5 y CSS3.
+  \item[JavaScript] El único lenguaje disponible nativamente en todos los navegadores, es muy importante porque la mayoría del código desarrollado está en este lenguaje.
+  Teniendo en cuenta hacia dónde se dirige la web, su uso será extremadamente popular en el futuro, y clave para la evolución de la web.
+  En este aspecto, el uso de técnicas como AJAX permiten crear aplicaciones de primer nivel en los navegadores.
+  \item[MooTools] Uno de los más populares frameworks genéricos para JavaScript, contiene muchísimas utilidades que facilitan el desarrollo rápido de aplicaciones web y homogeneízan las capacidades JavaScript de cada navegador.
+  En el proyecto es una de las bases del nuevo PNAI, que permite organizar el código de una manera limpia siguiendo su sistema de clases.
+  \item[APE Server] Para reemplazar el applet se ha elegido APE, que permite comunicaciones en tiempo real usando simplemente JavaScript en el navegador y otro componente en el servidor para redirigir las comunicaciones hacia el socket.
+\end{description}
+
+% subsection tecnologias_adicionales (end)
+\nicesectionending
+% section estado_del_arte (end)
+
+\section{Desarrollo y Pruebas} % (fold)
+\label{sec:desarrollo_y_pruebas}
+
+\subsection{Nuevos Requisitos} % (fold)
+\label{sub:nuevos_requisitos}
+
+Los nuevos requisitos recogidos a lo largo de todo el proyecto se pueden resumir en:
+
+\begin{itemize}
+  \item Rediseñar la interfaz.
+  \item Adaptar la interfaz a distintas resoluciones.
+  \item Mostrar el nombre de los dispositivos.
+  \item Cargar los dispositivos reales del usuario.
+  \item Mostrar miniaturas reales en las sesiones.
+  \item Mover los dispositivos a otras posiciones.
+  \item Redimensionar los dispositivos.
+  \item Compatibilidad con IE7+, Firefox, Opera, Safari y Google Chrome.
+  \item Integrar la lista de contenido de IPTVplus en la barra lateral.
+  \item Comprar un contenido y reproducirlo directamente en un dispositivo específico.
+  \item Comprar un contenido y reproducirlo directamente en un contacto específico.
+  \item Redimensionar y ocultar la barra lateral.
+  \item Diseñar una interfaz móvil.
+\end{itemize}
+
+% subsection nuevos_requisitos (end)
+
+\subsection{Casos de Uso} % (fold)
+\label{sub:casos_de_uso}
+
+De acuerdo a esos nuevos requisitos, nuevos casos de uso no cubiertos anteriormente deben ser contemplados en la versión de escritorio:
+
+\begin{itemize}
+  \item Comprar nuevo contenido.
+  \item Comprar un contenido y reproducirlo directamente en un dispositivo específico.
+  \item Comprar un contenido y reproducirlo directamente en un contacto específico.
+  \item Redimensionar la barra lateral.
+  \item Ocultar la barra lateral.
+  \item Mostrar la barra lateral.
+  \item Seleccionar una pestaña de la barra lateral.
+  \item Mover dispositivo.
+  \item Redimensionar dispositivo.
+\end{itemize}
+
+También aparecen nuevos casos de uso en la versión móvil:
+
+\begin{itemize}
+  \item Iniciar sesión en la aplicación.
+  \item Terminar sesión en la aplicación.
+  \item Seleccionar una pestaña de la barra principal.
+  \item El resto de casos de uso referentes a la manipulación de sesiones de la versión de escritorio, pero adaptados a las peculiaridades de la versión móvil.
+\end{itemize}
+
+% subsection casos_de_uso (end)
+
+\subsection{Componentes} % (fold)
+\label{sub:componentes}
+
+La mayoría de los componentes explicados siguen manteniéndose intactos, el único gran cambio es la eliminación del applet y su sustitución por los dos componentes de APE, el servidor y el cliente.
+Las figuras \ref{fig:componentdiagrams} y \ref{fig:sequence-handover} muestran cómo afecta este cambio al sistema, que para efectos prácticos para el resto del sistema actúa exactamente igual que como lo haría el applet.
+
+% subsection componentes (end)
+
+\subsection{Diseño de la Interfaz} % (fold)
+\label{sub:diseno_de_la_interfaz}
+
+El diseño de la interfaz fue un proceso iterativo que tuvo en cuenta el constante feedback recibido del resto de personas implicadas en el proyecto.
+Las figuras~\ref{fig:pnai-buddies} y siguientes revelan cómo luce el nuevo diseño en un navegador de escritorio.
+
+Aparte de obvios cambios como algunos iconos y nuevos colores, aparecen algunos elementos nuevos.
+En la barra lateral se pueden distinguir dos pestañas para controlar el contenido de la misma y una \emph{asa} para redimensionar la barra arrastrándola a la posición requerida.
+
+Al seleccionar la pestaña \emph{Content}, la lista de contenidos se muestra con la misma información que en la página de IPTVplus.
+Para manejar mejor la información en un espacio más reducido, las categorías se pueden colapsar de tal manera que solo se muestra el contenido de la categoría de vídeo actual.
+
+Un cambio no visible a simple vista respecto a la interfaz de IPTVplus es que ahora se puede arrastrar la miniatura del contenido elegido a cualquier dispositivo o contacto.
+De esa manera el usuario elige dónde quiere iniciar la sesión una vez comprada.
+
+Respecto a la lista de dispositivos, cuando el cursor pasa por encima de uno aparecen dos imágenes: arrastrando la de la esquina superior derecha se puede recolocar el dispositivo, mientras que si se arrastra la de la esquina inferior izquierda se redimensionará.
+
+La posición y tamaño de los dispositivos se mantiene y se recuerda en posteriores visitas incluso aunque la ventana cambie de tamaño, dado que las coordenadas están definidas de manera dinámica (en porcentajes).
+Si es la primera vez que el usuario visita la página, los dispositivos se colocan solos siguiendo un simple algoritmo dependiendo del número de dispositivos.
+
+Respecto a la versión móvil, la interfaz cambia completamente de estilo para adaptarse al iPhone.
+Las figuras~\ref{fig:pnai-mobile} y siguientes enseñan de manera exhaustiva las diferentes pantallas.
+
+Lo primero que se encuentra el usuario es la pantalla de identificación, que sigue el mismo estilo que el resto de la interfaz móvil, que a su vez sigue las líneas de diseño de una aplicación nativo para iOS e incluso se comporta de manera similar.
+Esto contrasta con la versión de escritorio dado que la identificación se hacía en otro componente.
+
+Una vez el usuario entra al sistema, ve una pantalla con tres partes: el título, el contenido principal y una barra de navegación.
+La barra de navegación está a su vez dividida en tres pestañas: dispositivos, contactos y nuevo contenido.
+\emph{Tocando} en cada una de ellas cambia el contenido principal por la información solicitada.
+
+En la primero la lista de los dispositivos del usuario aparece sola, sin ninguna barra lateral al contrario que la interfaz de escritorio.
+Salvo por cambios de estilo, la información mostrada es prácticamente la misma que en la versión de escritorio, y si no cabe toda la información el usuario puede desplazarse con los dedos para revelar más contenido.
+De la misma manera se muestra la lista de contactos y la lista de nuevo contenido para comprar, cada uno en su pantalla específica.
+
+Dado que el uso de drag\et{}drop no es posible, al menos de la manera que se usa en el escritorio, un mecanismo diferente necesita ser implementado para lidiar con las sesiones.
+Así, ahora hay que pulsar encima de una sesión para que aparezca un menú, elegir una opción y, si es necesario, elegir el destino de la opción.
+En todo este proceso la aplicación ayuda al usuario con pistas y cambios de estilo para resaltar las posibles elecciones.
+
+Además de todo lo anterior, se ha intentado aprovechar al máximo las posibilidades de las aplicaciones web en iPhone.
+Así, se definen iconos de aplicación para la pantalla principal, se especifica una pantalla de bienvenida, se soporta la navegación dentro de Safari y como aplicación \emph{independiente}, y por último también se adapta tanto a cambios de orientación como a dispositivos de diferente tamaño (iPad) y resolución (iPod Touch/iPhone 4).
+
+% subsection diseno_de_la_interfaz (end)
+
+\subsection{Arquitectura} % (fold)
+\label{sub:arquitectura}
+
+El diseño básico de la arquitectura sigue siendo el mismo, con los elementos importantes de la interfaz reflejados como clases en el código de JavaScript.
+Obviamente algunas nuevas clases han tenido que ser creadas y, en general, se ha pulido un poco el resto.
+Además, para evitar duplicar código, las dos interfaces comparten el mismo código, que inteligentemente se comporta de manera diferente dependiendo de en qué versión se está ejecutando.
+
+La figura~\ref{fig:class-pnai-java-port} describe todas las clases necesarias para reemplazar el applet, mientras que las figuras~\ref{fig:class-pnai-containers}, \ref{fig:class-pnai-sessions} y \ref{fig:class-pnai-interface} explican el resto de componentes.
+
+Uno de los cambios fundamentales es el traslado al servidor PHP, dado que no tenía mucho sentido mantener los archivos en el bundle de OSGi.
+En ese aspecto, lo más reseñable es la forma de cargar la lista de contenidos disponibles para comprar: con una petición JSONP se pide desde el navegador al servidor un archivo con esos datos.
+
+% subsection arquitectura (end)
+
+\subsection{Validación y Verificación del Software} % (fold)
+\label{sub:validacion_y_verificacion_del_software}
+
+Para esta aplicación no se crearon tests automatizados, sino que manual y constantemente se probaron cada uno de los casos de uso en todos los navegadores.
+Esto incluye tanto a la versión de escritorio como a la versión móvil.
+La tabla~\ref{tab:testbrowsers} lista todos los navegadores en los que la aplicación fue probada extensivamente en esos dispositivos.
+% subsection validacion_y_verificacion_del_software (end)
+\nicesectionending
+% section desarrollo_y_pruebas (end)
+
+\section{Conclusiones y Trabajos Futuros} % (fold)
+\label{sec:conclusiones_y_trabajos_futuros}
+
+El trabajo desarrollado ha sido valorado positivamente por \emph{el cliente}, esto es, los compañeros y superiores de T-Labs que solicitaron este proyecto.
+Por tanto, se puede considerar que el proyecto ha cumplido con los requisitos planteados inicialmente.
+
+El código resultante ofrece una sólida organización, comparado con otros proyectos en JavaScript, así que futuras extensiones serán más sencillas de implementar.
+A pesar de algunos hacks no demasiado elegantes para lidiar con Internet Explorer, la arquitectura basada en las clases de MooTools ha resultado ser muy sólida en las sucesivas iteraciones.
+
+En el escritorio, la nueva interfaz ha mejorado prácticamente en todos los aspectos, es mucho más personalizable y contiene más funcionalidad que antes.
+Es notable que a pesar de todo, ningún componente aparte de los directamente relacionados con la interfaz ha tenido que ser modificado, lo que demuestra que la inclusión de APE ha sido un éxito.
+
+La versión móvil demuestra que las aplicaciones web pueden ser tan intuitivas como las aplicaciones nativas, y estar suficientemente integradas con el sistema.
+Sin embargo, siguen siendo bastante menos eficientes que las alternativas nativas, sobre todo en el renderizado fluido de interfaces mínimamente complejas.
+
+Existen varias direcciones hacia las que puede extenderse este proyecto dentro de ScaleNet como proyecto de demostración.
+Otros servicios de ScaleNet pueden ser integrados en la misma interfaz, y sería interesante integrar otras páginas referentes a la administración de dispositivos dentro de PNAI.
+
+Por otro lado, la versión móvil puede optimizarse o pensarse de manera diferente para que funcione más fluidamente y en otras plataformas adicionales.
+Al mismo tiempo, se podría portar la aplicación a una aplicación nativa, algo que de todas maneras se hará necesario para integrar un cliente IMS en iPhone para que así puedan crearse las sesiones de verdad como en el resto de dispositivos.
+% section conclusiones_y_trabajos_futuros (end)
 \nicechapterending
-
-% chapter onemorething (end)
+% chapter resumen_en_espanol (end)
